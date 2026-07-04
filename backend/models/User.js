@@ -7,9 +7,11 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  category: ["provider", "customer"],
+  category: {
+    type: String,
+    enum: ["provider", "customer"],
+  },
   location: { type: String, required: true },
-  avatar: { type: String, required: true },
 });
 
 userSchema.plugin(passportLocalMongoose);
