@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const listingSchema = new mongoose.Schema({
-  owner_name: {
+  owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
@@ -49,11 +49,11 @@ const listingSchema = new mongoose.Schema({
     type: {
       type: String,
       enum: ["Point"],
-      required: true,
+      //required: true,
     },
     coordinates: {
       type: [Number],
-      required: true,
+      //required: true,
     },
   },
 });

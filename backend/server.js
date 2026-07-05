@@ -6,7 +6,7 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const session = require("express-session");
 const authRoutes = require("./routes/auth");
-const getCoord = require("./utils/geoCoord");
+const listingRoutes = require("./routes/listing");
 
 const app = express();
 
@@ -38,56 +38,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use("/", authRoutes);
-
-app.get("/listings", (req, res) => {
-  res.json({ message: "all listings" });
-});
-
-app.get("/listings/new", (req, res) => {
-  res.json({ message: "new form served" });
-});
-
-app.post("/listings", async (req, res) => {
-  let {
-    owner_name,
-    title,
-    about,
-    avatar,
-    profession,
-    status,
-    availability,
-    services,
-    location,
-  } = req.body;
-
-  let newListing = new Listing({
-    title,
-    about,
-    avatar,
-    profession,
-    status,
-    availability,
-    services,
-    location,
-  });
-
-  let coordinates = await getCoord(location);
-  newListing.geometry = {
-    type: "Point",
-    coordinates: coordinates,
-  };
-  if (!req.user) {
-    return res.json({ message: "go get login" });
-  }
-  newListing.owner_name = req.user;
-  await newListing.save().then((listing) => {
-    res.json({ message: "listing created successfully", newListing });
-  });
-});
-
-// app.use((err, req, res, next) => {
-//   res.status(401).json({ message: "faced some error" });
-// });
+app.use("/listings", listingRoutes);
 
 const port = 8080;
 app.listen(port, () => {
