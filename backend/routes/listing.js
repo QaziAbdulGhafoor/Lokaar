@@ -128,9 +128,27 @@ router.get(
   middlewares.isOwner,
   async (req, res) => {
     let { id } = req.params;
-    let listing = await Listing.findOne({ _id: id });
+    let listing = await Listing.findById(id);
     res.json({ message: `edit form served for ${listing.title}` });
   },
 );
+
+router.post("/:id/favourites", middlewares.isLoggedIn, async (req, res) => {
+  let { id } = req.params;
+  let listing = await Listing.findById(id);
+  let user = req.user;
+  user.favourites.push(listing._id);
+  await user.save();
+  res.json({ message: "added to favourite" });
+});
+
+router.delete("/:id/favourites", async (req, res) => {
+  let { id } = req.params;
+  let listing = await Listing.findById(id);
+  let user = req.user;
+  user.favourites.filter((fav) => fav !== listing._id);
+  await user.save();
+  res.json({ user: user });
+});
 
 module.exports = router;

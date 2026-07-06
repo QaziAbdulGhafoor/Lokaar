@@ -12,6 +12,11 @@ const userSchema = new mongoose.Schema({
     enum: ["provider", "customer"],
   },
   location: { type: String, required: true },
+  favourites: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+    },
+  ],
 });
 
 userSchema.plugin(passportLocalMongoose);
