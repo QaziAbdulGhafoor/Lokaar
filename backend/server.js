@@ -7,6 +7,7 @@ const LocalStrategy = require("passport-local");
 const session = require("express-session");
 const authRoutes = require("./routes/auth");
 const listingRoutes = require("./routes/listing");
+const reviewRoutes = require("./routes/review");
 
 const app = express();
 
@@ -39,6 +40,7 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use("/", authRoutes);
 app.use("/listings", listingRoutes);
+app.use("/listings/:id/reviews", reviewRoutes);
 
 const port = 8080;
 app.listen(port, () => {

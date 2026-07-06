@@ -5,7 +5,6 @@ const listingSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
-    unique: true,
   },
   title: {
     type: String,
@@ -41,6 +40,10 @@ const listingSchema = new mongoose.Schema({
   services: {
     type: [String],
   },
+  price: {
+    type: Number,
+    min: 100,
+  },
   location: {
     type: String,
     required: true,
@@ -49,13 +52,19 @@ const listingSchema = new mongoose.Schema({
     type: {
       type: String,
       enum: ["Point"],
-      //required: true,
+      required: true,
     },
     coordinates: {
       type: [Number],
-      //required: true,
+      required: true,
     },
   },
+  reviews: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Review",
+    },
+  ],
 });
 
 listingSchema.index({ geometry: "2dsphere" });
