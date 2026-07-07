@@ -8,6 +8,7 @@ const session = require("express-session");
 const authRoutes = require("./routes/auth");
 const listingRoutes = require("./routes/listing");
 const reviewRoutes = require("./routes/review");
+const bookingRoutes = require("./routes/booking");
 
 const app = express();
 
@@ -41,6 +42,7 @@ passport.deserializeUser(User.deserializeUser());
 app.use("/", authRoutes);
 app.use("/listings", listingRoutes);
 app.use("/listings/:id/reviews", reviewRoutes);
+app.use("/booking", bookingRoutes);
 
 const port = 8080;
 app.listen(port, () => {
