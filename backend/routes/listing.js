@@ -4,6 +4,7 @@ const Listing = require("../models/Listing");
 const getCoord = require("../utils/geoCoord");
 const middlewares = require("../middleware/middleware");
 const Review = require("../models/Review");
+const User = require("../models/User");
 
 router
   .route("/")
@@ -144,9 +145,8 @@ router.post("/:id/favourites", middlewares.isLoggedIn, async (req, res) => {
 
 router.delete("/:id/favourites", async (req, res) => {
   let { id } = req.params;
-  let listing = await Listing.findById(id);
-  let user = req.user;
-  user.favourites.filter((fav) => fav !== listing._id);
+  let user = await User.findById(req.user._id);
+  user.favourites = user.favourites.filter((fav) => fav.toString() !== id);
   await user.save();
   res.json({ user: user });
 });

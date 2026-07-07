@@ -32,11 +32,29 @@ const listingSchema = new mongoose.Schema({
     type: String,
     enum: ["pending", "verified"],
   },
-  availability: {
-    type: String,
-    enum: ["online", "offline"],
-    required: true,
-  },
+  // availability: {
+  //   type: String,
+  //   enum: ["online", "offline"],
+  //   required: true,
+  // },
+  availability: [
+    {
+      day: {
+        type: String,
+        enum: [
+          "Sunday",
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+        ],
+        required: true,
+      },
+      slots: [String],
+    },
+  ],
   services: {
     type: [String],
   },
