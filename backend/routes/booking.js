@@ -32,8 +32,20 @@ router.get("/:bookingId", async (req, res) => {
   res.json({ message: "edit booking form sent", booking });
 });
 
-router.post("/:bookingId", async (req, res) => {
-  let { bookingId } = req.params;
+router.post("/:id/:bookingId", middlewares.isLoggedIn, async (req, res) => {
+  let { id, bookingId } = req.params;
+  const listing = await Listing.findById(id);
   let booking = await Booking.findById(bookingId);
+  let { date, slot } = req.body;
+  booking.date = date;
+  booking.slot = slot;
+  await booking.save();
+  res.json({ message: "booking updated", booking });
+});
+
+router.delete("/:bookingId", async (req, res) => {
+  let { bookingId } = req.params;
+  await Booking.findByIdAndDelete(bookingId);
+  res.json({ message: "deleted your booking" });
 });
 module.exports = router;
