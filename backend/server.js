@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const User = require("./models/User");
@@ -9,20 +10,24 @@ const authRoutes = require("./routes/auth");
 const listingRoutes = require("./routes/listing");
 const reviewRoutes = require("./routes/review");
 const bookingRoutes = require("./routes/booking");
+const http = require("http");
+const cors = require("cors");
+const { Server } = require("socket.io");
 
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 app.use(express.json());
 
-const DB_URL = "mongodb://127.0.0.1:27017/Lokaar";
+const DB_URL = process.env.ATLAS_URI;
 
 async function main() {
   await mongoose.connect(DB_URL);
 }
 
 main().then(() => {
-  console.log("db connected successfully");
+  console.log("cloud db connected successfully");
 });
 
 app.use(
@@ -44,7 +49,11 @@ app.use("/listings", listingRoutes);
 app.use("/listings/:id/reviews", reviewRoutes);
 app.use("/booking", bookingRoutes);
 
-const port = 8080;
+const port = 3000;
 app.listen(port, () => {
   console.log("listening");
 });
+
+// server.listen(port, () => {
+//   console.log("listening");
+// });
