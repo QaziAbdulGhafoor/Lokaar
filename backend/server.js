@@ -17,7 +17,6 @@ const { Server } = require("socket.io");
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
 app.use(express.json());
 
 const DB_URL = process.env.ATLAS_URI;
@@ -30,13 +29,20 @@ main().then(() => {
   console.log("cloud db connected successfully");
 });
 
+const sessionMiddleware = session({
+  secret: "keyboard cat",
+  resave: false,
+  saveUninitialized: true,
+});
+
 app.use(
-  session({
-    secret: "keyboard cat",
-    resave: false,
-    saveUninitialized: true,
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
   }),
 );
+
+app.use(sessionMiddleware);
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -50,10 +56,33 @@ app.use("/listings/:id/reviews", reviewRoutes);
 app.use("/booking", bookingRoutes);
 
 const port = 3000;
-app.listen(port, () => {
-  console.log("listening");
+
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST"],
+    credentials: true,
+  },
 });
 
-// server.listen(port, () => {
-//   console.log("listening");
-// });
+io.use((socket, next) => {
+  sessionMiddleware(socket.request, {}, next);
+});
+
+io.use((socket, next) => {
+  passport.initialize()(socket.request, {}, () => {
+    passport.session()(socket.request, {}, next);
+  });
+});
+
+io.on("connection", (socket) => {
+  console.log("your socket id is ", socket.id, socket.request.user);
+  socket.on("mymessage", (message) => {
+    console.log(message);
+  });
+});
+
+server.listen(port, () => {
+  console.log("listening to server");
+});

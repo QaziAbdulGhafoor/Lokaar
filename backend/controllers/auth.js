@@ -8,12 +8,11 @@ module.exports.getLogin = (req, res) => {
   res.json({ message: "login form served" });
 };
 
-((module.exports.postLogin = passport.authenticate("local")),
-  (req, res) => {
-    res.json({
-      message: "welcome back",
-    });
+module.exports.postLogin = (req, res) => {
+  res.json({
+    message: "welcome back",
   });
+};
 
 module.exports.getSignup = (req, res) => {
   res.json({ message: "success serving sign up" });
