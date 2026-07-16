@@ -66,11 +66,11 @@ module.exports.postNew = async (req, res) => {
     location,
   });
 
-  let coordinates = await getCoord(location);
-  newListing.geometry = {
-    type: "Point",
-    coordinates: coordinates,
-  };
+  // let coordinates = await getCoord(location);
+  // newListing.geometry = {
+  //   type: "Point",
+  //   coordinates: coordinates,
+  // };
 
   newListing.owner = req.user._id;
   await newListing.save().then((listing) => {
@@ -81,7 +81,7 @@ module.exports.postNew = async (req, res) => {
 //serves the detailed view of a listing
 module.exports.detailedListing = async (req, res) => {
   let { id } = req.params;
-  let listing = await Listing.findOne({ _id: id });
+  let listing = await Listing.findOne({ _id: id }).populate("reviews");
   if (!listing) {
     res.json({ message: "listing not available" });
   }

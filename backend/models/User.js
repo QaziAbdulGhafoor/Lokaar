@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema({
   category: {
     type: String,
     enum: ["provider", "customer"],
+    required: true,
   },
   location: { type: String, required: true },
   favourites: [

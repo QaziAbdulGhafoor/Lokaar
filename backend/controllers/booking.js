@@ -16,6 +16,7 @@ module.exports.postBookForm = async (req, res) => {
     date: date,
     slot: slot,
     customer: req.user._id,
+    provider: listingToOrder.owner,
     listing: id,
     price: listingToOrder.price,
   });
@@ -30,12 +31,12 @@ module.exports.getEdit = async (req, res) => {
 };
 
 module.exports.postEdit = async (req, res) => {
-  let { id, bookingId } = req.params;
-  const listing = await Listing.findById(id);
+  let { bookingId } = req.params;
   let booking = await Booking.findById(bookingId);
-  let { date, slot } = req.body;
+  let { date, slot, status } = req.body;
   booking.date = date;
   booking.slot = slot;
+  booking.status = status;
   await booking.save();
   res.json({ message: "booking updated", booking });
 };

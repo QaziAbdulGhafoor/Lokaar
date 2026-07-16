@@ -9,11 +9,7 @@ router.post("/:id", bookingController.postBookForm);
 
 router.get("/:bookingId", bookingController.getEdit);
 
-router.put(
-  "/:id/:bookingId",
-  middlewares.isLoggedIn,
-  bookingController.postEdit,
-);
+router.put("/:bookingId", middlewares.isLoggedIn, bookingController.postEdit);
 
 router.delete("/:bookingId", bookingController.deleteBooking);
 module.exports = router;

@@ -10,6 +10,7 @@ const authRoutes = require("./routes/auth");
 const listingRoutes = require("./routes/listing");
 const reviewRoutes = require("./routes/review");
 const bookingRoutes = require("./routes/booking");
+const dashboardRoutes = require("./routes/dashboards");
 const http = require("http");
 const cors = require("cors");
 const { Server } = require("socket.io");
@@ -54,6 +55,7 @@ app.use("/", authRoutes);
 app.use("/listings", listingRoutes);
 app.use("/listings/:id/reviews", reviewRoutes);
 app.use("/booking", bookingRoutes);
+app.use("/dashboard", dashboardRoutes);
 
 const port = 3000;
 

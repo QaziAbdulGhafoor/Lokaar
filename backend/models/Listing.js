@@ -31,12 +31,9 @@ const listingSchema = new mongoose.Schema({
   status: {
     type: String,
     enum: ["pending", "verified"],
+    required: true,
+    default: "pending",
   },
-  // availability: {
-  //   type: String,
-  //   enum: ["online", "offline"],
-  //   required: true,
-  // },
   availability: [
     {
       day: {
@@ -61,22 +58,23 @@ const listingSchema = new mongoose.Schema({
   price: {
     type: Number,
     min: 100,
+    required: true,
   },
   location: {
     type: String,
     required: true,
   },
-  geometry: {
-    type: {
-      type: String,
-      enum: ["Point"],
-      required: true,
-    },
-    coordinates: {
-      type: [Number],
-      required: true,
-    },
-  },
+  // geometry: {
+  //   type: {
+  //     type: String,
+  //     enum: ["Point"],
+  //     required: true,
+  //   },
+  //   coordinates: {
+  //     type: [Number],
+  //     required: true,
+  //   },
+  // },
   reviews: [
     {
       type: mongoose.Schema.Types.ObjectId,
