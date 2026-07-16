@@ -16,7 +16,15 @@ const listingSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  avatar: { type: String, required: true },
+  avatar: {
+    filename: { type: String, required: true, default: "my_avatar" },
+    url: {
+      type: String,
+      required: true,
+      default:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSV_MlO3koV2GayVLm8an7l8W_Y3syrPmJHZQ2tX_Ev8w&s=10",
+    },
+  },
   profession: {
     type: String,
     enum: [
