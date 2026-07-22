@@ -1,3 +1,13 @@
-.footer{
-    background-color: #111827;
+.footer {
+  background-color: #111827;
+  padding-left: 4rem;
+  padding-right: 4rem;
+}
+
+.links i {
+  border: 2px solid white;
+  height: 2.25rem;
+  width: 2.25rem;
+  border-radius: 100%;
+  padding: 0.6rem;
 }
