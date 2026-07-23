@@ -4,7 +4,7 @@ import "./Footer.css";
 
 const Footer = () => {
   return (
-    <div className="footer flex flex-wrap justify-between h-72 mt-94 text-white">
+    <div className="footer flex flex-wrap justify-between h-80 mt-86 text-white">
       <div className="headline nav-box ">
         <img src={footerLogo} alt="" className="h-12" />
         <p className="text-white mt-4">
@@ -30,15 +30,28 @@ const Footer = () => {
       </div>
       <div className="contact nav-box ">
         <h2 className="text-2xl font-medium">Contact</h2>
-        <a href="">qzgh986@gmail.com</a>
-        <p>+92 318 8913035</p>
+        <a href="">abc@gmail.com</a>
+        <a href="">+92 300 0000000</a>
         <div className="links flex gap-2">
-          <i class="fa-brands fa-linkedin-in"></i>
-          <i class="fa-brands fa-github"></i>
-          <i class="fa-brands fa-instagram"></i>
-          <i class="fa-brands fa-x-twitter"></i>
+          <a href="">
+            <i class="fa-brands fa-linkedin-in"></i>
+          </a>
+          <a href="">
+            <i class="fa-brands fa-github"></i>
+          </a>
+          <a href="">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+          <a href="">
+            {" "}
+            <i class="fa-brands fa-x-twitter"></i>
+          </a>
         </div>
       </div>
+      <p className="seprator"></p>
+      <p className="copy">
+        Built By <b>Qazi Abdul Ghafoor</b>
+      </p>
     </div>
   );
 };

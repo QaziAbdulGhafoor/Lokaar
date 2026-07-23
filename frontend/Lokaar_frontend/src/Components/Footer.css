@@ -4,10 +4,28 @@
   padding-right: 4rem;
 }
 
+.footer a {
+  color: #9ca3af;
+}
+
+.seprator {
+  background-color: white;
+
+  height: 1px;
+  width: 99%;
+}
+
+.copy {
+  width: 100%;
+  text-align: center;
+  color: #9ca3af;
+}
+
 .links i {
   border: 2px solid white;
   height: 2.25rem;
   width: 2.25rem;
   border-radius: 100%;
   padding: 0.6rem;
+  color: white;
 }
