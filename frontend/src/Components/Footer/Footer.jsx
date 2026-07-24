@@ -1,5 +1,5 @@
-import footerLogo from "../assets/footerLogo.png";
-import "../App.css";
+import footerLogo from "../../assets/footerLogo.png";
+import "../../App.css";
 import "./Footer.css";
 
 const Footer = () => {
@@ -34,17 +34,17 @@ const Footer = () => {
         <a href="">+92 300 0000000</a>
         <div className="links flex gap-2">
           <a href="">
-            <i class="fa-brands fa-linkedin-in"></i>
+            <i className="fa-brands fa-linkedin-in"></i>
           </a>
           <a href="">
-            <i class="fa-brands fa-github"></i>
+            <i className="fa-brands fa-github"></i>
           </a>
           <a href="">
-            <i class="fa-brands fa-instagram"></i>
+            <i className="fa-brands fa-instagram"></i>
           </a>
           <a href="">
             {" "}
-            <i class="fa-brands fa-x-twitter"></i>
+            <i className="fa-brands fa-x-twitter"></i>
           </a>
         </div>
       </div>
