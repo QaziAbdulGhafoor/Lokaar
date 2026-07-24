@@ -1,0 +1,54 @@
+.registration {
+  margin: auto auto;
+  margin-top: 2rem;
+  width: 30rem;
+  border: 1px solid #e5e7eb;
+  background-color: #f9fafb;
+  font-family: "Inter", sans-serif;
+  box-shadow: 0px 8px 32px rgba(0, 0, 0, 0.08);
+  border-radius: 0.5rem;
+}
+
+.registration input {
+  border: 1px solid #e5e7eb;
+  margin-top: 6px;
+}
+
+.registration input:focus {
+  outline: 1px solid #2563eb;
+  box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.1);
+}
+
+.registration label {
+  color: #374151;
+  font-size: 13px;
+}
+
+.option {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.option:has(input:checked) {
+  border-color: #2563eb;
+  background-color: #eff6ff;
+  color: #2563eb;
+}
+
+.option input {
+  display: none;
+}
+
+.option i {
+  font-size: 1.25rem;
+  margin-right: 0.5rem;
+}
+
+.option span {
+  font-size: 1rem;
+}
