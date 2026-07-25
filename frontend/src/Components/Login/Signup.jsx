@@ -1,10 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import "./Login.css";
 const Signup = () => {
+  const [formData, setFormdata] = useState({
+    username: "",
+    password: "",
+    email: "",
+    location: "",
+    category: "",
+  });
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleChange = (e) => {
+    const property = e.target.name;
+    const value = e.target.value;
+    setFormdata((prev) => {
+      return { ...prev, [property]: value };
+    });
+  };
+
   return (
-    <form action="" className="form-box registration ">
+    <form
+      action=""
+      className="form-box registration "
+      onSubmit={(e) => {
+        e.preventDefault();
+        console.log(formData);
+      }}
+    >
       <img src={logo} alt="" className="h-12" />
       <div className="welcome mb-4">
         <h2 className="text-3xl font-semibold">Welcome!</h2>
@@ -19,31 +44,48 @@ const Signup = () => {
           name="username"
           className="form-input"
           placeholder="Enter Username"
-        />
-      </div>
-      <div className="inp">
-        <label htmlFor="email">Email</label>
-        <br />
-        <input
-          type="text"
-          id="email"
-          name="email"
-          className="form-input"
-          placeholder="Enter Email"
+          value={formData.username}
+          onChange={handleChange}
         />
       </div>
       <div className="inp">
         <label htmlFor="password">Password</label> <br />
         <input
-          type="password"
+          type={showPassword ? "text" : "password"}
           id="password"
           name="password"
-          className="form-input"
+          className="form-input "
           placeholder="Enter Password"
+          value={formData.password}
+          onChange={handleChange}
         />
+        <span
+          className="eye"
+          onClick={() => {
+            setShowPassword((prev) => {
+              return !prev;
+            });
+          }}
+        >
+          <i className="fa-regular fa-eye"></i>
+        </span>
       </div>
       <div className="inp">
-        <label htmlFor="username">Location</label>
+        <label htmlFor="email">Email</label>
+        <br />
+        <input
+          type="email"
+          id="email"
+          name="email"
+          className="form-input"
+          placeholder="Enter Email"
+          value={formData.email}
+          onChange={handleChange}
+        />
+      </div>
+
+      <div className="inp">
+        <label htmlFor="location">Location</label>
         <br />
         <input
           type="text"
@@ -51,27 +93,44 @@ const Signup = () => {
           name="location"
           className="form-input"
           placeholder="city,state,country"
+          value={formData.location}
+          onChange={handleChange}
         />
       </div>
       <label htmlFor="" className="inp self-start ml-12">
         Select Your Category
       </label>
-      <div className="inp self-start flex flex-row gap-4 ml-12">
-        <label className="option">
-          <input type="radio" name="category" value="customer" />
-          <span>
-            <i className="fa-solid fa-user"></i>
-            Customer
-          </span>
-        </label>
-
-        <label className="option">
-          <input type="radio" name="category" value="provider" />
-          <span>
-            <i className="fa-solid fa-briefcase"></i>
-            Provider
-          </span>
-        </label>
+      <div className="inp" id="category">
+        <div className="category">
+          <label className="option">
+            <input
+              type="radio"
+              name="category"
+              value="customer"
+              checked={formData.category === "customer"}
+              onChange={handleChange}
+            />
+            <span>
+              <i className="fa-solid fa-user"></i>
+              Customer
+            </span>
+          </label>
+        </div>
+        <div className="category">
+          <label className="option">
+            <input
+              type="radio"
+              name="category"
+              value="provider"
+              checked={formData.category === "provider"}
+              onChange={handleChange}
+            />
+            <span>
+              <i className="fa-solid fa-briefcase"></i>
+              Provider
+            </span>
+          </label>
+        </div>
       </div>
       <button type="submit" className="my-4 w-70">
         Sign Up

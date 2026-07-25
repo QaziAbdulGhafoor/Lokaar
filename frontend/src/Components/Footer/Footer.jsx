@@ -4,7 +4,7 @@ import "./Footer.css";
 
 const Footer = () => {
   return (
-    <div className="footer flex flex-wrap justify-between h-80 mt-86 text-white">
+    <div className="footer flex flex-wrap justify-between h-80 mt-10 text-white">
       <div className="headline nav-box ">
         <img src={footerLogo} alt="" className="h-12" />
         <p className="text-white mt-4">
