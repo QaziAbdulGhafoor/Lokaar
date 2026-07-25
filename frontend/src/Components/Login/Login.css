@@ -9,6 +9,14 @@
   border-radius: 0.5rem;
 }
 
+.registration button {
+  transition-duration: 0.5s;
+}
+.registration button:hover {
+  box-shadow: 10px 10px 10px grey;
+  transform: scale(1.08);
+}
+
 .registration input {
   border: 1px solid #e5e7eb;
   margin-top: 6px;

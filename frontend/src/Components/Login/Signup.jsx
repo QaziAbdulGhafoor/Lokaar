@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import "./Login.css";
+import axios from "axios";
 const Signup = () => {
   const [formData, setFormdata] = useState({
     username: "",
@@ -21,15 +22,24 @@ const Signup = () => {
     });
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const data = formData;
+    console.log(data);
+    const register = async (data) => {
+      // try {
+      const response = await axios.post("http://localhost:3000/signup", data);
+      console.log(response);
+      // } catch {
+      //   console.log("error");
+      // }
+    };
+
+    register(data);
+  };
+
   return (
-    <form
-      action=""
-      className="form-box registration "
-      onSubmit={(e) => {
-        e.preventDefault();
-        console.log(formData);
-      }}
-    >
+    <form action="" className="form-box registration " onSubmit={handleSubmit}>
       <img src={logo} alt="" className="h-12" />
       <div className="welcome mb-4">
         <h2 className="text-3xl font-semibold">Welcome!</h2>

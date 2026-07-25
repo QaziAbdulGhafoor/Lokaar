@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import "./Login.css";
 import { useState } from "react";
+import axios from "axios";
 
 const Login = () => {
   const [formData, setFormdata] = useState({ username: "", password: "" });
@@ -15,8 +16,24 @@ const Login = () => {
     });
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const data = formData;
+    console.log(data);
+    const LogMeIn = async (data) => {
+      // try {
+      const response = await axios.post("http://localhost:3000/login", data);
+      console.log(response);
+      // } catch {
+      //   console.log("error");
+      // }
+    };
+
+    LogMeIn(data);
+  };
+
   return (
-    <form action="" className="form-box registration">
+    <form action="" onSubmit={handleSubmit} className="form-box registration">
       <img src={logo} alt="" className="h-12 " />
       <div className="welcome mb-4">
         <h2 className="text-3xl font-semibold">Welcome Back</h2>
