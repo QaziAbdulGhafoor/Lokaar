@@ -4,9 +4,8 @@ import Location from "../../assets/location.svg?react";
 import HeartEmpty from "../../assets/heart.svg?react";
 
 const ListingCard = ({ listing }) => {
-  console.log(listing);
   return (
-    <div className="w-80 h-70 flex flex-col gap-4 card">
+    <div className="w-85 h-70 flex flex-col gap-4 card">
       <div className="upper-section flex gap-4 items-center">
         <img src={listing.avatar} className="avatar h-20 w-20 rounded-full" />
         <div className="info ml-2 flex flex-col w-3/4">

@@ -32,7 +32,7 @@ module.exports.getAll = async (req, res) => {
   }
 
   const listings = await Listing.find(query).populate("reviews");
-  res.json({ message: "all listings", listings });
+  res.json({ listings });
 };
 
 //serves form to create a new listing

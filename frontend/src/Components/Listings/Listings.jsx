@@ -1,4 +1,7 @@
 import ListingCard from "./ListingCard";
+import api from "../../API/api";
+import React from "react";
+import { useState, useEffect } from "react";
 
 const listing = {
   avatar:
@@ -10,11 +13,23 @@ const listing = {
   description:
     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos, quas.",
 };
-
-import React from "react";
-
 const Listings = () => {
-  return <ListingCard listing={listing} />;
+  const [listings, setListings] = useState([]);
+
+  useEffect(() => {
+    async function getListing() {
+      const response = await api.get("/listings");
+      setListings(response.data);
+      console.log(response.data);
+    }
+    getListing();
+  }, []);
+
+  return (
+    <div className="grid grid-cols-3 mt-4 ml-50 mr-20">
+      <ListingCard listing={listings.listings} />
+    </div>
+  );
 };
 
 export default Listings;
