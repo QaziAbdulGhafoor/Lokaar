@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./Components/Login/Login";
 import Signup from "./Components/Login/Signup";
 import axios from "axios";
+import Listings from "./Components/Listings/Listings";
 
 const router = createBrowserRouter([
   {
@@ -11,7 +12,7 @@ const router = createBrowserRouter([
     element: (
       <>
         <Navbar />
-        <Login />
+        <Listings />
       </>
     ),
   },

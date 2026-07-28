@@ -1,12 +1,14 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import "./Login.css";
 import { useState } from "react";
 import axios from "axios";
+import api from "../../API/api";
 
 const Login = () => {
   const [formData, setFormdata] = useState({ username: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const property = e.target.name;
@@ -19,14 +21,14 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = formData;
-    console.log(data);
     const LogMeIn = async (data) => {
-      // try {
-      const response = await axios.post("http://localhost:3000/login", data);
-      console.log(response);
-      // } catch {
-      //   console.log("error");
-      // }
+      try {
+        const response = await api.post("/login", data);
+        navigate("/signup");
+        console.log(response);
+      } catch (err) {
+        console.log(err);
+      }
     };
 
     LogMeIn(data);
@@ -76,7 +78,7 @@ const Login = () => {
         </span>
       </div>
 
-      <button type="submit" className="my-4 w-70">
+      <button type="submit" className="my-4 w-70 blue-btn">
         Sign In
       </button>
       <p className="mb-8">

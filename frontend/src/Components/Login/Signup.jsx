@@ -142,7 +142,7 @@ const Signup = () => {
           </label>
         </div>
       </div>
-      <button type="submit" className="my-4 w-70">
+      <button type="submit" className="my-4 w-70 blue-btn">
         Sign Up
       </button>
       <p className="mb-8">
