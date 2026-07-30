@@ -1,11 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
+import { useContext } from "react";
 import logo from "../../assets/logo.png";
 import "./Login.css";
 import { useState } from "react";
 import axios from "axios";
 import api from "../../API/api";
+import { AuthContext } from "../../Context/AuthContext";
 
 const Login = () => {
+  const currUser = useContext(AuthContext);
   const [formData, setFormdata] = useState({ username: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
@@ -21,11 +24,12 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = formData;
+
     const LogMeIn = async (data) => {
       try {
         const response = await api.post("/login", data);
-        navigate("/signup");
-        console.log(response);
+        navigate("/listings");
+        currUser.setUser(response.data.user);
       } catch (err) {
         console.log(err);
       }

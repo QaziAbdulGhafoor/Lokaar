@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import logo from "../../assets/logo.png";
 import "./Navbar.css";
 import "../../App.css";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../Context/AuthContext";
 
 const Navbar = () => {
+  const currUser = useContext(AuthContext);
+
   return (
     <div className="navbar">
       <div className="logo">
@@ -23,16 +26,27 @@ const Navbar = () => {
           <a href="">Become A Provider</a>
         </li>
       </div>
-      <div className="registers">
-        <li>
-          <Link to="/">Log In</Link>
-        </li>
-        <li>
-          <Link to="/signup">
-            <button className="blue-btn">Sign Up</button>
-          </Link>
-        </li>
-      </div>
+      {currUser.user ? (
+        <div className="registers">
+          <li>
+            <Link to="/dashboard">Dashboard</Link>
+          </li>
+          <li>
+            <button className="blue-btn">Log Out</button>
+          </li>
+        </div>
+      ) : (
+        <div className="registers">
+          <li>
+            <Link to="/">Log In</Link>
+          </li>
+          <li>
+            <Link to="/signup">
+              <button className="blue-btn">Sign Up</button>
+            </Link>
+          </li>
+        </div>
+      )}
     </div>
   );
 };

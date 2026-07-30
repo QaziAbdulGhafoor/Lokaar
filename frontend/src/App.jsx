@@ -5,6 +5,9 @@ import Login from "./Components/Login/Login";
 import Signup from "./Components/Login/Signup";
 import axios from "axios";
 import Listings from "./Components/Listings/Listings";
+import ListingDetails from "./Components/Listings/ListingDetails";
+import { useContext } from "react";
+import { AuthContext } from "./Context/AuthContext";
 
 const router = createBrowserRouter([
   {
@@ -12,10 +15,11 @@ const router = createBrowserRouter([
     element: (
       <>
         <Navbar />
-        <Listings />
+        <Login />
       </>
     ),
   },
+
   {
     path: "/signup",
     element: (
@@ -25,13 +29,30 @@ const router = createBrowserRouter([
       </>
     ),
   },
+
+  {
+    path: "/listings",
+    element: (
+      <>
+        <Navbar />
+        <Listings />
+      </>
+    ),
+  },
+
+  {
+    path: "/listings/:id",
+    element: (
+      <>
+        <Navbar />
+        <ListingDetails />
+      </>
+    ),
+  },
 ]);
 function App() {
-  const getData = async () => {
-    const data = await axios.get("http://localhost:3000/listings");
-    console.log(data);
-  };
-
+  const myUser = useContext(AuthContext);
+  console.log(myUser);
   return (
     <>
       <RouterProvider router={router} />

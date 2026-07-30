@@ -85,7 +85,7 @@ module.exports.detailedListing = async (req, res) => {
   if (!listing) {
     res.json({ message: "listing not available" });
   }
-  res.json({ message: "listing found", result: listing });
+  res.json({ listing });
 };
 
 //Serves a form to edit a listing

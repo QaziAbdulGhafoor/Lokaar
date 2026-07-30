@@ -10,7 +10,13 @@ module.exports.getLogin = (req, res) => {
 
 module.exports.postLogin = (req, res) => {
   res.json({
-    message: "welcome back",
+    user: {
+      id: req.user._id,
+      username: req.user.username,
+      category: req.user.category,
+      location: req.user.location,
+      avatar: req.user.avatar,
+    },
   });
 };
 
@@ -27,7 +33,13 @@ module.exports.postSignup = async (req, res) => {
     if (err) {
       res.json({ error: "some error" });
     }
-    res.json({ msg: "success", savedUser });
+    res.json({
+      id: savedUser._id,
+      username: savedUser.username,
+      category: savedUser.category,
+      location: savedUser.location,
+      avatar: savedUser.avatar,
+    });
   });
 };
 
@@ -41,5 +53,13 @@ module.exports.logout = (req, res, next) => {
     });
   } else {
     res.json({ message: "you are not even logged in" });
+  }
+};
+
+module.exports.getUser = (req, res) => {
+  if (req.user) {
+    res.status(200).json({ message: "user found", user: req.user });
+  } else {
+    res.status(404).json({ message: "user not found" });
   }
 };
