@@ -1,14 +1,17 @@
 import React, { useState, createContext, useEffect } from "react";
 import api from "../API/api";
 
-export const Listing = createContext(null);
+export const ListingContext = createContext(null);
 
 export const ListingProvider = ({ children }) => {
-  const [listing, setListing] = useState(null);
+  const [listing, setListing] = useState({
+    title: "",
+    about: "",
+  });
 
   return (
-    <AuthContext.Provider value={{ listing, setListing }}>
+    <ListingContext.Provider value={{ listing, setListing }}>
       {children}
-    </AuthContext.Provider>
+    </ListingContext.Provider>
   );
 };
