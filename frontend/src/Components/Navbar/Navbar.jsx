@@ -23,7 +23,7 @@ const Navbar = () => {
           <a href="">How It Works</a>
         </li>
         <li>
-          <a href="">Become A Provider</a>
+          <Link to="/new">Become A Provider</Link>
         </li>
       </div>
       {currUser.user ? (

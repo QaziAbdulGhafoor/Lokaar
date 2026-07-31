@@ -6,6 +6,7 @@ import Signup from "./Components/Login/Signup";
 import axios from "axios";
 import Listings from "./Components/Listings/Listings";
 import ListingDetails from "./Components/Listings/ListingDetails";
+import NewListing from "./Components/Listings/NewListing";
 import { useContext } from "react";
 import { AuthContext } from "./Context/AuthContext";
 
@@ -19,7 +20,15 @@ const router = createBrowserRouter([
       </>
     ),
   },
-
+  {
+    path: "/new",
+    element: (
+      <>
+        <Navbar />
+        <NewListing />
+      </>
+    ),
+  },
   {
     path: "/signup",
     element: (
