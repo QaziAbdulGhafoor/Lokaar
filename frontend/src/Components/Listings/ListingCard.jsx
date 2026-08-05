@@ -13,10 +13,10 @@ const ListingCard = ({ listing }) => {
           className="avatar h-20 w-20 rounded-full"
         />
         <div className="info ml-2 flex flex-col w-3/4">
-          <h2 className="text-xl font-semibold">{listing.title}</h2>
+          <h2 className="text-l font-semibold">{listing.title}</h2>
           <p className="text-blue-600">{listing.profession}</p>
         </div>
-        <HeartEmpty className="h-7 w-7 text-gray-600 self-start mr-2 mt-2" />
+        <HeartEmpty className="h-7 w-7 text-gray-600 self-start  mt-2" />
       </div>
       <div className="lower-section">
         <p className="flex mt-4 mb-3 font-medium text-sm text-gray-600">
@@ -24,7 +24,7 @@ const ListingCard = ({ listing }) => {
           {listing.location}
         </p>
         <p className="ml-2 mt-4 mb-4 font-medium text-gray-600 text-sm">
-          {listing.about}
+          {listing.about.slice(0, 100)}...
         </p>
         <span className="flex justify-between items-center mt-4">
           <h2 className="ml-2">

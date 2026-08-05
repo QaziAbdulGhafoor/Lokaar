@@ -31,15 +31,36 @@ const DetailCard = ({ listing }) => {
         </div>
       </div>
       <div className="lower flex flex-row gap-4 flex-wrap justify-between">
-        <div className="about card w-236">
-          <h2 className="text-2xl font-semibold">About</h2>
-          <p className="mt-2 mb-4 font-medium text-gray-600 text-sm">
-            {listing.about}
-          </p>
-          <h2 className="text-2xl font-semibold mt-4">Reviews</h2>
-          <p className="mt-2  font-medium text-gray-600 text-sm">
-            Total Reviews :{listing.reviews.length}
-          </p>
+        <div className="about card w-236 flex flex-col gap-6 ">
+          <div className="info">
+            <h2 className="text-2xl font-semibold">About</h2>
+            <p className="mt-2 mb-4 font-medium text-gray-600 w-4/5 text-l">
+              {listing.about}
+            </p>
+          </div>
+          {listing.services.length > 0 ? (
+            <div className="skills ">
+              <h2 className="text-xl font-semibold">Services Offered</h2>
+              <div className="serv-container flex wrap gap-4 mt-2 ml-6 mt-4">
+                {listing.services.map((serv) => {
+                  return (
+                    <div className=" bg-gray-200 py-1 px-2 text-sm rounded text-gray-500">
+                      {serv}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          ) : null}
+
+          {listing.reviews.length > 0 ? (
+            <div className="reviews">
+              <h2 className="text-xl font-semibold mt-4">Reviews</h2>
+              <p className="mt-2  font-medium text-gray-600 text-sm">
+                Total Reviews :{listing.reviews.length}
+              </p>
+            </div>
+          ) : null}
         </div>
         <div className="booking card flex flex-col ">
           <h2 className="text-2xl font-semibold">Booking</h2>

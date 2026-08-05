@@ -90,6 +90,10 @@ export default function SecondStep({ setStep }) {
       return { ...prev, [e.target.name]: e.target.value };
     });
   };
+
+  const handlePrev = () => {
+    setStep(1);
+  };
   const steps = [
     { number: 1, label: "Service Details" },
     { number: 2, label: "Availability" },
@@ -248,28 +252,16 @@ export default function SecondStep({ setStep }) {
               </div>
 
               {/* Emergency Availability */}
-              <div className="flex items-center justify-between gap-4">
-                <div>
-                  <p className="text-sm font-semibold text-gray-800">
-                    Emergency Availability
-                  </p>
-                  <p className="text-sm text-gray-500 mt-0.5">
-                    Available for urgent same-day requests
-                  </p>
-                </div>
-                <button
-                  type="button"
-                  className="relative w-11 h-6 rounded-full bg-blue-600 flex-shrink-0"
-                >
-                  <span className="absolute top-0.5 right-0.5 w-5 h-5 rounded-full bg-white shadow" />
-                </button>
-              </div>
             </div>
           </div>
 
           {/* Footer actions */}
           <div className="flex items-center justify-between mt-6 gap-3">
-            <button type="button" className="blue-ouline-btn">
+            <button
+              type="button"
+              className="blue-ouline-btn"
+              onClick={handlePrev}
+            >
               ← Back
             </button>
             <button type="submit" className="blue-btn">

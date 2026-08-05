@@ -16,7 +16,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar">
+    <div className="navbar position: sticky top-0 bg-white">
       {loading ? (
         <p>...loading</p>
       ) : (

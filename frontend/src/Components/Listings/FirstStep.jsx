@@ -215,7 +215,7 @@ export default function FirstStep({ setStep }) {
                 <h2 className="block text-sm font-semibold text-gray-800 mb-2">
                   Share Your Professional Experience
                 </h2>
-                <div className="flex flex-col gap-3">
+                <div className="flex flex-row justify-start gap-3">
                   <label className="flex-1 flex items-center gap-2.5 rounded-lg border border-gray-300 px-4 py-2.5 text-sm sm:text-base text-gray-600 cursor-pointer has-[:checked]:border-blue-600 has-[:checked]:bg-blue-50 has-[:checked]:text-blue-600 transition-colors">
                     <input
                       type="radio"
@@ -252,29 +252,28 @@ export default function FirstStep({ setStep }) {
                 </div>
               </div>
             </div>
-          </div>
-
-          {/* Hourly Rate */}
-          <div>
-            <label className="block text-sm font-semibold text-gray-800 mb-2">
-              Hourly Rate
-            </label>
-            <div className="flex rounded-lg border border-gray-300 overflow-hidden focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500">
-              <span className="flex items-center px-3 sm:px-4 bg-gray-50 text-gray-500 border-r border-gray-300 text-sm sm:text-base">
-                $
-              </span>
-              <input
-                value={newListing.listing.price}
-                name="price"
-                onChange={handleChange}
-                type="number"
-                defaultValue="25"
-                className="flex-1 px-3 sm:px-4 py-2.5 text-sm sm:text-base text-gray-700 focus:outline-none min-w-0"
-                required
-              />
-              <span className="flex items-center px-3 sm:px-4 bg-gray-50 text-gray-500 border-l border-gray-300 text-sm sm:text-base">
-                /hr
-              </span>
+            {/* Hourly Rate */}
+            <div>
+              <label className="block text-sm font-semibold text-gray-800 mb-2 mt-4">
+                Hourly Rate
+              </label>
+              <div className="flex rounded-lg border border-gray-300 overflow-hidden focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500">
+                <span className="flex items-center px-3 sm:px-4 bg-gray-50 text-gray-500 border-r border-gray-300 text-sm sm:text-base">
+                  $
+                </span>
+                <input
+                  value={newListing.listing.price}
+                  name="price"
+                  onChange={handleChange}
+                  type="number"
+                  defaultValue="25"
+                  className="flex-1 px-3 sm:px-4 py-2.5 text-sm sm:text-base text-gray-700 focus:outline-none min-w-0"
+                  required
+                />
+                <span className="flex items-center px-3 sm:px-4 bg-gray-50 text-gray-500 border-l border-gray-300 text-sm sm:text-base">
+                  /hr
+                </span>
+              </div>
             </div>
           </div>
 

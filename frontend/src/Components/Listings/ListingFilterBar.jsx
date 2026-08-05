@@ -1,13 +1,14 @@
 import React from "react";
 import RangeSlider from "./RangeSlider";
 import NativeSelectDemo from "./DistanceOptions";
+import api from "../../API/api";
 
 const ListingFilterBar = () => {
   const [filter, setFilter] = React.useState({
     category: "electrician",
-    distance: null,
-    minPrice: 0,
-    maxPrice: 0,
+    //distance: null,
+    min: 0,
+    max: 0,
   });
 
   const handleFilterChange = (e) => {
@@ -15,9 +16,14 @@ const ListingFilterBar = () => {
     setFilter((prevFilter) => ({ ...prevFilter, [name]: value }));
   };
 
+  const handleFilterSub = (e) => {
+    e.preventDefault();
+    api.get(`/listings`);
+  };
+
   return (
-    <form>
-      <div className="sidebar w-66 bg-white border-r-1 border-gray-200 h-screen flex flex-col items-start gap-6">
+    <form onSubmit={handleFilterSub}>
+      <div className="sidebar position:sticky h-[calc(100vh-64px)] w-66 bg-white border-r-1 border-gray-200  flex flex-col items-start gap-6">
         <h1 className="text-2xl font-semibold mt-4 self-center">Filters</h1>
         <div className="category flex flex-col gap-4  ml-4 ">
           <h2 className="text-xl font-medium">Category</h2>
@@ -106,7 +112,7 @@ const ListingFilterBar = () => {
           <h2 className="text-xl font-medium">Price Range</h2>
           <RangeSlider value={[200, 1000]} />
         </div>
-        <div className="location ml-4 ">
+        {/* <div className="location ml-4 ">
           <h2 className="text-xl font-medium">Distance</h2>
           <select
             name="distance"
@@ -121,7 +127,7 @@ const ListingFilterBar = () => {
             <option value="10">10 kilometer</option>
             <option value="20">20 kilometer</option>
           </select>
-        </div>
+        </div> */}
         <div className="submit self-center">
           <button type="submit" className="blue-btn ">
             Apply

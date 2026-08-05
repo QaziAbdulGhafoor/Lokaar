@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./Components/Login/Login";
 import Signup from "./Components/Login/Signup";
 import axios from "axios";
+import Dash from "./Components/Dashboards/dash";
 import Listings from "./Components/Listings/Listings";
 import ListingDetails from "./Components/Listings/ListingDetails";
 import NewListing from "./Components/Listings/NewListing";
@@ -37,6 +38,16 @@ const router = createBrowserRouter([
       <>
         <Navbar />
         <Listings />
+      </>
+    ),
+  },
+
+  {
+    path: "/dashboard",
+    element: (
+      <>
+        <Navbar />
+        <Dash />
       </>
     ),
   },
@@ -89,8 +100,6 @@ const router = createBrowserRouter([
   },
 ]);
 function App() {
-  const myUser = useContext(AuthContext);
-  console.log(myUser);
   return (
     <>
       <RouterProvider router={router} />
