@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import "./Login.css";
 import axios from "axios";
 const Signup = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormdata] = useState({
     username: "",
     password: "",
@@ -27,15 +29,16 @@ const Signup = () => {
     const data = formData;
     console.log(data);
     const register = async (data) => {
-      // try {
-      const response = await axios.post("http://localhost:3000/signup", data);
-      console.log(response);
-      // } catch {
-      //   console.log("error");
-      // }
+      try {
+        const response = await axios.post("http://localhost:3000/signup", data);
+      } catch (err) {
+        console.log(err);
+      }
     };
 
-    register(data);
+    register(data).then(() => {
+      navigate("/listings");
+    });
   };
 
   return (

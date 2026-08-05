@@ -57,9 +57,23 @@ module.exports.logout = (req, res, next) => {
 };
 
 module.exports.getUser = (req, res) => {
-  if (req.user) {
-    res.status(200).json({ message: "user found", user: req.user });
-  } else {
-    res.status(404).json({ message: "user not found" });
-  }
+  // if (req.user) {
+  //   let user = {
+  //     id: req.user._id,
+  //     username: req.user.username,
+  //     category: req.user.category,
+  //   };
+  //   res.status(200).json({ message: "user found", user: user });
+  // } else {
+  //   res.status(404).json({ message: "user not found" });
+  // }
+  console.log("Time:", new Date().toISOString());
+  console.log("SESSION:", req.session);
+  console.log("USER:", req.user);
+  console.log("AUTHENTICATED:", req.isAuthenticated());
+  res.json({
+    session: req.session,
+    user: req.user || null,
+    authenticated: req.isAuthenticated(),
+  });
 };

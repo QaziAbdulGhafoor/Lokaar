@@ -1,28 +1,7 @@
-// import React from "react";
+import { useState } from "react";
 
-// const SecondStep = ({ setStep }) => {
-//   const handleNext = () => {
-//     setStep(3);
-//   };
-//   const handlePrev = () => {
-//     setStep(1);
-//   };
-//   return (
-//     <div>
-//       SecondStep
-//       <button onClick={handlePrev} className="blue-btn">
-//         prev
-//       </button>
-//       <button onClick={handleNext} className="blue-btn">
-//         next
-//       </button>
-//     </div>
-//   );
-// };
-
-// export default SecondStep;
-
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import { ListingContext } from "../../Context/ListingContext";
 
 const ChevronDown = ({ className }) => (
   <svg
@@ -69,26 +48,52 @@ const MapPin = ({ className }) => (
 );
 
 export default function SecondStep({ setStep }) {
-  const handleNext = () => {
-    setStep(3);
+  const [availability, setAvailability] = useState({
+    days: [],
+    startTime: "09:00",
+    endTime: "17:00",
+  });
+
+  const daysOfWeek = [
+    { label: "Sun", value: 0 },
+    { label: "Mon", value: 1 },
+    { label: "Tue", value: 2 },
+    { label: "Wed", value: 3 },
+    { label: "Thu", value: 4 },
+    { label: "Fri", value: 5 },
+    { label: "Sat", value: 6 },
+  ];
+
+  const toggleDay = (day) => {
+    setAvailability((prev) => ({
+      ...prev,
+      days: prev.days.includes(day)
+        ? prev.days.filter((d) => d !== day)
+        : [...prev.days, day],
+    }));
   };
-  const handlePrev = () => {
-    setStep(1);
+
+  const updateTime = (field, value) => {
+    setAvailability((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const newListing = useContext(ListingContext);
+  console.log(newListing.listing);
+
+  // sync local availability state into context's listing whenever it changes
+  useEffect(() => {
+    newListing.setListing((prev) => ({ ...prev, availability }));
+  }, [availability]);
+
+  const handleChange = (e) => {
+    newListing.setListing((prev) => {
+      return { ...prev, [e.target.name]: e.target.value };
+    });
   };
   const steps = [
     { number: 1, label: "Service Details" },
     { number: 2, label: "Availability" },
     { number: 3, label: "Review & Publish" },
-  ];
-
-  const days = [
-    { label: "Mon", active: true },
-    { label: "Tue", active: true },
-    { label: "Wed", active: true },
-    { label: "Thu", active: true },
-    { label: "Fri", active: true },
-    { label: "Sat", active: false },
-    { label: "Sun", active: false },
   ];
 
   return (
@@ -136,59 +141,63 @@ export default function SecondStep({ setStep }) {
             </p>
 
             <div className="mt-6 sm:mt-8 space-y-6">
-              {/* Working Days */}
-              <div className="pb-6 border-b border-gray-100">
-                <label className="block text-sm font-semibold text-gray-800 mb-3">
-                  Working Days
-                </label>
-                <div className="flex flex-wrap gap-2 sm:gap-3">
-                  {days.map((day) => (
-                    <button
-                      key={day.label}
-                      type="button"
-                      className={`px-4 sm:px-5 py-2 rounded-lg text-sm sm:text-base font-medium transition-colors ${
-                        day.active
-                          ? "bg-blue-600 text-white"
-                          : "border border-gray-300 text-gray-600 hover:border-gray-400"
-                      }`}
-                    >
-                      {day.label}
-                    </button>
-                  ))}
+              <div className="mt-6">
+                <p className="text-sm font-semibold text-gray-700 mb-3">
+                  Available Days
+                </p>
+                <div className="flex flex-wrap gap-3">
+                  {daysOfWeek.map(({ label, value }) => {
+                    const isSelected = availability.days.includes(value);
+                    return (
+                      <label
+                        key={value}
+                        className={`flex items-center gap-2 px-3 py-2 rounded-lg border cursor-pointer select-none
+                  ${
+                    isSelected
+                      ? "border-blue-600 bg-blue-50 text-blue-700"
+                      : "border-gray-300 text-gray-600"
+                  }`}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={isSelected}
+                          onChange={() => toggleDay(value)}
+                          className="w-4 h-4 accent-blue-600"
+                        />
+                        <span className="text-sm font-medium">{label}</span>
+                      </label>
+                    );
+                  })}
                 </div>
               </div>
 
-              {/* Working Hours */}
-              <div className="pb-6 border-b border-gray-100">
-                <label className="block text-sm font-semibold text-gray-800 mb-3">
+              {/* Working hours */}
+              <div className="mt-8">
+                <p className="text-sm font-semibold text-gray-700 mb-3">
                   Working Hours
-                </label>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <span className="block text-sm text-gray-600 mb-1.5">
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <div className="flex-1">
+                    <label className="block text-xs text-gray-500 mb-1">
                       Start Time
-                    </span>
-                    <div className="relative">
-                      <input
-                        type="text"
-                        defaultValue="9:00 AM"
-                        className="w-full rounded-lg border border-gray-300 px-4 py-2.5 pr-10 text-sm sm:text-base text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                      />
-                      <Clock className="w-4 h-4 text-gray-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
-                    </div>
+                    </label>
+                    <input
+                      type="time"
+                      value={availability.startTime}
+                      onChange={(e) => updateTime("startTime", e.target.value)}
+                      className="w-full border border-gray-300 rounded-lg px-3 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
                   </div>
-                  <div>
-                    <span className="block text-sm text-gray-600 mb-1.5">
+                  <div className="flex-1">
+                    <label className="block text-xs text-gray-500 mb-1">
                       End Time
-                    </span>
-                    <div className="relative">
-                      <input
-                        type="text"
-                        defaultValue="6:00 PM"
-                        className="w-full rounded-lg border border-gray-300 px-4 py-2.5 pr-10 text-sm sm:text-base text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                      />
-                      <Clock className="w-4 h-4 text-gray-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
-                    </div>
+                    </label>
+                    <input
+                      type="time"
+                      value={availability.endTime}
+                      onChange={(e) => updateTime("endTime", e.target.value)}
+                      className="w-full border border-gray-300 rounded-lg px-3 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
                   </div>
                 </div>
               </div>
@@ -199,10 +208,23 @@ export default function SecondStep({ setStep }) {
                   Response Time
                 </label>
                 <div className="relative">
-                  <select className="w-full appearance-none rounded-lg border border-gray-300 px-4 py-2.5 pr-10 text-sm sm:text-base text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                    <option>Within 1 hour</option>
-                    <option>Within 3 hours</option>
-                    <option>Within 24 hours</option>
+                  <select
+                    name="responseTime"
+                    onChange={handleChange}
+                    className="w-full appearance-none rounded-lg border border-gray-300 px-4 py-2.5 pr-10 text-sm sm:text-base text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  >
+                    <option value={1} selected={newListing.responseTime === 1}>
+                      Within 1 hour
+                    </option>
+                    <option value={3} selected={newListing.responseTime === 3}>
+                      Within 3 hours
+                    </option>
+                    <option
+                      value={24}
+                      selected={newListing.responseTime === 24}
+                    >
+                      Within 24 hours
+                    </option>
                   </select>
                   <ChevronDown className="w-4 h-4 text-gray-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                 </div>
@@ -217,6 +239,8 @@ export default function SecondStep({ setStep }) {
                   <MapPin className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                   <input
                     type="text"
+                    name="location"
+                    onChange={handleChange}
                     placeholder="e.g. Within 10 miles of your location"
                     className="w-full rounded-lg border border-gray-300 pl-10 pr-4 py-2.5 text-sm sm:text-base text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   />
@@ -245,14 +269,10 @@ export default function SecondStep({ setStep }) {
 
           {/* Footer actions */}
           <div className="flex items-center justify-between mt-6 gap-3">
-            <button
-              type="button"
-              className="blue-ouline-btn"
-              onClick={handlePrev}
-            >
+            <button type="button" className="blue-ouline-btn">
               ← Back
             </button>
-            <button type="button" className="blue-btn" onClick={handleNext}>
+            <button type="submit" className="blue-btn">
               Continue →
             </button>
           </div>

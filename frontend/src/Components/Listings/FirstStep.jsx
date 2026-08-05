@@ -91,179 +91,204 @@ export default function FirstStep({ setStep }) {
       </div>
 
       {/* Form card */}
-      <form onSubmit={handleSubmit}>
-        <div className="flex-1 px-4 sm:px-6 py-8 sm:py-10">
-          <div className="max-w-3xl mx-auto">
-            <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-5 sm:p-8">
-              <h1 className="text-xl sm:text-2xl font-bold text-gray-900">
-                Service Details
-              </h1>
-              <p className="text-sm sm:text-base text-gray-500 mt-1">
-                Tell us what you offer and how much you charge
-              </p>
+      <div className="flex-1 px-4 sm:px-6 py-8 sm:py-10">
+        <div className="max-w-3xl mx-auto">
+          <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-5 sm:p-8">
+            <h1 className="text-xl sm:text-2xl font-bold text-gray-900">
+              Service Details
+            </h1>
+            <p className="text-sm sm:text-base text-gray-500 mt-1">
+              Tell us what you offer and how much you charge
+            </p>
 
-              <div className="mt-6 sm:mt-8 space-y-6">
-                {/* Service Title */}
-                <div>
-                  <label className="block text-sm font-semibold text-gray-800 mb-2">
-                    Service Title
-                  </label>
-                  <input
-                    value={newListing.listing.title}
-                    name="title"
+            <div className="mt-6 sm:mt-8 space-y-6">
+              {/* Service Title */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-800 mb-2">
+                  Service Title
+                </label>
+                <input
+                  value={newListing.listing.title}
+                  name="title"
+                  onChange={handleChange}
+                  type="text"
+                  placeholder="e.g. Professional Electrical Wiring"
+                  className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm sm:text-base text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  required
+                />
+              </div>
+
+              {/* Service avatar */}
+              {/* <div>
+                <label className="block text-sm font-semibold text-gray-800 mb-2">
+                  Profile Picture
+                </label>
+                <input
+                  value={newListing.listing.avatar}
+                  name="title"
+                  onChange={handleChange}
+                  type="file"
+                  className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm sm:text-base text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  required
+                />
+              </div> */}
+
+              {/* Category */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-800 mb-2">
+                  Category
+                </label>
+                <div className="relative">
+                  <select
+                    value={newListing.listing.category}
+                    name="category"
                     onChange={handleChange}
-                    type="text"
-                    placeholder="e.g. Professional Electrical Wiring"
-                    className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm sm:text-base text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    required
-                  />
-                </div>
-
-                {/* Category */}
-                <div>
-                  <label className="block text-sm font-semibold text-gray-800 mb-2">
-                    Category
-                  </label>
-                  <div className="relative">
-                    <select
-                      value={newListing.listing.category}
-                      name="category"
-                      onChange={handleChange}
-                      className="w-full appearance-none rounded-lg border border-gray-300 px-4 py-2.5 pr-10 text-sm sm:text-base text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full appearance-none rounded-lg border border-gray-300 px-4 py-2.5 pr-10 text-sm sm:text-base text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  >
+                    <option
+                      value="electrician"
+                      selected={(newListing.listing.category = "electrician")}
                     >
-                      <option
-                        value="electrician"
-                        selected={(newListing.listing.category = "electrician")}
-                      >
-                        {" "}
-                        Electrician
-                      </option>
-                      <option
-                        value="plumber"
-                        selected={(newListing.listing.category = "plumber")}
-                      >
-                        {" "}
-                        Plumber
-                      </option>
-                      <option
-                        value="tutor"
-                        selected={(newListing.listing.category = "tutor")}
-                      >
-                        {" "}
-                        Tutor
-                      </option>
-                      <option
-                        value="carpenter"
-                        selected={(newListing.listing.category = "carpenter")}
-                      >
-                        {" "}
-                        Carpenter
-                      </option>
-                      <option
-                        value="cleaner"
-                        selected={(newListing.listing.category = "cleaner")}
-                      >
-                        {" "}
-                        Cleaner
-                      </option>
-                      <option
-                        value="painter"
-                        selected={(newListing.listing.category = "painter")}
-                      >
-                        {" "}
-                        painter
-                      </option>
-                    </select>
-                    <ChevronDown className="w-4 h-4 text-gray-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
-                  </div>
+                      {" "}
+                      Electrician
+                    </option>
+                    <option
+                      value="plumber"
+                      selected={(newListing.listing.category = "plumber")}
+                    >
+                      {" "}
+                      Plumber
+                    </option>
+                    <option
+                      value="tutor"
+                      selected={(newListing.listing.category = "tutor")}
+                    >
+                      {" "}
+                      Tutor
+                    </option>
+                    <option
+                      value="carpenter"
+                      selected={(newListing.listing.category = "carpenter")}
+                    >
+                      {" "}
+                      Carpenter
+                    </option>
+                    <option
+                      value="cleaner"
+                      selected={(newListing.listing.category = "cleaner")}
+                    >
+                      {" "}
+                      Cleaner
+                    </option>
+                    <option
+                      value="painter"
+                      selected={(newListing.listing.category = "painter")}
+                    >
+                      {" "}
+                      painter
+                    </option>
+                  </select>
+                  <ChevronDown className="w-4 h-4 text-gray-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                 </div>
+              </div>
 
-                {/* Description */}
-                <div>
-                  <label className="block text-sm font-semibold text-gray-800 mb-2">
-                    Description
-                  </label>
-                  <textarea
-                    rows={4}
-                    placeholder="Describe your service, what's included, and what makes you unique..."
-                    className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm sm:text-base text-gray-700 placeholder-gray-400 resize-y focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  />
-                  <div className="text-right text-xs text-gray-400 mt-1">
-                    124 / 500
-                  </div>
+              {/* Description */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-800 mb-2">
+                  Description
+                </label>
+                <textarea
+                  value={newListing.listing.about}
+                  name="about"
+                  onChange={handleChange}
+                  rows={4}
+                  placeholder="Describe your service, what's included, and what makes you unique..."
+                  className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm sm:text-base text-gray-700 placeholder-gray-400 resize-y focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                />
+                <div className="text-right text-xs text-gray-400 mt-1">
+                  124 / 500
                 </div>
+              </div>
 
-                {/* Hourly Rate */}
-                <div>
-                  <label className="block text-sm font-semibold text-gray-800 mb-2">
-                    Hourly Rate
-                  </label>
-                  <div className="flex rounded-lg border border-gray-300 overflow-hidden focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500">
-                    <span className="flex items-center px-3 sm:px-4 bg-gray-50 text-gray-500 border-r border-gray-300 text-sm sm:text-base">
-                      $
-                    </span>
+              {/* Experience */}
+              <div>
+                <h2 className="block text-sm font-semibold text-gray-800 mb-2">
+                  Share Your Professional Experience
+                </h2>
+                <div className="flex flex-col gap-3">
+                  <label className="flex-1 flex items-center gap-2.5 rounded-lg border border-gray-300 px-4 py-2.5 text-sm sm:text-base text-gray-600 cursor-pointer has-[:checked]:border-blue-600 has-[:checked]:bg-blue-50 has-[:checked]:text-blue-600 transition-colors">
                     <input
-                      type="text"
-                      defaultValue="25"
-                      className="flex-1 px-3 sm:px-4 py-2.5 text-sm sm:text-base text-gray-700 focus:outline-none min-w-0"
-                      required
+                      type="radio"
+                      name="experience"
+                      value="beginner"
+                      className="w-4 h-4 text-blue-600 focus:ring-blue-500"
+                      onChange={handleChange}
+                      checked={newListing.listing.experience === "beginner"}
                     />
-                    <span className="flex items-center px-3 sm:px-4 bg-gray-50 text-gray-500 border-l border-gray-300 text-sm sm:text-base">
-                      /hr
-                    </span>
-                  </div>
-                </div>
-
-                {/* Experience */}
-                <div>
-                  <h2 className="block text-sm font-semibold text-gray-800 mb-2">
-                    Share Your Professional Experience
-                  </h2>
-                  <div className="flex flex-col gap-3">
-                    <label className="flex-1 flex items-center gap-2.5 rounded-lg border border-gray-300 px-4 py-2.5 text-sm sm:text-base text-gray-600 cursor-pointer has-[:checked]:border-blue-600 has-[:checked]:bg-blue-50 has-[:checked]:text-blue-600 transition-colors">
-                      <input
-                        type="radio"
-                        name="experience"
-                        value="expert"
-                        className="w-4 h-4 text-blue-600 focus:ring-blue-500"
-                      />
-                      Beginner
-                    </label>
-                    <label className="flex-1 flex items-center gap-2.5 rounded-lg border border-gray-300 px-4 py-2.5 text-sm sm:text-base text-gray-600 cursor-pointer has-[:checked]:border-blue-600 has-[:checked]:bg-blue-50 has-[:checked]:text-blue-600 transition-colors">
-                      <input
-                        type="radio"
-                        name="experience"
-                        value="expert"
-                        className="w-4 h-4 text-blue-600 focus:ring-blue-500"
-                      />
-                      Intermediate
-                    </label>
-                    <label className="flex-1 flex items-center gap-2.5 rounded-lg border border-gray-300 px-4 py-2.5 text-sm sm:text-base text-gray-600 cursor-pointer has-[:checked]:border-blue-600 has-[:checked]:bg-blue-50 has-[:checked]:text-blue-600 transition-colors">
-                      <input
-                        type="radio"
-                        name="experience"
-                        value="expert"
-                        className="w-4 h-4 text-blue-600 focus:ring-blue-500"
-                      />
-                      Expert
-                    </label>
-                  </div>
+                    Beginner
+                  </label>
+                  <label className="flex-1 flex items-center gap-2.5 rounded-lg border border-gray-300 px-4 py-2.5 text-sm sm:text-base text-gray-600 cursor-pointer has-[:checked]:border-blue-600 has-[:checked]:bg-blue-50 has-[:checked]:text-blue-600 transition-colors">
+                    <input
+                      onChange={handleChange}
+                      checked={newListing.listing.experience === "intermediate"}
+                      type="radio"
+                      name="experience"
+                      value="intermediate"
+                      className="w-4 h-4 text-blue-600 focus:ring-blue-500"
+                    />
+                    Intermediate
+                  </label>
+                  <label className="flex-1 flex items-center gap-2.5 rounded-lg border border-gray-300 px-4 py-2.5 text-sm sm:text-base text-gray-600 cursor-pointer has-[:checked]:border-blue-600 has-[:checked]:bg-blue-50 has-[:checked]:text-blue-600 transition-colors">
+                    <input
+                      onChange={handleChange}
+                      checked={newListing.listing.experience === "expert"}
+                      type="radio"
+                      name="experience"
+                      value="expert"
+                      className="w-4 h-4 text-blue-600 focus:ring-blue-500"
+                    />
+                    Expert
+                  </label>
                 </div>
               </div>
             </div>
+          </div>
 
-            {/* Footer actions */}
-            <div className="flex items-center justify-between mt-6 gap-3">
-              <button type="button" className="blue-ouline-btn">
-                ← Back
-              </button>
-              <button type="submit" className="blue-btn" onClick={handleNext}>
-                Continue →
-              </button>
+          {/* Hourly Rate */}
+          <div>
+            <label className="block text-sm font-semibold text-gray-800 mb-2">
+              Hourly Rate
+            </label>
+            <div className="flex rounded-lg border border-gray-300 overflow-hidden focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500">
+              <span className="flex items-center px-3 sm:px-4 bg-gray-50 text-gray-500 border-r border-gray-300 text-sm sm:text-base">
+                $
+              </span>
+              <input
+                value={newListing.listing.price}
+                name="price"
+                onChange={handleChange}
+                type="number"
+                defaultValue="25"
+                className="flex-1 px-3 sm:px-4 py-2.5 text-sm sm:text-base text-gray-700 focus:outline-none min-w-0"
+                required
+              />
+              <span className="flex items-center px-3 sm:px-4 bg-gray-50 text-gray-500 border-l border-gray-300 text-sm sm:text-base">
+                /hr
+              </span>
             </div>
           </div>
+
+          {/* Footer actions */}
+          <div className="flex items-center justify-between mt-6 gap-3">
+            <button type="button" className="blue-ouline-btn">
+              ← Back
+            </button>
+            <button type="submit" className="blue-btn" onClick={handleNext}>
+              Continue →
+            </button>
+          </div>
         </div>
-      </form>
+      </div>
     </div>
   );
 }

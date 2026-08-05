@@ -1,5 +1,6 @@
 import React from "react";
 import "./Listing.css";
+import "./DetailCard.css";
 import Location from "../../assets/location.svg?react";
 import HeartEmpty from "../../assets/heart.svg?react";
 import { Link } from "react-router-dom";
@@ -7,7 +8,7 @@ import { Link } from "react-router-dom";
 const DetailCard = ({ listing }) => {
   return (
     <div className="w-9/10  flex flex-col gap-4 flex-wrap mx-auto mt-6 ">
-      <div className="  flex flex-row gap-4 flex-wrap card w-full">
+      <div className="flex flex-row gap-4 flex-wrap card w-full">
         <img
           src={listing.avatar.url}
           className="avatar h-40 w-40 rounded-full"
@@ -29,8 +30,8 @@ const DetailCard = ({ listing }) => {
           <button className="blue-ouline-btn">Message</button>
         </div>
       </div>
-      <div className="lower flex flex-row gap-4">
-        <div className="about card ">
+      <div className="lower flex flex-row gap-4 flex-wrap justify-between">
+        <div className="about card w-236">
           <h2 className="text-2xl font-semibold">About</h2>
           <p className="mt-2 mb-4 font-medium text-gray-600 text-sm">
             {listing.about}
@@ -40,30 +41,23 @@ const DetailCard = ({ listing }) => {
             Total Reviews :{listing.reviews.length}
           </p>
         </div>
-        <div className="booking card">
+        <div className="booking card flex flex-col ">
           <h2 className="text-2xl font-semibold">Booking</h2>
           <p className="mt-4 mb-4 font-medium text-gray-600 text-sm">
             {listing.price} /Hour
           </p>
-          <form>
+          <form className="flex flex-col justify-between items-center gap-3">
             <input
               type="date"
-              className="form-input"
+              className="form-input border-2 border-gray-400 text-gray-500 "
               placeholder="Date"
               name="date"
             />
             <input
               type="time"
-              className="form-input"
+              className="form-input border-2 border-gray-400 text-gray-500"
               placeholder="Time"
               name="time"
-            />
-            <input
-              type="number"
-              className="form-input"
-              placeholder="Duration"
-              name="duration"
-              className="form-input"
             />
             <button className="blue-btn">Book Now</button>
           </form>

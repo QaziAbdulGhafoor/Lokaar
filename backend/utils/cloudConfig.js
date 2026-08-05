@@ -10,7 +10,7 @@ const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     folder: "Lokaar_App",
-    allowedformats: ["png", "jpg", "jpeg"],
+    allowed_formats: ["png", "jpg", "jpeg"],
   },
 });
 

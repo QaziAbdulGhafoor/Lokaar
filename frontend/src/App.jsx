@@ -9,10 +9,39 @@ import ListingDetails from "./Components/Listings/ListingDetails";
 import NewListing from "./Components/Listings/NewListing";
 import { useContext } from "react";
 import { AuthContext } from "./Context/AuthContext";
+import HowItWorks from "./Components/Working/HowItWorks";
 
 const router = createBrowserRouter([
   {
     path: "/",
+    element: (
+      <>
+        <Navbar />
+        <Listings />
+      </>
+    ),
+  },
+  {
+    path: "/working",
+    element: (
+      <>
+        <Navbar />
+        <HowItWorks />
+      </>
+    ),
+  },
+
+  {
+    path: "/listings",
+    element: (
+      <>
+        <Navbar />
+        <Listings />
+      </>
+    ),
+  },
+  {
+    path: "/login",
     element: (
       <>
         <Navbar />

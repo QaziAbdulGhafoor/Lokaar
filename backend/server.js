@@ -11,14 +11,17 @@ const listingRoutes = require("./routes/listing");
 const reviewRoutes = require("./routes/review");
 const bookingRoutes = require("./routes/booking");
 const dashboardRoutes = require("./routes/dashboards");
+const MongoStore = require("connect-mongo").default;
 const http = require("http");
 const cors = require("cors");
 const { Server } = require("socket.io");
+const path = require("path");
 
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "/public")));
 
 const DB_URL = process.env.ATLAS_URI;
 
@@ -26,19 +29,37 @@ async function main() {
   await mongoose.connect(DB_URL);
 }
 
-main().then(() => {
-  console.log("cloud db connected successfully");
+main()
+  .then(() => {
+    console.log("db connected successfully");
+  })
+  .catch((err) => {
+    console.log("error in connecting db", err);
+  });
+
+const store = MongoStore.create({
+  mongoUrl: DB_URL,
+  crypto: {
+    secret: "keyboard cat",
+  },
+  touchAfter: 24 * 60 * 60,
 });
 
 const sessionMiddleware = session({
+  store,
   secret: "keyboard cat",
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: true,
+    secure: false,
+  },
 });
 
 app.use(
   cors({
     origin: "http://localhost:5173",
+    credentials: true,
   }),
 );
 

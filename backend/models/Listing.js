@@ -42,24 +42,11 @@ const listingSchema = new mongoose.Schema({
     required: true,
     default: "pending",
   },
-  availability: [
-    {
-      day: {
-        type: String,
-        enum: [
-          "Sunday",
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday",
-          "Saturday",
-        ],
-        required: true,
-      },
-      slots: [String],
-    },
-  ],
+  availability: {
+    days: [{ type: Number, min: 0, max: 6 }], // e.g. [1,2,3,4,5] = Mon-Fri
+    startTime: String, // "09:00"
+    endTime: String, // "17:00"
+  },
   services: {
     type: [String],
   },
@@ -70,6 +57,18 @@ const listingSchema = new mongoose.Schema({
   },
   location: {
     type: String,
+    required: true,
+  },
+  experience: {
+    type: String,
+    enum: ["beginner", "intermediate", "expert"],
+    required: true,
+    default: "beginner",
+  },
+  responseTime: {
+    type: String,
+    min: 1,
+    max: 3,
     required: true,
   },
   // geometry: {

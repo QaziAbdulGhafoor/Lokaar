@@ -8,7 +8,7 @@ import api from "../../API/api";
 import { AuthContext } from "../../Context/AuthContext";
 
 const Login = () => {
-  const currUser = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
   const [formData, setFormdata] = useState({ username: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
@@ -28,8 +28,8 @@ const Login = () => {
     const LogMeIn = async (data) => {
       try {
         const response = await api.post("/login", data);
+        setUser(response.data.user);
         navigate("/listings");
-        currUser.setUser(response.data.user);
       } catch (err) {
         console.log(err);
       }
