@@ -77,22 +77,26 @@ export default function SecondStep({ setStep }) {
     setAvailability((prev) => ({ ...prev, [field]: value }));
   };
 
-  const newListing = useContext(ListingContext);
-  console.log(newListing.listing);
+  const { listing, setListing } = useContext(ListingContext);
+  console.log(listing);
 
   // sync local availability state into context's listing whenever it changes
   useEffect(() => {
-    newListing.setListing((prev) => ({ ...prev, availability }));
+    setListing((prev) => ({ ...prev, availability }));
   }, [availability]);
 
   const handleChange = (e) => {
-    newListing.setListing((prev) => {
+    setListing((prev) => {
       return { ...prev, [e.target.name]: e.target.value };
     });
   };
 
   const handlePrev = () => {
     setStep(1);
+  };
+
+  const handleNext = () => {
+    setStep(3);
   };
   const steps = [
     { number: 1, label: "Service Details" },
@@ -217,16 +221,13 @@ export default function SecondStep({ setStep }) {
                     onChange={handleChange}
                     className="w-full appearance-none rounded-lg border border-gray-300 px-4 py-2.5 pr-10 text-sm sm:text-base text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   >
-                    <option value={1} selected={newListing.responseTime === 1}>
+                    <option value={1} selected={listing.responseTime === 1}>
                       Within 1 hour
                     </option>
-                    <option value={3} selected={newListing.responseTime === 3}>
+                    <option value={3} selected={listing.responseTime === 3}>
                       Within 3 hours
                     </option>
-                    <option
-                      value={24}
-                      selected={newListing.responseTime === 24}
-                    >
+                    <option value={24} selected={listing.responseTime === 24}>
                       Within 24 hours
                     </option>
                   </select>
@@ -264,7 +265,7 @@ export default function SecondStep({ setStep }) {
             >
               ← Back
             </button>
-            <button type="submit" className="blue-btn">
+            <button type="submit" className="blue-btn" onClick={handleNext}>
               Continue →
             </button>
           </div>

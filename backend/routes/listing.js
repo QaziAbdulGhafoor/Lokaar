@@ -2,12 +2,17 @@ const express = require("express");
 const router = express.Router();
 const middlewares = require("../middleware/middleware");
 const listingController = require("../controllers/listing");
+const upload = require("../utils/multerConfig");
 
 router
   .route("/")
   .get(listingController.getAll)
 
-  .post(middlewares.isLoggedIn, listingController.postNew);
+  .post(
+    middlewares.isLoggedIn,
+    upload.single("avatar"),
+    listingController.postNew,
+  );
 
 router.get("/new", middlewares.isLoggedIn, listingController.getNew);
 

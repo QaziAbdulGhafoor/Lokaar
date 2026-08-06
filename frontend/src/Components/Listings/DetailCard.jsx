@@ -8,6 +8,7 @@ import { AuthContext } from "../../Context/AuthContext";
 
 const DetailCard = ({ listing }) => {
   const { user, setUser } = useContext(AuthContext);
+  console.log(listing);
   return (
     <>
       {" "}
@@ -77,6 +78,15 @@ const DetailCard = ({ listing }) => {
                   <p className="mt-2  font-medium text-gray-600 text-sm">
                     Total Reviews :{listing.reviews.length}
                   </p>
+                  {/* {listing.reviews.map((rev) => {
+                    return (
+                      <div>
+                        <h2>{rev.creator}</h2>
+                        <p>{rev.review}</p>
+                        <p>Ratings:{rev.rating}</p>
+                      </div>
+                    );
+                  })} */}
                 </div>
               ) : null}
             </div>

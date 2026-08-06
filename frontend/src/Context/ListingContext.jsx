@@ -7,8 +7,8 @@ export const ListingProvider = ({ children }) => {
   const [listing, setListing] = useState({
     title: "",
     about: "",
-    category: "",
-    avatar: {},
+    profession: "",
+    responseTime: null,
     location: null,
     price: "",
     availability: {

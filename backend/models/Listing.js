@@ -65,12 +65,13 @@ const listingSchema = new mongoose.Schema({
     required: true,
     default: "beginner",
   },
-  responseTime: {
-    type: String,
-    min: 1,
-    max: 3,
-    required: true,
-  },
+
+  // responseTime: {
+  //   type: String,
+  //   min: 1,
+  //   max: 24,
+  //   required: true,
+  // },
   // geometry: {
   //   type: {
   //     type: String,

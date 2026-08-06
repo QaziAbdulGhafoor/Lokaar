@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { ListingContext } from "../../Context/ListingContext";
 
 const ChevronDown = ({ className }) => (
@@ -31,21 +31,34 @@ const X = ({ className }) => (
 );
 
 export default function FirstStep({ setStep }) {
-  const newListing = useContext(ListingContext);
-  console.log(newListing.listing);
+  const { listing, setListing } = useContext(ListingContext);
+
+  const [avatar, setAvatar] = useState({
+    filename: "",
+    url: "",
+  });
+
+  const handleAv = (e) => {
+    setAvatar(event.target.files[0]);
+  };
+
+  console.log(listing);
 
   const handleNext = () => {
+    setListing((prev) => {
+      return { ...prev, avatar: avatar };
+    });
     setStep(2);
   };
 
   const handleChange = (e) => {
-    newListing.setListing((prev) => {
+    setListing((prev) => {
       return { ...prev, [e.target.name]: e.target.value };
     });
   };
 
   const handleSubmit = () => {
-    console.log(newListing.listing);
+    console.log(listing);
   };
 
   const steps = [
@@ -108,7 +121,7 @@ export default function FirstStep({ setStep }) {
                   Service Title
                 </label>
                 <input
-                  value={newListing.listing.title}
+                  value={listing.title}
                   name="title"
                   onChange={handleChange}
                   type="text"
@@ -119,19 +132,18 @@ export default function FirstStep({ setStep }) {
               </div>
 
               {/* Service avatar */}
-              {/* <div>
+              <div>
                 <label className="block text-sm font-semibold text-gray-800 mb-2">
                   Profile Picture
                 </label>
                 <input
-                  value={newListing.listing.avatar}
                   name="title"
-                  onChange={handleChange}
+                  onChange={handleAv}
                   type="file"
                   className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm sm:text-base text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   required
                 />
-              </div> */}
+              </div>
 
               {/* Category */}
               <div>
@@ -140,49 +152,49 @@ export default function FirstStep({ setStep }) {
                 </label>
                 <div className="relative">
                   <select
-                    value={newListing.listing.category}
-                    name="category"
+                    value={listing.profession}
+                    name="profession"
                     onChange={handleChange}
                     className="w-full appearance-none rounded-lg border border-gray-300 px-4 py-2.5 pr-10 text-sm sm:text-base text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   >
                     <option
                       value="electrician"
-                      selected={(newListing.listing.category = "electrician")}
+                      selected={(listing.profession = "electrician")}
                     >
                       {" "}
                       Electrician
                     </option>
                     <option
                       value="plumber"
-                      selected={(newListing.listing.category = "plumber")}
+                      selected={(listing.profession = "plumber")}
                     >
                       {" "}
                       Plumber
                     </option>
                     <option
                       value="tutor"
-                      selected={(newListing.listing.category = "tutor")}
+                      selected={(listing.profession = "tutor")}
                     >
                       {" "}
                       Tutor
                     </option>
                     <option
                       value="carpenter"
-                      selected={(newListing.listing.category = "carpenter")}
+                      selected={(listing.profession = "carpenter")}
                     >
                       {" "}
                       Carpenter
                     </option>
                     <option
                       value="cleaner"
-                      selected={(newListing.listing.category = "cleaner")}
+                      selected={(listing.profession = "cleaner")}
                     >
                       {" "}
                       Cleaner
                     </option>
                     <option
                       value="painter"
-                      selected={(newListing.listing.category = "painter")}
+                      selected={(listing.profession = "painter")}
                     >
                       {" "}
                       painter
@@ -198,7 +210,7 @@ export default function FirstStep({ setStep }) {
                   Description
                 </label>
                 <textarea
-                  value={newListing.listing.about}
+                  value={listing.about}
                   name="about"
                   onChange={handleChange}
                   rows={4}
@@ -223,14 +235,14 @@ export default function FirstStep({ setStep }) {
                       value="beginner"
                       className="w-4 h-4 text-blue-600 focus:ring-blue-500"
                       onChange={handleChange}
-                      checked={newListing.listing.experience === "beginner"}
+                      checked={listing.experience === "beginner"}
                     />
                     Beginner
                   </label>
                   <label className="flex-1 flex items-center gap-2.5 rounded-lg border border-gray-300 px-4 py-2.5 text-sm sm:text-base text-gray-600 cursor-pointer has-[:checked]:border-blue-600 has-[:checked]:bg-blue-50 has-[:checked]:text-blue-600 transition-colors">
                     <input
                       onChange={handleChange}
-                      checked={newListing.listing.experience === "intermediate"}
+                      checked={listing.experience === "intermediate"}
                       type="radio"
                       name="experience"
                       value="intermediate"
@@ -241,7 +253,7 @@ export default function FirstStep({ setStep }) {
                   <label className="flex-1 flex items-center gap-2.5 rounded-lg border border-gray-300 px-4 py-2.5 text-sm sm:text-base text-gray-600 cursor-pointer has-[:checked]:border-blue-600 has-[:checked]:bg-blue-50 has-[:checked]:text-blue-600 transition-colors">
                     <input
                       onChange={handleChange}
-                      checked={newListing.listing.experience === "expert"}
+                      checked={listing.experience === "expert"}
                       type="radio"
                       name="experience"
                       value="expert"
@@ -262,7 +274,7 @@ export default function FirstStep({ setStep }) {
                   $
                 </span>
                 <input
-                  value={newListing.listing.price}
+                  value={listing.price}
                   name="price"
                   onChange={handleChange}
                   type="number"
