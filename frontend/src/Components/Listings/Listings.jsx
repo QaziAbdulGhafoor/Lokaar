@@ -16,9 +16,9 @@ const Listings = () => {
   }, []);
 
   return (
-    <div className="container flex flex-row ">
+    <div className="container flex flex-row">
       <ListingFilterBar />
-      <div className="listings h-[calc(100vh-64px)] overflow-y-scroll flex flex-wrap gap-10 ml-10 mt-8">
+      <div className="listings h-[calc(100vh-64px)] overflow-y-scroll flex flex-wrap gap-10 pt-8 pl-8">
         {listings.map((listing) => (
           <ListingCard listing={listing} key={listing._id} />
         ))}

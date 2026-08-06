@@ -31,7 +31,8 @@ module.exports.getAll = async (req, res) => {
     query = { price: { $gte: Minprice, $lte: Maxprice } };
   }
 
-  const listings = await Listing.find(query).populate("reviews");
+  const listings = await Listing.find(query);
+
   res.json({ listings });
 };
 
@@ -81,7 +82,12 @@ module.exports.postNew = async (req, res) => {
 //serves the detailed view of a listing
 module.exports.detailedListing = async (req, res) => {
   let { id } = req.params;
-  let listing = await Listing.findOne({ _id: id }).populate("reviews");
+  let listing = await Listing.findOne({ _id: id })
+    .populate("owner")
+    .populate({
+      path: "reviews",
+      populate: { path: "creator" },
+    });
   if (!listing) {
     res.json({ message: "listing not available" });
   }
