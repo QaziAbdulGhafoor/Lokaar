@@ -39,7 +39,6 @@ const listingSchema = new mongoose.Schema({
   status: {
     type: String,
     enum: ["pending", "verified"],
-    required: true,
     default: "pending",
   },
   availability: {

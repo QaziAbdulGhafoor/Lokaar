@@ -1,6 +1,7 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ListingContext } from "../../Context/ListingContext";
 import { AuthContext } from "../../Context/AuthContext";
+import Loader from "./Loader";
 import api from "../../API/api";
 
 const dayLabels = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -8,14 +9,30 @@ const dayLabels = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 export default function ThirdStep({ setStep }) {
   const { listing } = useContext(ListingContext);
   const { user } = useContext(AuthContext);
+  const [isPublishing, setIsPublishing] = useState(true);
 
   const handlePrev = () => setStep(2);
 
   const handlePublish = async (params) => {
-    const newListing = listing;
-    newListing.owner = user.id;
-    const response = await api.post("/listings", newListing);
-    console.log(response);
+    try {
+      const data = new FormData();
+      data.append("title", listing.title);
+      data.append("about", listing.about);
+      data.append("profession", listing.profession);
+      data.append("price", listing.price);
+      data.append("status", listing.status);
+      data.append("availability", listing.availability);
+      data.append("location", listing.location);
+      data.append("avatar", listing.avatar);
+
+      const response = await api.post("/listings", data);
+
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setIsPublishing(false);
+    }
   };
 
   // const handlePublish = async () => {
@@ -63,6 +80,7 @@ export default function ThirdStep({ setStep }) {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
+      {isPublishing && <Loader message="Publishing your listing..." />}
       {/* Step indicator */}
       <div className="px-4 sm:px-6 py-6 sm:py-8 border-b border-gray-200 bg-white">
         <div className="max-w-3xl mx-auto flex items-center justify-between sm:justify-center sm:gap-0">

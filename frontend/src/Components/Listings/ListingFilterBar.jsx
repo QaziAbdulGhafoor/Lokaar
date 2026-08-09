@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import RangeSlider from "./RangeSlider";
 import NativeSelectDemo from "./DistanceOptions";
 import api from "../../API/api";
-
+import { FilterContext } from "../../Context/FilterContext";
 const ListingFilterBar = () => {
+  const { filters, setFilters } = useContext(FilterContext);
   const [filter, setFilter] = React.useState({
-    category: "electrician",
-    //distance: null,
-    min: 0,
-    max: 0,
+    min: 200,
+    max: 10000,
+    category: "",
   });
 
   const handleFilterChange = (e) => {
@@ -16,9 +16,27 @@ const ListingFilterBar = () => {
     setFilter((prevFilter) => ({ ...prevFilter, [name]: value }));
   };
 
-  const handleFilterSub = (e) => {
+  const handleFilterSub = async (e) => {
     e.preventDefault();
-    api.get(`/listings`);
+    setFilters((prev) => {
+      return {
+        ...prev,
+        min: filter.min,
+        max: filter.max,
+        category: filter.category,
+      };
+    });
+    console.log("file filters are", filter);
+    console.log("context filters are", filters);
+    // await api
+    //   .get(`/listings`, {
+    //     params: {
+    //       min: filter.min,
+    //       max: filter.max,
+    //       category: filter.category,
+    //     },
+    //   })
+    //   .then((res) => console.log(res));
   };
 
   return (
@@ -110,7 +128,7 @@ const ListingFilterBar = () => {
         </div>
         <div className="price category flex flex-col gap-2  ml-4 ">
           <h2 className="text-xl font-medium">Price Range</h2>
-          <RangeSlider value={[200, 1000]} />
+          <RangeSlider value={[filter.min, filter.max]} setValue={setFilter} />
         </div>
         {/* <div className="location ml-4 ">
           <h2 className="text-xl font-medium">Distance</h2>

@@ -5,12 +5,18 @@ import App from "./App.jsx";
 import "./index.css";
 import { AuthProvider } from "./Context/AuthContext.jsx";
 import { ListingProvider } from "./Context/ListingContext.jsx";
+import { FilterProvider } from "./Context/FilterContext.jsx";
+//import { FetchingProvider } from "./Context/FetchingContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   //<StrictMode>
   <AuthProvider>
     <ListingProvider>
-      <App />
+      {/* <FetchingProvider> */}
+      <FilterProvider>
+        <App />
+      </FilterProvider>
+      {/* </FetchingProvider> */}
     </ListingProvider>
   </AuthProvider>,
   //</StrictMode>,

@@ -11,6 +11,7 @@ import NewListing from "./Components/Listings/NewListing";
 import { useContext } from "react";
 import { AuthContext } from "./Context/AuthContext";
 import HowItWorks from "./Components/Working/HowItWorks";
+import Loader from "./Components/Listings/Loader";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,16 @@ const router = createBrowserRouter([
       </>
     ),
   },
+  {
+    path: "/load",
+    element: (
+      <>
+        <Navbar />
+        <Loader message="Creating Your Listing" />
+      </>
+    ),
+  },
+
   {
     path: "/working",
     element: (

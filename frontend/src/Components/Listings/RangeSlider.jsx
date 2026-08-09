@@ -6,19 +6,18 @@ function valuetext(value) {
   return `${value}`;
 }
 
-export default function RangeSlider() {
-  const [value, setValue] = React.useState([200, 1000]);
-
+export default function RangeSlider({ value, setValue }) {
   const handleChange = (event, newValue) => {
-    setValue(newValue);
-    console.log(newValue);
+    setValue((prev) => ({
+      ...prev,
+      min: newValue[0],
+      max: newValue[1],
+    }));
   };
 
   return (
-    <Box sx={{ width: 200 }} className=" ml-3">
-      <p>
-        Rs {valuetext(value[0])}-{valuetext(value[1])}
-      </p>
+    <Box sx={{ width: 200 }} className="ml-3">
+      Rs {value[0]}-{value[1]}
       <Slider
         getAriaLabel={() => "price range"}
         value={value}

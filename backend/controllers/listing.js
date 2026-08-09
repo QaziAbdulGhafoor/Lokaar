@@ -7,31 +7,38 @@ const User = require("../models/User");
 
 module.exports.getAll = async (req, res) => {
   let query = {};
+
   if (req.query.lat && req.query.lon) {
-    let lon = Number(req.query.lon);
-    let lat = Number(req.query.lat);
-    query = {
-      geometry: {
-        $near: {
-          $geometry: { type: "Point", coordinates: [lon, lat] },
-          $maxDistance: 10000,
+    const lon = Number(req.query.lon);
+    const lat = Number(req.query.lat);
+
+    query.geometry = {
+      $near: {
+        $geometry: {
+          type: "Point",
+          coordinates: [lon, lat],
         },
+        $maxDistance: 10000,
       },
     };
   }
 
-  if (req.query.category) {
-    let category = req.query.category;
-    query = { profession: req.query.category };
+  if (req.query.min && req.query.max) {
+    const minPrice = Number(req.query.min);
+    const maxPrice = Number(req.query.max);
+
+    query.price = {
+      $gte: minPrice,
+      $lte: maxPrice,
+    };
   }
 
-  if (req.query.min && req.query.max) {
-    let Minprice = Number(req.query.min);
-    let Maxprice = Number(req.query.max);
-    query = { price: { $gte: Minprice, $lte: Maxprice } };
+  if (req.query.category) {
+    query.profession = req.query.category;
   }
 
   const listings = await Listing.find(query);
+  console.log(req.query);
 
   res.json({ listings });
 };
@@ -43,27 +50,14 @@ module.exports.getNew = (req, res) => {
 
 //submits new form data and creates a listing
 module.exports.postNew = async (req, res) => {
-  let {
-    title,
-    about,
-    avatar,
-    profession,
-    price,
-    status,
-    availability,
-    services,
-    location,
-  } = req.body;
+  let { title, about, profession, price, availability, location } = req.body;
 
   let newListing = new Listing({
     title,
     about,
-    avatar,
     profession,
     price,
-    status,
     availability,
-    services,
     location,
   });
 
@@ -72,6 +66,13 @@ module.exports.postNew = async (req, res) => {
   //   type: "Point",
   //   coordinates: coordinates,
   // };
+
+  if (req.file) {
+    newListing.avatar = {
+      filename: req.file.filename,
+      url: req.file.path,
+    };
+  }
 
   newListing.owner = req.user._id;
   await newListing.save().then((listing) => {

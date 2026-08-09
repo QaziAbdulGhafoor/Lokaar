@@ -39,7 +39,7 @@ export default function FirstStep({ setStep }) {
   });
 
   const handleAv = (e) => {
-    setAvatar(event.target.files[0]);
+    setAvatar(e.target.files[0]);
   };
 
   console.log(listing);
@@ -137,7 +137,7 @@ export default function FirstStep({ setStep }) {
                   Profile Picture
                 </label>
                 <input
-                  name="title"
+                  name="avatar"
                   onChange={handleAv}
                   type="file"
                   className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm sm:text-base text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
@@ -159,42 +159,42 @@ export default function FirstStep({ setStep }) {
                   >
                     <option
                       value="electrician"
-                      selected={(listing.profession = "electrician")}
+                      selected={listing.profession === "electrician"}
                     >
                       {" "}
                       Electrician
                     </option>
                     <option
                       value="plumber"
-                      selected={(listing.profession = "plumber")}
+                      selected={listing.profession === "plumber"}
                     >
                       {" "}
                       Plumber
                     </option>
                     <option
                       value="tutor"
-                      selected={(listing.profession = "tutor")}
+                      selected={listing.profession === "tutor"}
                     >
                       {" "}
                       Tutor
                     </option>
                     <option
                       value="carpenter"
-                      selected={(listing.profession = "carpenter")}
+                      selected={listing.profession === "carpenter"}
                     >
                       {" "}
                       Carpenter
                     </option>
                     <option
                       value="cleaner"
-                      selected={(listing.profession = "cleaner")}
+                      selected={listing.profession === "cleaner"}
                     >
                       {" "}
                       Cleaner
                     </option>
                     <option
                       value="painter"
-                      selected={(listing.profession = "painter")}
+                      selected={listing.profession === "painter"}
                     >
                       {" "}
                       painter
