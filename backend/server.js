@@ -16,6 +16,7 @@ const http = require("http");
 const cors = require("cors");
 const { Server } = require("socket.io");
 const path = require("path");
+const sampleListings = require("./sample");
 
 const app = express();
 
@@ -27,6 +28,7 @@ const DB_URL = process.env.ATLAS_URI;
 
 async function main() {
   await mongoose.connect(DB_URL);
+  await Listing.insertMany(sampleListings);
 }
 
 main()

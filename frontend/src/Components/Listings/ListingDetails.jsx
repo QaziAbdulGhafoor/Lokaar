@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import api from "../../API/api";
 import ListingCard from "./ListingCard";
 import DetailCard from "./DetailCard";
+import Loader from "./Loader";
 
 const ListingDetails = () => {
   const { id } = useParams();
@@ -17,7 +18,15 @@ const ListingDetails = () => {
     getListing();
   }, [id]);
   console.log(listing);
-  return <div>{listing ? <DetailCard listing={listing} /> : "Loading"}</div>;
+  return (
+    <div>
+      {listing ? (
+        <DetailCard listing={listing} />
+      ) : (
+        <Loader message="Preparing Actions"></Loader>
+      )}
+    </div>
+  );
 };
 
 export default ListingDetails;

@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import "./Login.css";
 import axios from "axios";
+import { AuthContext } from "../../Context/AuthContext";
 const Signup = () => {
   const navigate = useNavigate();
+  const { user, setUser } = useContext(AuthContext);
 
   const [formData, setFormdata] = useState({
     username: "",
@@ -31,6 +33,8 @@ const Signup = () => {
     const register = async (data) => {
       try {
         const response = await axios.post("http://localhost:3000/signup", data);
+        setUser(response.data.user);
+        navigate("/listings");
       } catch (err) {
         console.log(err);
       }
