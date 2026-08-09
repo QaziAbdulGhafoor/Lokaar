@@ -1,19 +1,17 @@
 import ListingCard from "./ListingCard";
 import api from "../../API/api";
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import ListingFilterBar from "./ListingFilterBar";
+import { FetchingContext } from "../../Context/FetchingContext";
 
 const Listings = () => {
   const [listings, setListings] = useState([]);
+  const { Flistings, isFetching } = useContext(FetchingContext);
 
   useEffect(() => {
-    async function getListings() {
-      const response = await api.get("/listings");
-      setListings(response.data.listings ?? []);
-    }
-    getListings();
-  }, []);
+    setListings(Flistings);
+  }, [Flistings]);
 
   return (
     <div className="container flex flex-row">

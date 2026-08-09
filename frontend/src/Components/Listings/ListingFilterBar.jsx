@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import RangeSlider from "./RangeSlider";
 import NativeSelectDemo from "./DistanceOptions";
 import api from "../../API/api";
@@ -18,16 +18,21 @@ const ListingFilterBar = () => {
 
   const handleFilterSub = async (e) => {
     e.preventDefault();
-    setFilters((prev) => {
-      return {
-        ...prev,
-        min: filter.min,
-        max: filter.max,
-        category: filter.category,
-      };
-    });
-    console.log("file filters are", filter);
-    console.log("context filters are", filters);
+
+    // setFilters(() => {
+    //   return {
+    //     min: filter.min,
+    //     max: filter.max,
+    //     category: filter.category,
+    //   };
+    // });
+    const newFilters = {
+      min: filter.min,
+      max: filter.max,
+      category: filter.category,
+    };
+    setFilters(newFilters);
+
     // await api
     //   .get(`/listings`, {
     //     params: {
