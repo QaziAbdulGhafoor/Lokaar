@@ -34,11 +34,13 @@ module.exports.postSignup = async (req, res) => {
       res.json({ error: "some error" });
     }
     res.json({
-      id: savedUser._id,
-      username: savedUser.username,
-      category: savedUser.category,
-      location: savedUser.location,
-      avatar: savedUser.avatar,
+      user: {
+        id: savedUser._id,
+        username: savedUser.username,
+        category: savedUser.category,
+        location: savedUser.location,
+        avatar: savedUser.avatar,
+      },
     });
   });
 };
