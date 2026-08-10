@@ -11,17 +11,17 @@ module.exports.getBookForm = async (req, res) => {
 module.exports.postBookForm = async (req, res) => {
   let { id } = req.params;
   let listingToOrder = await Listing.findById(id);
-  let { date, slot } = req.body;
+  let { date, time } = req.body;
   const newBooking = new Booking({
     date: date,
-    slot: slot,
+    time: time,
     customer: req.user._id,
     provider: listingToOrder.owner,
     listing: id,
     price: listingToOrder.price,
   });
   await newBooking.save();
-  res.json({ message: "order confirmed", newBooking });
+  res.json({ Booking: newBooking });
 };
 
 module.exports.getEdit = async (req, res) => {

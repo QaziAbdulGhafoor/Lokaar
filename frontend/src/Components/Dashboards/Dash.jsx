@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import api from "../../API/api";
 
 const CheckCircle = ({ className }) => (
   <svg
@@ -80,9 +81,10 @@ export default function ProviderDashboard() {
   useEffect(() => {
     const fetchDashboard = async () => {
       try {
-        const res = await fetch("/api/provider/dashboard", {
+        const res = await api.get("/dashboard", {
           credentials: "include",
         });
+        console.log(res);
         const data = await res.json();
         setDashboardData({
           pending: data.Pending || [],

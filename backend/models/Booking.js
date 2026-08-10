@@ -20,7 +20,7 @@ const bookingSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  slot: {
+  time: {
     type: String,
     required: true,
   },
@@ -28,7 +28,7 @@ const bookingSchema = new mongoose.Schema({
     type: String,
     enum: ["pending", "completed", "cancelled"],
     default: "pending",
-    required: true,
+    //required: true,
   },
   price: {
     type: Number,

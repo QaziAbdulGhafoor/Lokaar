@@ -21,7 +21,7 @@ const ListingDetails = () => {
   return (
     <div>
       {listing ? (
-        <DetailCard listing={listing} />
+        <DetailCard listing={listing} id={id} />
       ) : (
         <Loader message="Preparing Actions"></Loader>
       )}

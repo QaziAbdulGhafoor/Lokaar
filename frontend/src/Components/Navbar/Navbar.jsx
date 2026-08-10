@@ -4,15 +4,21 @@ import "./Navbar.css";
 import "../../App.css";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthContext";
+import { FilterContext } from "../../Context/FilterContext";
 import api from "../../API/api";
 
 const Navbar = () => {
   const { user, loading } = useContext(AuthContext);
+  const { setFilters } = useContext(FilterContext);
   const navigate = useNavigate();
 
   const handleLogout = () => {
     api.post("/logout");
     window.location.reload();
+  };
+
+  const removeFilters = () => {
+    setFilters(null);
   };
 
   return (
@@ -28,7 +34,9 @@ const Navbar = () => {
           </div>
           <div className="services">
             <li>
-              <Link to="/listings">Services</Link>
+              <Link to="/listings" onClick={removeFilters}>
+                Services
+              </Link>
             </li>
             <li>
               <Link to="/working">How It Works</Link>
