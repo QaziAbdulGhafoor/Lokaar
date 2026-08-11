@@ -85,10 +85,10 @@ export default function ProviderDashboard() {
           credentials: "include",
         });
         console.log(res);
-        const data = await res.json();
+        const data = res.data;
         setDashboardData({
           pending: data.Pending || [],
-          completed: data.Completd || [], // matches backend's current typo
+          completed: data.Completed || [], // matches backend's current typo
           cancelled: data.Cancelled || [],
           earnings: data.earnings || 0,
         });
@@ -227,7 +227,7 @@ export default function ProviderDashboard() {
                   >
                     <div>
                       <p className="text-sm font-semibold text-gray-900">
-                        {booking.customerName || "Customer"}
+                        {booking.customer.username || "Customer"}
                       </p>
                       <p className="text-sm text-gray-500 mt-0.5">
                         {booking.service || "Service"} · {booking.date}{" "}

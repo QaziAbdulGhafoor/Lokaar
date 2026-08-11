@@ -48,9 +48,14 @@ const Navbar = () => {
 
           {user ? (
             <div className="registers">
-              <li>
-                <Link to="/dashboard">Dashboard</Link>
-              </li>
+              {user.category === "provider" ? (
+                <li>
+                  <Link to="/dashboard">Dashboard</Link>
+                </li>
+              ) : (
+                <></>
+              )}
+
               <li>
                 <button className="blue-btn" onClick={handleLogout}>
                   Log Out

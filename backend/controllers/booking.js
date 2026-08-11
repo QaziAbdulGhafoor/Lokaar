@@ -1,6 +1,7 @@
 const Listing = require("../models/Listing");
 const getCoord = require("../utils/geoCoord");
 const Booking = require("../models/Booking");
+const { findByIdAndUpdate } = require("../models/Review");
 
 module.exports.getBookForm = async (req, res) => {
   let { id } = req.params;
@@ -34,11 +35,8 @@ module.exports.postEdit = async (req, res) => {
   let { bookingId } = req.params;
   let booking = await Booking.findById(bookingId);
   let { date, slot, status } = req.body;
-  booking.date = date;
-  booking.slot = slot;
-  booking.status = status;
-  await booking.save();
-  res.json({ message: "booking updated", booking });
+  await Booking.findByIdAndUpdate(bookingId, { date, slot, status });
+  res.json({ message: "done" });
 };
 
 module.exports.deleteBooking = async (req, res) => {

@@ -7,35 +7,35 @@ const Booking = require("../models/Booking");
 router.get("/", middlewares.isLoggedIn, async (req, res) => {
   let userId = req.user._id;
   let user = await User.findById(userId);
-  if (user.category === "customer") {
-    let myCompletedBookings = await Booking.find({
-      customer: userId,
-      status: "completed",
-    });
+  // if (user.category === "customer") {
+  //   let myCompletedBookings = await Booking.find({
+  //     customer: userId,
+  //     status: "completed",
+  //   });
 
-    let myPendingBookings = await Booking.find({
-      customer: userId,
-      status: "pending",
-    });
+  //   let myPendingBookings = await Booking.find({
+  //     customer: userId,
+  //     status: "pending",
+  //   });
 
-    return res.json({
-      Completd: myCompletedBookings,
-      Pending: myPendingBookings,
-    });
-  }
+  //   return res.json({
+  //     Completd: myCompletedBookings,
+  //     Pending: myPendingBookings,
+  //   });
+  // }
   let myCompletedBookings = await Booking.find({
     provider: userId,
     status: "completed",
-  });
+  }).populate("customer");
   let myCancelledBookings = await Booking.find({
     provider: userId,
     status: "cancelled",
-  });
+  }).populate("customer");
 
   let myPendingBookings = await Booking.find({
     provider: userId,
     status: "pending",
-  });
+  }).populate("customer");
 
   let earnings = myCompletedBookings
     .map((element) => element.price)
@@ -43,7 +43,7 @@ router.get("/", middlewares.isLoggedIn, async (req, res) => {
 
   res.json({
     earnings: earnings,
-    Completd: myCompletedBookings,
+    Completed: myCompletedBookings,
     Cancelled: myCancelledBookings,
     Pending: myPendingBookings,
   });
