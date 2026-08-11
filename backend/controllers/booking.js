@@ -11,41 +11,17 @@ module.exports.getBookForm = async (req, res) => {
 module.exports.postBookForm = async (req, res) => {
   let { id } = req.params;
   let listingToOrder = await Listing.findById(id);
-
   let { date, time } = req.body;
-
-  let day = new Date(date).getDay();
-
-  console.log(req.body);
-
-  const timeToMinutes = (time) => {
-    const [hour, minute] = time.split(":").map(Number);
-    return hour * 60 + minute;
-  };
-
-  const start = timeToMinutes(listingToOrder.availability.startTime);
-  const end = timeToMinutes(listingToOrder.availability.endTime);
-
-  if (
-    timeToMinutes(time) > start &&
-    timeToMinutes(time) < end &&
-    listingToOrder.availability.days.includes(day)
-  ) {
-    const newBooking = new Booking({
-      date: date,
-      time: time,
-      customer: req.user._id,
-      provider: listingToOrder.owner,
-      listing: id,
-      price: listingToOrder.price,
-    });
-    await newBooking.save();
-    res.json({ Booking: newBooking });
-  } else if (timeToMinutes(time) < start || timeToMinutes(time) > end) {
-    res.json({ message: "not available at this time slot" });
-  } else {
-    res.json({ message: "not available at this day" });
-  }
+  const newBooking = new Booking({
+    date: date,
+    time: time,
+    customer: req.user._id,
+    provider: listingToOrder.owner,
+    listing: id,
+    price: listingToOrder.price,
+  });
+  await newBooking.save();
+  res.json({ Booking: newBooking });
 };
 
 module.exports.getEdit = async (req, res) => {

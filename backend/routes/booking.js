@@ -5,7 +5,7 @@ const bookingController = require("../controllers/booking");
 
 router.get("/:id", middlewares.isLoggedIn, bookingController.getBookForm);
 
-router.post("/:id", bookingController.postBookForm);
+router.post("/:id", middlewares.isAvailable, bookingController.postBookForm);
 
 router.get("/:bookingId", bookingController.getEdit);
 

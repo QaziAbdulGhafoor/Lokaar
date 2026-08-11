@@ -145,6 +145,7 @@ const DetailCard = ({ listing, id }) => {
                 />
                 <input
                   type="time"
+                  step="1800"
                   className="form-input border-2 border-gray-400 text-gray-500"
                   placeholder="Time"
                   name="time"
