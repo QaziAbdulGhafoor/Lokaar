@@ -14,7 +14,7 @@ const DetailCard = ({ listing, id }) => {
     date: "",
     time: "",
   });
-  console.log(bookingData);
+  //console.log(bookingData);
   const navigate = useNavigate();
 
   //const isOwner = listing.owner.id === user.id;
@@ -35,16 +35,8 @@ const DetailCard = ({ listing, id }) => {
   };
   const handleBooking = async (e) => {
     e.preventDefault();
-    setBookingData((prev) => {
-      return {
-        ...prev,
-        customer: user.id,
-        provider: listing.owner._id,
-        listing: listing._id,
-        price: listing.price,
-      };
-    });
-    const res = await api.post(`/booking/${id}`, bookingData);
+    const newData = { date: bookingData.date, time: bookingData.time };
+    const res = await api.post(`/booking/${id}`, newData);
     console.log(res);
   };
   return (
@@ -166,7 +158,6 @@ const DetailCard = ({ listing, id }) => {
           )}
         </div>
       </div>
-      )
     </>
   );
 };
