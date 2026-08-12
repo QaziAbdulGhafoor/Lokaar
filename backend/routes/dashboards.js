@@ -37,6 +37,8 @@ router.get("/", middlewares.isLoggedIn, async (req, res) => {
     status: "pending",
   }).populate("customer");
 
+  let myAllBoookings = await Booking.find({ provider: userId });
+
   let earnings = myCompletedBookings
     .map((element) => element.price)
     .reduce((a, b) => a + b, 0);
@@ -44,6 +46,7 @@ router.get("/", middlewares.isLoggedIn, async (req, res) => {
   res.json({
     earnings: earnings,
     Completed: myCompletedBookings,
+    all: myAllBoookings,
     Cancelled: myCancelledBookings,
     Pending: myPendingBookings,
   });

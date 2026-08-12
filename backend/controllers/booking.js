@@ -34,8 +34,8 @@ module.exports.getEdit = async (req, res) => {
 module.exports.postEdit = async (req, res) => {
   let { bookingId } = req.params;
   let booking = await Booking.findById(bookingId);
-  let { date, slot, status } = req.body;
-  await Booking.findByIdAndUpdate(bookingId, { date, slot, status });
+  let { status } = req.body;
+  await Booking.findByIdAndUpdate(bookingId, { status: status });
   res.json({ message: "done" });
 };
 

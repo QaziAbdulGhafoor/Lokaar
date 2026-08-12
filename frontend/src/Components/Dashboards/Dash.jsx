@@ -84,8 +84,9 @@ export default function ProviderDashboard() {
         const res = await api.get("/dashboard", {
           credentials: "include",
         });
-        console.log(res);
+
         const data = res.data;
+        console.log(data);
         setDashboardData({
           pending: data.Pending || [],
           completed: data.Completed || [], // matches backend's current typo
