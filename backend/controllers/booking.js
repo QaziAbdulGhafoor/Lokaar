@@ -12,10 +12,12 @@ module.exports.getBookForm = async (req, res) => {
 module.exports.postBookForm = async (req, res) => {
   let { id } = req.params;
   let listingToOrder = await Listing.findById(id);
-  let { date, time } = req.body;
+  let { date, startTime, endTime } = req.body;
+  console.log(req.body);
   const newBooking = new Booking({
     date: date,
-    time: time,
+    startTime: startTime,
+    endTime: endTime,
     customer: req.user._id,
     provider: listingToOrder.owner,
     listing: id,

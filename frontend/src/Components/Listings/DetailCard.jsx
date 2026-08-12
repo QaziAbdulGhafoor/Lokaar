@@ -5,15 +5,19 @@ import Location from "../../assets/location.svg?react";
 import HeartEmpty from "../../assets/heart.svg?react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthContext";
+import { ListingContext } from "../../Context/ListingContext";
 import api from "../../API/api";
 import MessageCard from "../Other/MessageCard";
+import BookingCard from "./BookingCard";
 
 const DetailCard = ({ listing, id }) => {
   const { user, setUser } = useContext(AuthContext);
+  const { setListing } = useContext(ListingContext);
   const [bookingData, setBookingData] = useState({
     date: "",
     time: "",
   });
+  setListing(listing);
   //console.log(bookingData);
   const navigate = useNavigate();
 
@@ -25,20 +29,6 @@ const DetailCard = ({ listing, id }) => {
     console.log(res);
   };
 
-  const handleChange = (e) => {
-    setBookingData((prev) => {
-      return {
-        ...prev,
-        [e.target.name]: e.target.value,
-      };
-    });
-  };
-  const handleBooking = async (e) => {
-    e.preventDefault();
-    const newData = { date: bookingData.date, time: bookingData.time };
-    const res = await api.post(`/booking/${id}`, newData);
-    console.log(res);
-  };
   return (
     <>
       {" "}
@@ -73,7 +63,10 @@ const DetailCard = ({ listing, id }) => {
                   </>
                 ) : listing.owner._id !== user.id ? (
                   <>
-                    <button className="blue-btn">Book Now</button>
+                    <Link to={"/booking"}>
+                      <button className="blue-btn">Book Now</button>
+                    </Link>
+
                     <button className="blue-ouline-btn">Message</button>
                   </>
                 ) : (
@@ -114,49 +107,23 @@ const DetailCard = ({ listing, id }) => {
                 <p className="mt-2 font-medium text-gray-600 text-sm">
                   Total Reviews :{listing.reviews.length}
                 </p>
-                {/* {listing.reviews.map((rev) => {
-                    return (
-                      <div>
-                        <h2>{rev.creator}</h2>
-                        <p>{rev.review}</p>
-                        <p>Ratings:{rev.rating}</p>
-                      </div>
-                    );
-                  })} */}
+                {listing.reviews.map((rev) => {
+                  return (
+                    <div>
+                      <h2>{rev.creator}</h2>
+                      <p>{rev.review}</p>
+                      <p>Ratings:{rev.rating}</p>
+                    </div>
+                  );
+                })}
               </div>
             ) : null}
           </div>
-          {user && listing.owner._id !== user.id ? (
-            <div className="booking card flex flex-col">
-              <h2 className="text-2xl font-semibold">Booking</h2>
-              <p className="mt-4 mb-4 font-medium text-gray-600 text-sm">
-                {listing.price} /Hour
-              </p>
-              <form
-                className="flex flex-col justify-between items-center gap-3"
-                onSubmit={handleBooking}
-              >
-                <input
-                  type="date"
-                  className="form-input border-2 border-gray-400 text-gray-500 "
-                  placeholder="Date"
-                  name="date"
-                  onChange={handleChange}
-                />
-                <input
-                  type="time"
-                  step="1800"
-                  className="form-input border-2 border-gray-400 text-gray-500"
-                  placeholder="Time"
-                  name="time"
-                  onChange={handleChange}
-                />
-                <button className="blue-btn">Book Now</button>
-              </form>
-            </div>
+          {/* {user && listing.owner._id !== user.id ? (
+            <BookingCard listing={listing} id={id} />
           ) : (
             <></>
-          )}
+          )} */}
         </div>
       </div>
     </>

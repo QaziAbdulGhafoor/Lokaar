@@ -12,6 +12,7 @@ import { useContext } from "react";
 import { AuthContext } from "./Context/AuthContext";
 import HowItWorks from "./Components/Working/HowItWorks";
 import Loader from "./Components/Listings/Loader";
+import BookingCard from "./Components/Listings/BookingCard";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,16 @@ const router = createBrowserRouter([
       <>
         <Navbar />
         <Listings />
+      </>
+    ),
+  },
+  {
+    path: "/booking",
+    element: (
+      <>
+        <Navbar />
+        <BookingCard />
+        <Footer />
       </>
     ),
   },

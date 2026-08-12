@@ -1,3 +1,4 @@
+const Booking = require("../models/Booking");
 const Listing = require("../models/Listing");
 const Review = require("../models/Review");
 
@@ -33,7 +34,7 @@ module.exports.isRevOwner = async (req, res, next) => {
 module.exports.isAvailable = async (req, res, next) => {
   let { id } = req.params;
   let listingToOrder = await Listing.findById(id);
-  let { date, time } = req.body;
+  let { date, startTime, endTime } = req.body;
   let day = new Date(date).getDay();
   const timeToMinutes = (time) => {
     const [hour, minute] = time.split(":").map(Number);
@@ -44,14 +45,34 @@ module.exports.isAvailable = async (req, res, next) => {
   const end = timeToMinutes(listingToOrder.availability.endTime);
 
   if (
-    timeToMinutes(time) > start &&
-    timeToMinutes(time) < end &&
+    timeToMinutes(startTime) > start &&
+    timeToMinutes(startTime) < end &&
+    timeToMinutes(endTime) < end &&
+    timeToMinutes(endTime) > start &&
     listingToOrder.availability.days.includes(day)
   ) {
     next();
-  } else if (timeToMinutes(time) < start || timeToMinutes(time) > end) {
+  } else if (timeToMinutes(startTime) < start || timeToMinutes(endTime) > end) {
     return res.json({ message: "not available at this time slot" });
   } else {
     return res.json({ message: "not available at this day" });
+  }
+};
+
+module.exports.isAlreadyBooked = async (req, res, next) => {
+  let { date, startTime, endTime } = req.body;
+  let { id } = req.params;
+  let listingToOrder = await Listing.findById(id);
+
+  const alreadyBooked = await Booking.findOne({
+    listing: id,
+    date: date,
+    startTime: { $lt: endTime },
+    endTime: { $gt: startTime },
+  });
+  if (!alreadyBooked) {
+    next();
+  } else {
+    res.json({ message: "already booked" });
   }
 };

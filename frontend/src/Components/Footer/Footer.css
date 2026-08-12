@@ -2,6 +2,9 @@
   background-color: #111827;
   padding-left: 4rem;
   padding-right: 4rem;
+  position: absolute;
+  width: 100vw;
+  bottom: 0;
 }
 
 .footer a {
