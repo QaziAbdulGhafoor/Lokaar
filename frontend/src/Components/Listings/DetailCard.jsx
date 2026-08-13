@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Listing.css";
 import "./DetailCard.css";
 import Location from "../../assets/location.svg?react";
@@ -12,6 +12,9 @@ import BookingCard from "./BookingCard";
 
 const DetailCard = ({ listing, id }) => {
   const { user, setUser } = useContext(AuthContext);
+  //const user = localStorage.getItem("user");
+  console.log(user);
+
   const { setListing } = useContext(ListingContext);
   const [bookingData, setBookingData] = useState({
     date: "",
@@ -27,6 +30,10 @@ const DetailCard = ({ listing, id }) => {
     const res = await api.delete(`/listings/${listing._id}`);
     navigate("/listings ");
     console.log(res);
+  };
+
+  const handleEdit = async () => {
+    navigate(`/listings/${listing._id}/edit`);
   };
 
   return (
@@ -56,7 +63,9 @@ const DetailCard = ({ listing, id }) => {
               <>
                 {listing.owner._id === user.id ? (
                   <>
-                    <button className="blue-btn">Edit</button>
+                    <button className="blue-btn" onClick={handleEdit}>
+                      Edit
+                    </button>
                     <button className="blue-outline-red" onClick={handleDelete}>
                       Delete
                     </button>

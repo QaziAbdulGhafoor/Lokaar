@@ -13,6 +13,7 @@ export const AuthProvider = ({ children }) => {
         const response = await api.get("/getUser", { withCredentials: true });
         if (response.data.user) {
           setUser(response.data.user);
+          localStorage.setItem("user", response.data.user);
         }
       } catch (err) {
         setUser(null);

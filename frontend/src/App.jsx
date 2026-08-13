@@ -13,6 +13,7 @@ import { AuthContext } from "./Context/AuthContext";
 import HowItWorks from "./Components/Working/HowItWorks";
 import Loader from "./Components/Listings/Loader";
 import BookingCard from "./Components/Listings/BookingCard";
+import EditForm from "./Components/Listings/EditForm";
 
 const router = createBrowserRouter([
   {
@@ -117,6 +118,15 @@ const router = createBrowserRouter([
       <>
         <Navbar />
         <ListingDetails />
+      </>
+    ),
+  },
+  {
+    path: "/listings/:id/edit",
+    element: (
+      <>
+        <Navbar />
+        <EditForm />
       </>
     ),
   },
