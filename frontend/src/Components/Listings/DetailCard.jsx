@@ -79,7 +79,7 @@ const DetailCard = ({ listing, id }) => {
           </div>
         </div>
         <div className="lower flex flex-row gap-4 flex-wrap justify-between">
-          <div className="about card flex flex-col gap-6 w-7/10">
+          <div className="about card flex flex-col gap-6 w-full">
             <div className="info">
               <h2 className="text-2xl font-semibold">About</h2>
               <p className="mt-2 mb-4 font-medium text-gray-600 w-4/5 text-l">

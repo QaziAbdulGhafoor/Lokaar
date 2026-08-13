@@ -38,7 +38,6 @@ module.exports.getAll = async (req, res) => {
   }
 
   const listings = await Listing.find(query);
-  console.log(req.query);
 
   res.json({ listings });
 };
@@ -75,6 +74,7 @@ module.exports.postNew = async (req, res) => {
   }
 
   newListing.owner = req.user._id;
+  console.log(newListing);
   await newListing.save().then((listing) => {
     res.json({ message: "listing created successfully", newListing });
   });

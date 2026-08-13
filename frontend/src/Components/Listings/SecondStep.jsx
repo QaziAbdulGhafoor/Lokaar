@@ -78,7 +78,6 @@ export default function SecondStep({ setStep }) {
   };
 
   const { listing, setListing } = useContext(ListingContext);
-  console.log(listing);
 
   // sync local availability state into context's listing whenever it changes
   useEffect(() => {
@@ -265,7 +264,7 @@ export default function SecondStep({ setStep }) {
             >
               ← Back
             </button>
-            <button type="submit" className="blue-btn" onClick={handleNext}>
+            <button className="blue-btn" onClick={handleNext}>
               Continue →
             </button>
           </div>

@@ -9,11 +9,11 @@ const dayLabels = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 export default function ThirdStep({ setStep }) {
   const { listing } = useContext(ListingContext);
   const { user } = useContext(AuthContext);
-  const [isPublishing, setIsPublishing] = useState(true);
+  const [isPublishing, setIsPublishing] = useState(false);
 
   const handlePrev = () => setStep(2);
 
-  const handlePublish = async (params) => {
+  const handlePublish = async () => {
     try {
       const data = new FormData();
       data.append("title", listing.title);
@@ -25,9 +25,9 @@ export default function ThirdStep({ setStep }) {
       data.append("location", listing.location);
       data.append("avatar", listing.avatar);
 
-      const response = await api.post("/listings", data);
-
-      console.log(response);
+      const response = await api.post("/listings", data, {
+        credentials: "include",
+      });
     } catch (err) {
       console.log(err);
     } finally {
@@ -53,24 +53,24 @@ export default function ThirdStep({ setStep }) {
   //   }
   // };
 
-  // const formatAvailability = () => {
-  //   const availability = listing.availability;
-  //   if (!availability?.days?.length) return "No availability set";
+  const formatAvailability = () => {
+    const availability = listing.availability;
+    if (!availability?.days?.length) return "No availability set";
 
-  //   const selectedDays = [...availability.days]
-  //     .sort((a, b) => a - b)
-  //     .map((d) => dayLabels[d])
-  //     .join(", ");
+    const selectedDays = [...availability.days]
+      .sort((a, b) => a - b)
+      .map((d) => dayLabels[d])
+      .join(", ");
 
-  //   return `${selectedDays} · ${availability.startTime} – ${availability.endTime}`;
-  // };
+    return `${selectedDays} · ${availability.startTime} – ${availability.endTime}`;
+  };
 
-  // const responseTimeLabel = (val) => {
-  //   if (val === 1) return "Within 1 hour";
-  //   if (val === 3) return "Within 3 hours";
-  //   if (val === 24) return "Within 24 hours";
-  //   return "Not set";
-  // };
+  const responseTimeLabel = (val) => {
+    if (val === 1) return "Within 1 hour";
+    if (val === 3) return "Within 3 hours";
+    if (val === 24) return "Within 24 hours";
+    return "Not set";
+  };
 
   const steps = [
     { number: 1, label: "Service Details" },
@@ -137,7 +137,7 @@ export default function ThirdStep({ setStep }) {
                 {listing.title || "Untitled listing"}
               </p>
               <p className="text-sm text-gray-500 mt-1">
-                {listing.category || "No category selected"}
+                {listing.profession || "No category selected"}
               </p>
               <p className="text-sm text-gray-600 mt-2">
                 {listing.about || "No description added"}
