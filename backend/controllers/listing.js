@@ -105,30 +105,28 @@ module.exports.getEdit = async (req, res) => {
 //submits edit data and makes changes in listing
 module.exports.putEdit = async (req, res) => {
   let { id } = req.params;
-  let {
-    title,
-    about,
-    avatar,
-    status,
-    availability,
-    experience,
-    services,
-    location,
-    price,
-  } = req.body;
+  let { title, about, location, price } = req.body;
+  console.log("id is", id, "values are", req.body);
+  const myprice = Number(price);
 
-  await Listing.findByIdAndUpdate(id, {
-    title: title,
-    about: about,
-    avatar: avatar,
-    status: status,
-    availability: availability,
-    experience: experience,
-    services: services,
-    location: location,
-    price: price,
-  });
-  res.json({ message: "listing updated successfully" });
+  const updatedListing = await Listing.findByIdAndUpdate(
+    id,
+    {
+      $set: {
+        title,
+        about,
+        location,
+        price: Number(price),
+      },
+    },
+    {
+      runValidators: true,
+    },
+  );
+  if (!updatedListing) {
+    return res.json({ message: "listing not found" });
+  }
+  res.json({ message: "listing updated successfully", updatedListing });
 };
 
 //deletes a listing
