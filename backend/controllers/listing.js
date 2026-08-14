@@ -106,8 +106,10 @@ module.exports.getEdit = async (req, res) => {
 module.exports.putEdit = async (req, res) => {
   let { id } = req.params;
   let { title, about, location, price } = req.body;
-  console.log("id is", id, "values are", req.body);
-  const myprice = Number(price);
+
+  // console.log("id is", id, "values are", req.body);
+  // const myprice = Number(price);
+  // console.log(myprice);
 
   const updatedListing = await Listing.findByIdAndUpdate(
     id,
