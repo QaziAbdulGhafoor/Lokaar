@@ -5,6 +5,7 @@ import api from "../../API/api";
 import ListingCard from "./ListingCard";
 import DetailCard from "./DetailCard";
 import Loader from "./Loader";
+import ShowAlert from "./ShowAlert";
 
 const ListingDetails = () => {
   const { id } = useParams();
@@ -17,11 +18,13 @@ const ListingDetails = () => {
     };
     getListing();
   }, [id]);
-  console.log(listing);
   return (
     <div>
       {listing ? (
-        <DetailCard listing={listing} id={id} />
+        <>
+          <ShowAlert message="review added successfully" />
+          <DetailCard listing={listing} id={id} />
+        </>
       ) : (
         <Loader message="Preparing Actions"></Loader>
       )}

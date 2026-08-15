@@ -60,7 +60,6 @@ const router = createBrowserRouter([
       <>
         <Navbar />
         <BookingCard />
-        <Footer />
       </>
     ),
   },

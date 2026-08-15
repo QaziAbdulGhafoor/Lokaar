@@ -9,10 +9,11 @@ import { ListingContext } from "../../Context/ListingContext";
 import api from "../../API/api";
 import MessageCard from "../Other/MessageCard";
 import BookingCard from "./BookingCard";
+import ReviewForm from "./ReviewForm";
+import Rating from "@mui/material/Rating";
 
 const DetailCard = ({ listing, id }) => {
   const { user, setUser } = useContext(AuthContext);
-  console.log(listing);
   const ownerId = localStorage.getItem("user");
   const dayValues = [
     "Sunday",
@@ -23,7 +24,6 @@ const DetailCard = ({ listing, id }) => {
     "Friday",
     "Saturday",
   ];
-  console.log(user);
 
   const { setListing } = useContext(ListingContext);
   const [bookingData, setBookingData] = useState({
@@ -38,8 +38,8 @@ const DetailCard = ({ listing, id }) => {
 
   const handleDelete = async () => {
     const res = await api.delete(`/listings/${listing._id}`);
-    navigate("/listings ");
-    console.log(res);
+    navigate("/");
+    window.location.reload();
   };
 
   const handleEdit = async () => {
@@ -139,29 +139,37 @@ const DetailCard = ({ listing, id }) => {
             </div>
 
             {listing.reviews.length > 0 ? (
-              <div className="reviews">
+              <>
                 <h2 className="text-xl font-semibold mt-4">Reviews</h2>
-                <p className="mt-2 font-medium text-gray-600 text-sm">
-                  Total Reviews :{listing.reviews.length}
-                </p>
-                {listing.reviews.map((rev) => {
-                  return (
-                    <div>
-                      <h2>{rev.creator}</h2>
-                      <p>{rev.review}</p>
-                      <p>Ratings:{rev.rating}</p>
-                    </div>
-                  );
-                })}
-              </div>
+                <div className="reviews-container flex flex-col gap-4">
+                  {listing.reviews.map((rev) => {
+                    return (
+                      <div className="flex flex-row gap-4 bg-gray-200 p-4 items-center rounded">
+                        <p className="bg-blue-700 h-8 w-8 text-white text-center rounded-full pt-1">
+                          {rev.creator.username[0]}
+                        </p>
+                        <Rating
+                          name="read-only"
+                          value={rev.rating}
+                          readOnly
+                          className="justify-self-end"
+                        />
+                        <p>{rev.review}</p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </>
             ) : null}
           </div>
-          {/* {user && listing.owner._id !== user.id ? (
-            <BookingCard listing={listing} id={id} />
-          ) : (
-            <></>
-          )} */}
         </div>
+      </div>
+      <div className="review-form w-9/10 mx-auto ">
+        <h2 className="text-xl font-semibold mt-4">Share Your Experience</h2>
+        <p className="text-gray-600">
+          (Please leave a review. It helps others for choosing professionals)
+        </p>
+        <ReviewForm id={id} />
       </div>
     </>
   );
