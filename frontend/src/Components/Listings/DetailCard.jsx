@@ -12,7 +12,17 @@ import BookingCard from "./BookingCard";
 
 const DetailCard = ({ listing, id }) => {
   const { user, setUser } = useContext(AuthContext);
-  //const user = localStorage.getItem("user");
+  console.log(listing);
+  const ownerId = localStorage.getItem("user");
+  const dayValues = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
   console.log(user);
 
   const { setListing } = useContext(ListingContext);
@@ -61,7 +71,7 @@ const DetailCard = ({ listing, id }) => {
           <div className="options flex flex-row gap-6 mt-4 items-center ml-auto">
             {user ? (
               <>
-                {listing.owner._id === user.id ? (
+                {listing.owner._id === user.id || user._id ? (
                   <>
                     <button className="blue-btn" onClick={handleEdit}>
                       Edit
@@ -70,7 +80,7 @@ const DetailCard = ({ listing, id }) => {
                       Delete
                     </button>
                   </>
-                ) : listing.owner._id !== user.id ? (
+                ) : listing.owner._id !== user.id || user._id ? (
                   <>
                     <Link to={"/booking"}>
                       <button className="blue-btn">Book Now</button>
@@ -109,6 +119,24 @@ const DetailCard = ({ listing, id }) => {
                 </div>
               </div>
             ) : null}
+
+            <div className="availabilty">
+              <h2 className="text-xl font-semibold">Available At</h2>
+              <div className="days flex flex-row gap-4 my-3">
+                {listing.availability.days.map((day) => {
+                  return (
+                    <div className=" bg-gray-200 py-1 px-2 text-sm rounded text-gray-500">
+                      {dayValues[day]}
+                    </div>
+                  );
+                })}
+              </div>
+
+              <p>
+                From : {listing.availability.startTime} to{" "}
+                {listing.availability.endTime}
+              </p>
+            </div>
 
             {listing.reviews.length > 0 ? (
               <div className="reviews">

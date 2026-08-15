@@ -29,6 +29,7 @@ const Login = () => {
       try {
         const response = await api.post("/login", data);
         setUser(response.data.user);
+        localStorage.setItem("user", response.data.user.id);
         navigate("/listings");
       } catch (err) {
         console.log(err);

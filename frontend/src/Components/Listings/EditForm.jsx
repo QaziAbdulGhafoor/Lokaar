@@ -43,7 +43,10 @@ const EditForm = () => {
     // }
     console.log(data);
     const res = await api.put(`/listings/${listing._id}`, data);
-    console.log(res);
+    if (res) {
+      navigate("/");
+      window.location.reload();
+    }
   };
 
   return (
