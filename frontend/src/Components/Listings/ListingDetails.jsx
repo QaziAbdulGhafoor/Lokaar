@@ -22,7 +22,6 @@ const ListingDetails = () => {
     <div>
       {listing ? (
         <>
-          <ShowAlert message="review added successfully" />
           <DetailCard listing={listing} id={id} />
         </>
       ) : (

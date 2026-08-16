@@ -11,10 +11,12 @@ import MessageCard from "../Other/MessageCard";
 import BookingCard from "./BookingCard";
 import ReviewForm from "./ReviewForm";
 import Rating from "@mui/material/Rating";
+import { AlertContext } from "../../Context/AlertContext";
 
 const DetailCard = ({ listing, id }) => {
   const { user, setUser } = useContext(AuthContext);
   const ownerId = localStorage.getItem("user");
+  const { alert, setAlert } = useContext(AlertContext);
   const dayValues = [
     "Sunday",
     "Monday",
@@ -43,6 +45,7 @@ const DetailCard = ({ listing, id }) => {
   };
 
   const handleEdit = async () => {
+    setAlert({ type: "success", message: "edit form served" });
     navigate(`/listings/${listing._id}/edit`);
   };
 
