@@ -3,7 +3,7 @@ import React from "react";
 import { ListingContext } from "../../Context/ListingContext";
 import api from "../../API/api";
 import { useNavigate } from "react-router-dom";
-
+import { AlertContext } from "../../Context/AlertContext";
 const MapPin = ({ className }) => (
   <svg
     className={className}
@@ -22,6 +22,7 @@ const MapPin = ({ className }) => (
 const EditForm = () => {
   const navigate = useNavigate();
   const { listing, setListing } = useContext(ListingContext);
+  const { alert, setAlert } = useContext(AlertContext);
 
   const handleChange = (e) => {
     setListing((prev) => {
@@ -43,13 +44,12 @@ const EditForm = () => {
     // }
     console.log(data);
     const res = await api.put(`/listings/${listing._id}`, data);
+    console.log(res);
     if (res.status === 200) {
       navigate("/");
-      window.location.reload();
       setAlert({ type: "green", message: "Edited Successfully" });
     } else {
       navigate("/");
-      window.location.reload();
       setAlert({ type: "red", message: "Something was wrong" });
     }
   };

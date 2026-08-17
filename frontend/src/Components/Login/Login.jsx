@@ -33,7 +33,7 @@ const Login = () => {
         setUser(response.data.user);
         //localStorage.setItem("user", response.data.user.id);
         navigate("/listings");
-        setAlert({ type: "green", message: "Login Success" });
+        setAlert({ type: "green", message: "Login Successfully" });
       } catch (err) {
         console.log(err);
       }

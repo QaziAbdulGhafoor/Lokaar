@@ -12,6 +12,7 @@ import BookingCard from "./BookingCard";
 import ReviewForm from "./ReviewForm";
 import Rating from "@mui/material/Rating";
 import { AlertContext } from "../../Context/AlertContext";
+import ShowAlert from "./ShowAlert";
 
 const DetailCard = ({ listing, id }) => {
   const { user, setUser } = useContext(AuthContext);
@@ -44,8 +45,7 @@ const DetailCard = ({ listing, id }) => {
   const handleDelete = async () => {
     const res = await api.delete(`/listings/${listing._id}`);
     navigate("/");
-    window.location.reload();
-    setAlert({ type: "green", message: "Deleted Listing Successfully" });
+    setAlert({ type: "red", message: "Deleted Listing Successfully" });
   };
 
   const handleEdit = async () => {
@@ -57,7 +57,11 @@ const DetailCard = ({ listing, id }) => {
 
   return (
     <>
-      {" "}
+      {alert.type !== "" ? (
+        <ShowAlert message={alert.message} type={alert.type} />
+      ) : (
+        <></>
+      )}
       <div className="w-9/10  flex flex-col gap-4 flex-wrap mx-auto mt-6 ">
         <div className="flex flex-row gap-4 flex-wrap card w-full">
           <img

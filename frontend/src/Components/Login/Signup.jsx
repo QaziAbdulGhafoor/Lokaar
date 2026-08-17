@@ -4,9 +4,11 @@ import logo from "../../assets/logo.png";
 import "./Login.css";
 import axios from "axios";
 import { AuthContext } from "../../Context/AuthContext";
+import { AlertContext } from "../../Context/AlertContext";
 const Signup = () => {
   const navigate = useNavigate();
   const { user, setUser } = useContext(AuthContext);
+  const { alert, setAlert } = useContext(AlertContext);
 
   const [formData, setFormdata] = useState({
     username: "",
@@ -35,6 +37,7 @@ const Signup = () => {
         const response = await axios.post("http://localhost:3000/signup", data);
         setUser(response.data.user);
         navigate("/listings");
+        setAlert({ type: "green", message: "Registered Successfully" });
       } catch (err) {
         console.log(err);
       }
