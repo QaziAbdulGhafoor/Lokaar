@@ -10,7 +10,7 @@ export const ListingProvider = ({ children }) => {
     profession: "",
     responseTime: null,
     location: null,
-    price: null,
+    price: 0,
     availability: {
       days: [],
       startTime: "09:00",

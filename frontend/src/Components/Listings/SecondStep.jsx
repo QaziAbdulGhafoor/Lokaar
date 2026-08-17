@@ -220,15 +220,9 @@ export default function SecondStep({ setStep }) {
                     onChange={handleChange}
                     className="w-full appearance-none rounded-lg border border-gray-300 px-4 py-2.5 pr-10 text-sm sm:text-base text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   >
-                    <option value={1} selected={listing.responseTime === 1}>
-                      Within 1 hour
-                    </option>
-                    <option value={3} selected={listing.responseTime === 3}>
-                      Within 3 hours
-                    </option>
-                    <option value={24} selected={listing.responseTime === 24}>
-                      Within 24 hours
-                    </option>
+                    <option value={1}>Within 1 hour</option>
+                    <option value={3}>Within 3 hours</option>
+                    <option value={24}>Within 24 hours</option>
                   </select>
                   <ChevronDown className="w-4 h-4 text-gray-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                 </div>

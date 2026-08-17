@@ -6,9 +6,11 @@ import { useState } from "react";
 import axios from "axios";
 import api from "../../API/api";
 import { AuthContext } from "../../Context/AuthContext";
+import { AlertContext } from "../../Context/AlertContext";
 
 const Login = () => {
   const { user, setUser } = useContext(AuthContext);
+  const { alert, setAlert } = useContext(AlertContext);
   const [formData, setFormdata] = useState({ username: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
@@ -29,8 +31,9 @@ const Login = () => {
       try {
         const response = await api.post("/login", data);
         setUser(response.data.user);
-        localStorage.setItem("user", response.data.user.id);
+        //localStorage.setItem("user", response.data.user.id);
         navigate("/listings");
+        setAlert({ type: "green", message: "Login Success" });
       } catch (err) {
         console.log(err);
       }

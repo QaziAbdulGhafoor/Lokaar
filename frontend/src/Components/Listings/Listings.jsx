@@ -4,13 +4,16 @@ import React from "react";
 import { useState, useEffect, useContext } from "react";
 import ListingFilterBar from "./ListingFilterBar";
 import { FetchingContext } from "../../Context/FetchingContext";
+import { AlertContext } from "../../Context/AlertContext";
 
 const Listings = () => {
   const [listings, setListings] = useState([]);
   const { Flistings, isFetching } = useContext(FetchingContext);
+  const { alert, setAlert } = useContext(AlertContext);
 
   useEffect(() => {
     setListings(Flistings);
+    console.log(alert);
   }, [Flistings]);
 
   return (

@@ -17,6 +17,7 @@ const DetailCard = ({ listing, id }) => {
   const { user, setUser } = useContext(AuthContext);
   const ownerId = localStorage.getItem("user");
   const { alert, setAlert } = useContext(AlertContext);
+
   const dayValues = [
     "Sunday",
     "Monday",
@@ -26,6 +27,8 @@ const DetailCard = ({ listing, id }) => {
     "Friday",
     "Saturday",
   ];
+
+  //console.log(alert);
 
   const { setListing } = useContext(ListingContext);
   const [bookingData, setBookingData] = useState({
@@ -42,12 +45,15 @@ const DetailCard = ({ listing, id }) => {
     const res = await api.delete(`/listings/${listing._id}`);
     navigate("/");
     window.location.reload();
+    setAlert({ type: "green", message: "Deleted Listing Successfully" });
   };
 
   const handleEdit = async () => {
-    setAlert({ type: "success", message: "edit form served" });
+    setAlert({ type: "green", message: "edit form served" });
     navigate(`/listings/${listing._id}/edit`);
   };
+
+  console.log(alert);
 
   return (
     <>
@@ -172,7 +178,7 @@ const DetailCard = ({ listing, id }) => {
         <p className="text-gray-600">
           (Please leave a review. It helps others for choosing professionals)
         </p>
-        <ReviewForm id={id} />
+        <ReviewForm id={id} setAlert={setAlert} />
       </div>
     </>
   );

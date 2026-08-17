@@ -43,9 +43,14 @@ const EditForm = () => {
     // }
     console.log(data);
     const res = await api.put(`/listings/${listing._id}`, data);
-    if (res) {
+    if (res.status === 200) {
       navigate("/");
       window.location.reload();
+      setAlert({ type: "green", message: "Edited Successfully" });
+    } else {
+      navigate("/");
+      window.location.reload();
+      setAlert({ type: "red", message: "Something was wrong" });
     }
   };
 

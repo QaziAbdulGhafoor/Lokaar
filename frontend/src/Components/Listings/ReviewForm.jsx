@@ -50,7 +50,7 @@ IconContainer.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-export default function ReviewForm({ id }) {
+export default function ReviewForm({ id, setAlert }) {
   const [revData, setRevData] = useState({ rating: 4, review: "" });
 
   const handleSubmit = async (e) => {
@@ -60,6 +60,7 @@ export default function ReviewForm({ id }) {
     console.log(res);
     if (res.status === 200) {
       window.location.reload();
+      setAlert({ type: "green", message: "Review Added Successfully" });
     }
   };
 

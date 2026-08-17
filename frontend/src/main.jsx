@@ -11,6 +11,7 @@ import { AlertProvider } from "./Context/AlertContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   //<StrictMode>
+
   <AuthProvider>
     <ListingProvider>
       <FilterProvider>
