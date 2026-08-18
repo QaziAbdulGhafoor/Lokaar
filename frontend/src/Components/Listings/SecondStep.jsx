@@ -244,8 +244,6 @@ export default function SecondStep({ setStep }) {
                   />
                 </div>
               </div>
-
-              {/* Emergency Availability */}
             </div>
           </div>
 

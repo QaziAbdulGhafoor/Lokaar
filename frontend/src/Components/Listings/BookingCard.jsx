@@ -31,9 +31,9 @@ const BookingCard = () => {
   return (
     <div className="booking card w-120 form-box flex flex-col mx-auto mt-16">
       <h2 className="text-2xl font-semibold">Provide Booking Details</h2>
-      <p className="font-medium text-gray-600 text-sm  ">
+      {/* <p className="font-medium text-gray-600 text-sm  ">
         {listing.price} /Hour
-      </p>
+      </p> */}
       <form
         className="flex flex-col justify-between items-center gap-3"
         onSubmit={handleBooking}

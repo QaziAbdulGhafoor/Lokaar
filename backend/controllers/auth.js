@@ -61,7 +61,13 @@ module.exports.logout = (req, res, next) => {
 module.exports.getUser = (req, res) => {
   res.json({
     session: req.session,
-    user: req.user,
+    user: {
+      id: req.user._id,
+      username: req.user.username,
+      category: req.user.category,
+      location: req.user.location,
+      avatar: req.user.avatar,
+    },
     authenticated: req.isAuthenticated(),
   });
 };

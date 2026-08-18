@@ -49,22 +49,31 @@ module.exports.getNew = (req, res) => {
 
 //submits new form data and creates a listing
 module.exports.postNew = async (req, res) => {
-  let { title, about, profession, price, availability, location } = req.body;
-
-  let newListing = new Listing({
+  let {
     title,
     about,
     profession,
     price,
     availability,
     location,
+    responseTime,
+  } = req.body;
+  let available = JSON.parse(req.body.availability);
+
+  let newListing = new Listing({
+    title,
+    about,
+    profession,
+    price,
+    availability: available,
+    location,
   });
 
-  // let coordinates = await getCoord(location);
-  // newListing.geometry = {
-  //   type: "Point",
-  //   coordinates: coordinates,
-  // };
+  let coordinates = await getCoord(location);
+  newListing.geometry = {
+    type: "Point",
+    coordinates: coordinates,
+  };
 
   if (req.file) {
     newListing.avatar = {

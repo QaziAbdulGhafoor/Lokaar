@@ -52,9 +52,6 @@ IconContainer.propTypes = {
 
 export default function ReviewForm({ id, setAlert }) {
   const [revData, setRevData] = useState({ rating: 4, review: "" });
-  const refresh = setTimeout(() => {
-    setAlert({ type: "", message: "" });
-  }, 3000);
 
   const handleSubmit = async (e) => {
     // /console.log(revData);

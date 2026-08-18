@@ -43,6 +43,7 @@ const EditForm = () => {
     //   navigate("/");
     // }
     console.log(data);
+    console.log("EDIT RENDER");
     const res = await api.put(`/listings/${listing._id}`, data);
     console.log(res);
     if (res.status === 200) {

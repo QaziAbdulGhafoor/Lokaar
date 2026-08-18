@@ -17,9 +17,9 @@ const Listings = () => {
     console.log(alert);
   }, [Flistings]);
 
-  const refresh = setTimeout(() => {
-    setAlert({ type: "", message: "" });
-  }, 5000);
+  // const refresh = setTimeout(() => {
+  //   setAlert({ type: "", message: "" });
+  // }, 5000);
 
   return (
     <div className="container flex flex-row">

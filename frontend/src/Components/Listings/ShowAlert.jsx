@@ -5,12 +5,14 @@ import IconButton from "@mui/material/IconButton";
 import Collapse from "@mui/material/Collapse";
 import Button from "@mui/material/Button";
 import CloseIcon from "@mui/icons-material/Close";
+import { AlertContext } from "../../Context/AlertContext";
 
 export default function ShowAlert({ message = "good", type }) {
   const [open, setOpen] = React.useState(true);
+  const { setAlert } = React.useContext(AlertContext);
 
   return (
-    <div className="w-90 top-0 left-1/2 -translate-x-1/2 absolute z-10">
+    <div className="w-90 top-0 left-1/2 -translate-x-1/2 absolute z-100">
       <Box>
         <Collapse in={open}>
           <Alert
@@ -24,6 +26,7 @@ export default function ShowAlert({ message = "good", type }) {
                 size="small"
                 onClick={() => {
                   setOpen(false);
+                  setAlert({ type: "", message: "" });
                 }}
               >
                 <CloseIcon fontSize="inherit" />

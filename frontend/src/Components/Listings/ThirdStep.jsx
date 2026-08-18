@@ -15,13 +15,14 @@ export default function ThirdStep({ setStep }) {
 
   const handlePublish = async () => {
     try {
+      setIsPublishing(true);
       const data = new FormData();
       data.append("title", listing.title);
       data.append("about", listing.about);
       data.append("profession", listing.profession);
       data.append("price", listing.price);
-      data.append("status", listing.status);
-      data.append("availability", listing.availability);
+      data.append("responseTime", listing.responseTime);
+      data.append("availability", JSON.stringify(listing.availability));
       data.append("location", listing.location);
       data.append("avatar", listing.avatar);
 

@@ -151,7 +151,7 @@ export default function FirstStep({ setStep }) {
                 </label>
                 <div className="relative">
                   <select
-                    value={listing.profession}
+                    //value={listing.profession}
                     name="profession"
                     onChange={handleChange}
                     className="w-full appearance-none rounded-lg border border-gray-300 px-4 py-2.5 pr-10 text-sm sm:text-base text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
@@ -159,42 +159,42 @@ export default function FirstStep({ setStep }) {
                     <option
                       value="electrician"
                       //name="profession"
-                      //selected={listing.profession === "electrician"}
+                      selected={listing.profession === "electrician"}
                     >
                       {" "}
                       Electrician
                     </option>
                     <option
                       value="plumber"
-                      //selected={listing.profession === "plumber"}
+                      selected={listing.profession === "plumber"}
                     >
                       {" "}
                       Plumber
                     </option>
                     <option
                       value="tutor"
-                      //selected={listing.profession === "tutor"}
+                      selected={listing.profession === "tutor"}
                     >
                       {" "}
                       Tutor
                     </option>
                     <option
                       value="carpenter"
-                      //selected={listing.profession === "carpenter"}
+                      selected={listing.profession === "carpenter"}
                     >
                       {" "}
                       Carpenter
                     </option>
                     <option
                       value="cleaner"
-                      //selected={listing.profession === "cleaner"}
+                      selected={listing.profession === "cleaner"}
                     >
                       {" "}
                       Cleaner
                     </option>
                     <option
                       value="painter"
-                      //selected={listing.profession === "painter"}
+                      selected={listing.profession === "painter"}
                     >
                       {" "}
                       painter

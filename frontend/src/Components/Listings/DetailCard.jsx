@@ -16,8 +16,15 @@ import ShowAlert from "./ShowAlert";
 
 const DetailCard = ({ listing, id }) => {
   const { user, setUser } = useContext(AuthContext);
+  console.log(user);
   const ownerId = localStorage.getItem("user");
   const { alert, setAlert } = useContext(AlertContext);
+  const { setListing } = useContext(ListingContext);
+
+  useEffect(() => {
+    setListing(listing);
+  }, []);
+  //console.log(listing);
 
   const dayValues = [
     "Sunday",
@@ -30,13 +37,10 @@ const DetailCard = ({ listing, id }) => {
   ];
 
   //console.log(alert);
-
-  const { setListing } = useContext(ListingContext);
   const [bookingData, setBookingData] = useState({
     date: "",
     time: "",
   });
-  setListing(listing);
   //console.log(bookingData);
   const navigate = useNavigate();
 
@@ -49,11 +53,11 @@ const DetailCard = ({ listing, id }) => {
   };
 
   const handleEdit = async () => {
-    setAlert({ type: "green", message: "edit form served" });
     navigate(`/listings/${listing._id}/edit`);
   };
 
-  console.log(alert);
+  console.log("DETAIL RENDER");
+  //console.log(alert);
 
   return (
     <>
@@ -84,7 +88,7 @@ const DetailCard = ({ listing, id }) => {
           <div className="options flex flex-row gap-6 mt-4 items-center ml-auto">
             {user ? (
               <>
-                {listing.owner._id === user.id || user._id ? (
+                {listing.owner._id === user.id ? (
                   <>
                     <button className="blue-btn" onClick={handleEdit}>
                       Edit
@@ -93,7 +97,7 @@ const DetailCard = ({ listing, id }) => {
                       Delete
                     </button>
                   </>
-                ) : listing.owner._id !== user.id || user._id ? (
+                ) : listing.owner._id !== user.id ? (
                   <>
                     <Link to={"/booking"}>
                       <button className="blue-btn">Book Now</button>
@@ -134,7 +138,7 @@ const DetailCard = ({ listing, id }) => {
             ) : null}
 
             <div className="availabilty">
-              <h2 className="text-xl font-semibold">Available At</h2>
+              <h2 className="text-xl font-semibold">Working Days</h2>
               <div className="days flex flex-row gap-4 my-3">
                 {listing.availability.days.map((day) => {
                   return (
@@ -144,11 +148,16 @@ const DetailCard = ({ listing, id }) => {
                   );
                 })}
               </div>
-
-              <p>
-                From : {listing.availability.startTime} to{" "}
+              <h2 className="text-xl font-semibold mt-4">Working Hours</h2>
+              <p className="mt-2">
+                {listing.availability.startTime} -{" "}
                 {listing.availability.endTime}
               </p>
+            </div>
+
+            <div className="price">
+              <h2 className="text-xl font-semibold mt-4">Charges</h2>
+              <p className="mt-2">Rs - {listing.price} /hour</p>
             </div>
 
             {listing.reviews.length > 0 ? (
