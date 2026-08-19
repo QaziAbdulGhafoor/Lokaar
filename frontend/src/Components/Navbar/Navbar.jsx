@@ -169,6 +169,15 @@ const Navbar = () => {
                   </Link>
                 )}
 
+                {user.category === "customer" && (
+                  <Link
+                    to="/favourites"
+                    className="text-gray-500 no-underline transition hover:text-gray-900"
+                  >
+                    Favourites
+                  </Link>
+                )}
+
                 <button
                   onClick={handleLogout}
                   className="rounded-md bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700"

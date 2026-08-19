@@ -71,6 +71,8 @@ const tabs = [
 ];
 
 export default function ProviderDashboard() {
+  const { alert, setAlert } = useContext(AlertContext);
+
   const [dashboardData, setDashboardData] = useState({
     pending: [],
     completed: [],
@@ -158,8 +160,6 @@ export default function ProviderDashboard() {
     );
   }
 
-  const { alert, setAlert } = useContext(AlertContext);
-
   const markAsDone = async (id) => {
     const res = await api.patch(`/booking/${id}`, { status: "completed" });
     if (res.status === 200) {
@@ -171,7 +171,11 @@ export default function ProviderDashboard() {
 
   const cancelBooking = async (id) => {
     const res = await api.patch(`/booking/${id}`, { status: "cancelled" });
-    console.log(res);
+    if (res.status === 200) {
+      window.location.reload();
+    } else {
+      setAlert({ type: "red", message: "something went wrong" });
+    }
   };
 
   return (
@@ -275,7 +279,7 @@ export default function ProviderDashboard() {
                             onClick={() => {
                               markAsDone(booking._id);
                             }}
-                            className=" bg-green-600 text-white rounded-full  h-8 w-8 hover:bg-green-700"
+                            className=" bg-green-600 text-white rounded-full cursor-pointer h-8 w-8 hover:bg-green-700"
                           >
                             <span className="material-symbols-outlined mt-1">
                               check_circle
@@ -285,7 +289,7 @@ export default function ProviderDashboard() {
                             onClick={() => {
                               cancelBooking(booking._id);
                             }}
-                            className=" bg-red-600 text-white rounded-full  h-8 w-8 hover:bg-red-700"
+                            className=" bg-red-600 text-white rounded-full cursor-pointer h-8 w-8 hover:bg-red-700"
                           >
                             <i className="fa-solid fa-xmark"></i>
                           </button>

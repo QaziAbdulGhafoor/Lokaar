@@ -1,10 +1,27 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./Listing.css";
 import Location from "../../assets/location.svg?react";
 import HeartEmpty from "../../assets/heart.svg?react";
 import { Link } from "react-router-dom";
+import api from "../../API/api";
+import { AuthContext } from "../../Context/AuthContext";
 
 const ListingCard = ({ listing }) => {
+  const { user, setUser } = useContext(AuthContext);
+  const addFav = async (id) => {
+    const res = await api.post(`/listings/${id}/favourites`);
+    if (res.status === 200) {
+      window.location.reload();
+    }
+  };
+
+  const remFav = async (id) => {
+    const res = await api.delete(`/listings/${id}/favourites`);
+    if (res.status === 200) {
+      window.location.reload();
+    }
+  };
+
   return (
     <div className="w-90 h-75 flex flex-col gap-4 card">
       <div className="upper-section flex gap-4 items-center">
@@ -16,7 +33,27 @@ const ListingCard = ({ listing }) => {
           <h2 className="text-l font-semibold">{listing.title}</h2>
           <p className="text-blue-600">{listing.profession}</p>
         </div>
-        <HeartEmpty className="h-7 w-7 text-gray-600 self-start  mt-2" />
+        {user && user.favourites.includes(listing._id) ? (
+          <button
+            className="bg-transparent outline-none"
+            onClick={() => {
+              remFav(listing._id);
+            }}
+          >
+            <i className="fa-solid fa-heart text-2xl  text-red-600 self-start  mt-2"></i>
+          </button>
+        ) : user ? (
+          <button
+            className="bg-transparent outline-none"
+            onClick={() => {
+              addFav(listing._id);
+            }}
+          >
+            <i className="fa-regular fa-heart text-2xl text-gray-600 self-start mt-2"></i>
+          </button>
+        ) : (
+          <></>
+        )}
       </div>
       <div className="lower-section">
         <p className="flex mt-4 mb-3 font-medium text-sm text-gray-600">

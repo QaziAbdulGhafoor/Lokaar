@@ -14,6 +14,7 @@ import HowItWorks from "./Components/Working/HowItWorks";
 import Loader from "./Components/Listings/Loader";
 import BookingCard from "./Components/Listings/BookingCard";
 import EditForm from "./Components/Listings/EditForm";
+import Favourites from "./Components/Listings/Favourites";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,16 @@ const router = createBrowserRouter([
       <>
         <Navbar />
         <Loader message="Creating Your Listing" />
+      </>
+    ),
+  },
+
+  {
+    path: "/favourites",
+    element: (
+      <>
+        <Navbar />
+        <Favourites />
       </>
     ),
   },
