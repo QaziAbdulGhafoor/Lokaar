@@ -1,5 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import api from "../../API/api";
+import { AlertContext } from "../../Context/AlertContext";
+import ShowAlert from "../Listings/ShowAlert";
 
 const CheckCircle = ({ className }) => (
   <svg
@@ -156,8 +158,29 @@ export default function ProviderDashboard() {
     );
   }
 
+  const { alert, setAlert } = useContext(AlertContext);
+
+  const markAsDone = async (id) => {
+    const res = await api.patch(`/booking/${id}`, { status: "completed" });
+    if (res.status === 200) {
+      window.location.reload();
+    } else {
+      setAlert({ type: "red", message: "something went wrong" });
+    }
+  };
+
+  const cancelBooking = async (id) => {
+    const res = await api.patch(`/booking/${id}`, { status: "cancelled" });
+    console.log(res);
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6">
+      {alert.type !== "" ? (
+        <ShowAlert message={alert.message} type={alert.type} />
+      ) : (
+        <></>
+      )}
       <div className="max-w-5xl mx-auto">
         {/* Header */}
         <div className="mb-8">
@@ -246,6 +269,30 @@ export default function ProviderDashboard() {
                       >
                         {tabs.find((t) => t.key === activeTab)?.label}
                       </span>
+                      {activeTab === "pending" ? (
+                        <>
+                          <button
+                            onClick={() => {
+                              markAsDone(booking._id);
+                            }}
+                            className=" bg-green-600 text-white rounded-full  h-8 w-8 hover:bg-green-700"
+                          >
+                            <span className="material-symbols-outlined mt-1">
+                              check_circle
+                            </span>
+                          </button>
+                          <button
+                            onClick={() => {
+                              cancelBooking(booking._id);
+                            }}
+                            className=" bg-red-600 text-white rounded-full  h-8 w-8 hover:bg-red-700"
+                          >
+                            <i className="fa-solid fa-xmark"></i>
+                          </button>
+                        </>
+                      ) : (
+                        <></>
+                      )}
                     </div>
                   </div>
                 ))}
