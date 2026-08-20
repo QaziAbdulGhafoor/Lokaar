@@ -157,6 +157,11 @@ module.exports.addFav = async (req, res) => {
   res.json({ message: "added to favourite" });
 };
 
+module.exports.getFav = async (req, res) => {
+  let user = await User.findById(req.user.id).populate("favourites");
+  res.json({ favourites: user.favourites });
+};
+
 //removes listing from favourites of a user
 module.exports.removeFav = async (req, res) => {
   let { id } = req.params;

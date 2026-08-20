@@ -9,17 +9,15 @@ module.exports.getLogin = (req, res) => {
 };
 
 module.exports.postLogin = (req, res) => {
-  res
-    .json({
-      user: {
-        id: req.user._id,
-        username: req.user.username,
-        category: req.user.category,
-        location: req.user.location,
-        favourites: req.user.favourites,
-      },
-    })
-    .populate("favourites");
+  res.json({
+    user: {
+      id: req.user._id,
+      username: req.user.username,
+      category: req.user.category,
+      location: req.user.location,
+      favourites: req.user.favourites,
+    },
+  });
 };
 
 module.exports.getSignup = (req, res) => {
@@ -35,17 +33,15 @@ module.exports.postSignup = async (req, res) => {
     if (err) {
       res.json({ error: "some error" });
     }
-    res
-      .json({
-        user: {
-          id: savedUser._id,
-          username: savedUser.username,
-          category: savedUser.category,
-          location: savedUser.location,
-          favourites: savedUser.favourites,
-        },
-      })
-      .populate("favourites");
+    res.json({
+      user: {
+        id: savedUser._id,
+        username: savedUser.username,
+        category: savedUser.category,
+        location: savedUser.location,
+        favourites: savedUser.favourites,
+      },
+    });
   });
 };
 
@@ -63,16 +59,14 @@ module.exports.logout = (req, res, next) => {
 };
 
 module.exports.getUser = (req, res) => {
-  res
-    .json({
-      user: {
-        id: req.user._id,
-        username: req.user.username,
-        category: req.user.category,
-        location: req.user.location,
-        avatar: req.user.avatar,
-        favourites: req.user.favourites,
-      },
-    })
-    .populate("favourites");
+  res.json({
+    user: {
+      id: req.user._id,
+      username: req.user.username,
+      category: req.user.category,
+      location: req.user.location,
+      avatar: req.user.avatar,
+      favourites: req.user.favourites,
+    },
+  });
 };

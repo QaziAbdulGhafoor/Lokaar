@@ -171,7 +171,7 @@ const Navbar = () => {
 
                 {user.category === "customer" && (
                   <Link
-                    to="/favourites"
+                    to="/listings/favourites"
                     className="text-gray-500 no-underline transition hover:text-gray-900"
                   >
                     Favourites

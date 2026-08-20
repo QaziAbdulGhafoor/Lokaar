@@ -16,6 +16,8 @@ router
 
 router.get("/new", middlewares.isLoggedIn, listingController.getNew);
 
+router.get("/favourites", middlewares.isLoggedIn, listingController.getFav);
+
 router
   .route("/:id")
   .get(listingController.detailedListing)
