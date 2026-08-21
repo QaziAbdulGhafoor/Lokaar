@@ -1,24 +1,30 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ListingCard from "./ListingCard";
 import api from "../../API/api";
 
 const Favourites = () => {
+  const [favourites, setFavourites] = useState([]);
+
   useEffect(() => {
-    const getFav = () => {
-      const res = api.get("/listings/favourites");
+    const getFav = async () => {
+      const res = await api.get("/listings/favourites");
       console.log(res);
-      //return res.data.favourites;
+      setFavourites(res.data.favourites);
     };
     getFav();
+
     // console.log(favourites);
   }, []);
 
   return (
-    <div>
-      {/* {favourites.map((listing) => {
-        return <ListingCard listing={listing} />;
-      })} */}
-    </div>
+    <>
+      <h1 className="text-3xl font-medium text-center mt-6">Favourites</h1>
+      <div className="flex flex-row gap-4 justify-center flex-wrap mt-6">
+        {favourites.map((listing) => {
+          return <ListingCard listing={listing} />;
+        })}
+      </div>
+    </>
   );
 };
 

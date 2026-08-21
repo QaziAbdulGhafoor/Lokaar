@@ -61,7 +61,7 @@ module.exports.logout = (req, res, next) => {
 module.exports.getUser = (req, res) => {
   res.json({
     user: {
-      id: req.user._id,
+      id: req.user.id,
       username: req.user.username,
       category: req.user.category,
       location: req.user.location,
