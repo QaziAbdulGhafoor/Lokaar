@@ -17,6 +17,8 @@ const cors = require("cors");
 const { Server } = require("socket.io");
 const path = require("path");
 const sampleListings = require("./sample");
+const Message = require("./models/Message");
+const Conversation = require("./models/Conversation");
 
 const app = express();
 
@@ -102,18 +104,55 @@ const io = new Server(server, {
 io.on("connection", (socket) => {
   console.log("your socket id is ", socket.id);
 
-  socket.on("send_message", (data) => {
-    const { roomId, senderId, message } = data;
-    io.to(roomId).emit("recieve_message", { message, senderId });
+  socket.on("send_message", async (data) => {
+    const { roomId, senderId, recieverId, message } = data;
+    const Ourconversation = await Conversation.find({
+      participants: [senderId, recieverId],
+    });
+
+    const conversationId = Ourconversation[0].id;
+
+    const newMsg = await Message.create({
+      conversation: conversationId,
+      sender: senderId,
+      text: message,
+    });
+
+    const conv = await Conversation.findByIdAndUpdate(conversationId, {
+      $set: { updatedAt: new Date() },
+    });
+
+    io.to(roomId).emit("recieve_message", { message, conversationId });
     console.log(message);
   });
 
-  socket.on("join_room", (roomId) => {
+  socket.on("join_room", async (data) => {
+    const { roomId, currUser, otherUser } = data;
     socket.join(roomId);
-    console.log("room created with id:", roomId);
+
+    const alreadyCon = await Conversation.findOne({
+      participants: { $all: [currUser, otherUser] },
+    });
+
+    if (alreadyCon) {
+      console.log("conversation exists");
+      socket.emit("conversation", { conversationId: alreadyCon.id });
+    } else {
+      const conversation = await Conversation.create({
+        participants: [currUser, otherUser],
+      });
+      console.log("conversation created");
+      socket.emit("conversation", { conversationId: conversation.id });
+    }
   });
 });
 
 server.listen(port, () => {
   console.log("listening to server");
+});
+
+app.get("/messages/:id", async (req, res) => {
+  const { id } = req.params;
+  const messages = await Message.find({ conversation: id });
+  res.json({ messages });
 });
