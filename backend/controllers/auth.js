@@ -11,7 +11,7 @@ module.exports.getLogin = (req, res) => {
 module.exports.postLogin = (req, res) => {
   res.json({
     user: {
-      id: req.user._id,
+      id: req.user.id,
       username: req.user.username,
       category: req.user.category,
       location: req.user.location,
@@ -35,7 +35,7 @@ module.exports.postSignup = async (req, res) => {
     }
     res.json({
       user: {
-        id: savedUser._id,
+        id: savedUser.id,
         username: savedUser.username,
         category: savedUser.category,
         location: savedUser.location,
