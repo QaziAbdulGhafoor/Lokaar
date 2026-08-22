@@ -15,6 +15,7 @@ import Loader from "./Components/Listings/Loader";
 import BookingCard from "./Components/Listings/BookingCard";
 import EditForm from "./Components/Listings/EditForm";
 import Favourites from "./Components/Listings/Favourites";
+import MessageForm from "./Components/Listings/MessageForm";
 
 const router = createBrowserRouter([
   {
@@ -71,6 +72,16 @@ const router = createBrowserRouter([
       <>
         <Navbar />
         <BookingCard />
+      </>
+    ),
+  },
+
+  {
+    path: "/message",
+    element: (
+      <>
+        <Navbar />
+        <MessageForm />
       </>
     ),
   },

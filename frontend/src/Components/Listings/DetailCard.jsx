@@ -103,7 +103,9 @@ const DetailCard = ({ listing, id }) => {
                       <button className="blue-btn">Book Now</button>
                     </Link>
 
-                    <button className="blue-ouline-btn">Message</button>
+                    <Link to={"/message"}>
+                      <button className="blue-ouline-btn">Message</button>
+                    </Link>
                   </>
                 ) : (
                   <></>
