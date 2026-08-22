@@ -89,19 +89,19 @@ const io = new Server(server, {
   },
 });
 
-io.use((socket, next) => {
-  sessionMiddleware(socket.request, {}, next);
-});
+// io.use((socket, next) => {
+//   sessionMiddleware(socket.request, {}, next);
+// });
 
-io.use((socket, next) => {
-  passport.initialize()(socket.request, {}, () => {
-    passport.session()(socket.request, {}, next);
-  });
-});
+// io.use((socket, next) => {
+//   passport.initialize()(socket.request, {}, () => {
+//     passport.session()(socket.request, {}, next);
+//   });
+// });
 
 io.on("connection", (socket) => {
-  console.log("your socket id is ", socket.id, socket.request.user);
-  socket.on("mymessage", (message) => {
+  console.log("your socket id is ", socket.id);
+  socket.on("send_message", (message) => {
     console.log(message);
   });
 });
