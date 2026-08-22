@@ -8,24 +8,47 @@ const MessageForm = () => {
   const { id } = useParams();
   const [message, setMessage] = useState("");
   const [otherUser, setOtherUser] = useState("");
-  const [currUser, setCurrUser] = useState("");
+  //const [currUser, setCurrUser] = useState("");
   const { user } = useContext(AuthContext);
 
+  const currUser = user?.id;
+  const roomId =
+    currUser && otherUser ? [otherUser, currUser].sort().join("_") : "";
+
+  console.log(roomId);
+
   useEffect(() => {
-    setCurrUser(user.id);
     const getListing = async () => {
       const res = await api.get(`/listings/${id}`);
       setOtherUser(res.data.listing.owner._id);
     };
 
     getListing();
+  }, [id]);
 
-    const roomId = [otherUser, currUser].sort().join("_");
+  //Join room
+  useEffect(() => {
+    if (!roomId) return;
+
+    socket.emit("join_room", roomId);
+    console.log("joining room", roomId);
+  }, [roomId]);
+
+  useEffect(() => {
+    const handleMessage = (data) => {
+      console.log("New message:", data);
+    };
+
+    socket.on("recieve_message", handleMessage);
+
+    return () => {
+      socket.off("receive_message", handleMessage);
+    };
   }, []);
   //console.log("curr:", currUser, "other:", otherUser);
 
   const sendMessage = () => {
-    socket.emit("send_message", { message });
+    socket.emit("send_message", { roomId, senderId: currUser, message });
   };
   return (
     <div>

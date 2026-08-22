@@ -101,8 +101,16 @@ const io = new Server(server, {
 
 io.on("connection", (socket) => {
   console.log("your socket id is ", socket.id);
-  socket.on("send_message", (message) => {
+
+  socket.on("send_message", (data) => {
+    const { roomId, senderId, message } = data;
+    io.to(roomId).emit("recieve_message", { message, senderId });
     console.log(message);
+  });
+
+  socket.on("join_room", (roomId) => {
+    socket.join(roomId);
+    console.log("room created with id:", roomId);
   });
 });
 
