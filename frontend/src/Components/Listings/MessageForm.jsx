@@ -1,9 +1,28 @@
 import React, { useState, useEffect, useContext } from "react";
+import { AuthContext } from "../../Context/AuthContext";
+import { useParams } from "react-router-dom";
 import { socket } from "../../Socket";
+import api from "../../API/api";
 
 const MessageForm = () => {
+  const { id } = useParams();
   const [message, setMessage] = useState("");
-  console.log(message);
+  const [otherUser, setOtherUser] = useState("");
+  const [currUser, setCurrUser] = useState("");
+  const { user } = useContext(AuthContext);
+
+  useEffect(() => {
+    setCurrUser(user.id);
+    const getListing = async () => {
+      const res = await api.get(`/listings/${id}`);
+      setOtherUser(res.data.listing.owner._id);
+    };
+
+    getListing();
+
+    const roomId = [otherUser, currUser].sort().join("_");
+  }, []);
+  //console.log("curr:", currUser, "other:", otherUser);
 
   const sendMessage = () => {
     socket.emit("send_message", { message });
