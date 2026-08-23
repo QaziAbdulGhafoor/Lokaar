@@ -12,11 +12,13 @@ const MessagesTile = ({ messages, me }) => {
       {messages.map((msg) => {
         return (
           <p
+            key={msg._id}
             style={me === msg.sender ? meStyle : null}
-            className="bg-gray-200 min-w-16 max-w-40 w-fit rounded px-4 py-2 my-1"
+            className="bg-gray-200 min-w-16 max-w-40 w-fit rounded px-4 py-2 my-1 text-lg"
           >
             {msg.text}
-            <p className="text-sm">
+            <br />
+            <span className="text-sm text-gray-400">
               {new Date(msg.createdAt).toLocaleString("en-US", {
                 day: "numeric",
                 month: "short",
@@ -24,7 +26,7 @@ const MessagesTile = ({ messages, me }) => {
                 hour: "numeric",
                 minute: "2-digit",
               })}
-            </p>
+            </span>
           </p>
         );
       })}

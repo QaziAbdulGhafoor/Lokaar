@@ -3,6 +3,7 @@ import { AuthContext } from "../../Context/AuthContext";
 import { useParams } from "react-router-dom";
 import { socket } from "../../Socket";
 import MessagesTile from "./MessagesTile";
+import ChatHead from "./ChatHead";
 import api from "../../API/api";
 
 const MessageForm = () => {
@@ -10,9 +11,11 @@ const MessageForm = () => {
   const [message, setMessage] = useState("");
   const [conversation, setConversation] = useState("");
   const [messages, setMessages] = useState([]);
-  const [otherUser, setOtherUser] = useState("");
+  const [otherUser, setOtherUser] = useState();
+  const [chatPartner, setChatPartner] = useState({});
   //const [currUser, setCurrUser] = useState("");
   const { user } = useContext(AuthContext);
+  //const otherUserId = otherUser._id;
 
   console.log(messages);
 
@@ -24,6 +27,7 @@ const MessageForm = () => {
     const getListing = async () => {
       const res = await api.get(`/listings/${id}`);
       setOtherUser(res.data.listing.owner._id);
+      setChatPartner(res.data.listing.owner);
     };
 
     getListing();
@@ -72,18 +76,21 @@ const MessageForm = () => {
   };
 
   return (
-    <div className="border-2 w-2/4 mx-auto">
+    <div className="card w-2/4 mx-auto">
+      <div className="top">
+        <ChatHead other={chatPartner} />
+      </div>
       {messages.length > 0 ? (
         <MessagesTile messages={messages} me={currUser} />
       ) : (
         <></>
       )}
-      <div className="w-5/6 flex flex-row items-center ">
+      <div className="w-5/6 flex flex-row items-center h-16 my-4 mx-auto card rounded">
         <input
           type="text"
           name="message"
           placeholder="Enter Your Message"
-          className="border-2 border-gray-400 rounded h-8 w-8/9"
+          className="border-2 border-gray-400 rounded h-8 w-8/9 pl-2"
           id=""
           value={message}
           onChange={(e) => {
@@ -91,7 +98,7 @@ const MessageForm = () => {
           }}
         />
         <button
-          className="bg-blue-800 h-10 w-10 rounded-full ml-2"
+          className="bg-blue-700 h-10 w-10 rounded-full ml-2"
           onClick={sendMessage}
         >
           <span className="material-symbols-outlined mt-1 text-white">
