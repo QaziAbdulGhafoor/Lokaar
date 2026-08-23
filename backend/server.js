@@ -107,7 +107,7 @@ io.on("connection", (socket) => {
   socket.on("send_message", async (data) => {
     const { roomId, senderId, recieverId, message } = data;
     const Ourconversation = await Conversation.find({
-      participants: [senderId, recieverId],
+      participants: { $all: [senderId, recieverId] },
     });
 
     const conversationId = Ourconversation[0].id;

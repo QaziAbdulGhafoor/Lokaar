@@ -72,26 +72,33 @@ const MessageForm = () => {
   };
 
   return (
-    <div>
-      <input
-        type="text"
-        name="message"
-        className="border-2 border-gray-400 rounded"
-        id=""
-        value={message}
-        onChange={(e) => {
-          setMessage(e.target.value);
-        }}
-      />
-      <br />
-      <button className="blue-btn" onClick={sendMessage}>
-        Send
-      </button>
+    <div className="border-2 w-2/4 mx-auto">
       {messages.length > 0 ? (
         <MessagesTile messages={messages} me={currUser} />
       ) : (
         <></>
       )}
+      <div className="w-5/6 flex flex-row items-center ">
+        <input
+          type="text"
+          name="message"
+          placeholder="Enter Your Message"
+          className="border-2 border-gray-400 rounded h-8 w-8/9"
+          id=""
+          value={message}
+          onChange={(e) => {
+            setMessage(e.target.value);
+          }}
+        />
+        <button
+          className="bg-blue-800 h-10 w-10 rounded-full ml-2"
+          onClick={sendMessage}
+        >
+          <span className="material-symbols-outlined mt-1 text-white">
+            send
+          </span>
+        </button>
+      </div>
     </div>
   );
 };
