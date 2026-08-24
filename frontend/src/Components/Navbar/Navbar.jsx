@@ -143,10 +143,10 @@ const Navbar = () => {
               </Link>
 
               <Link
-                to="/working"
+                to="/chats"
                 className="text-gray-500 no-underline transition hover:text-gray-900"
               >
-                How It Works
+                Chats
               </Link>
 
               <Link
@@ -267,11 +267,11 @@ const Navbar = () => {
                 </Link>
 
                 <Link
-                  to="/working"
+                  to="/chats"
                   onClick={closeMobileMenu}
                   className="border-b border-gray-100 py-3 text-gray-600 no-underline transition hover:text-gray-900"
                 >
-                  How It Works
+                  Chats
                 </Link>
 
                 <Link

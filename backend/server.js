@@ -10,6 +10,7 @@ const authRoutes = require("./routes/auth");
 const listingRoutes = require("./routes/listing");
 const reviewRoutes = require("./routes/review");
 const bookingRoutes = require("./routes/booking");
+const conversationRoutes = require("./routes/conversation");
 const dashboardRoutes = require("./routes/dashboards");
 const MongoStore = require("connect-mongo").default;
 const http = require("http");
@@ -79,6 +80,7 @@ app.use("/listings", listingRoutes);
 app.use("/listings/:id/reviews", reviewRoutes);
 app.use("/booking", bookingRoutes);
 app.use("/dashboard", dashboardRoutes);
+app.use("/conversations", conversationRoutes);
 
 const port = 3000;
 

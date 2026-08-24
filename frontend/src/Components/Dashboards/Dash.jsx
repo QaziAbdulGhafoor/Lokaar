@@ -81,7 +81,7 @@ export default function ProviderDashboard() {
   });
   const [activeTab, setActiveTab] = useState("pending");
   const [isLoading, setIsLoading] = useState(true);
-
+  const [chat, setChat] = useState(null);
   useEffect(() => {
     const fetchDashboard = async () => {
       try {

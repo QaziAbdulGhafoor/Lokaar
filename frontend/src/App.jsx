@@ -16,6 +16,7 @@ import BookingCard from "./Components/Listings/BookingCard";
 import EditForm from "./Components/Listings/EditForm";
 import Favourites from "./Components/Listings/Favourites";
 import MessageForm from "./Components/Listings/MessageForm";
+import AllChats from "./Components/Chats/AllChats";
 
 const router = createBrowserRouter([
   {
@@ -48,11 +49,11 @@ const router = createBrowserRouter([
   },
 
   {
-    path: "/working",
+    path: "/chats",
     element: (
       <>
         <Navbar />
-        <HowItWorks />
+        <AllChats />
       </>
     ),
   },

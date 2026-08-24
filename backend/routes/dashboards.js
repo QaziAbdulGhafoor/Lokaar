@@ -7,6 +7,7 @@ const Booking = require("../models/Booking");
 router.get("/", middlewares.isLoggedIn, async (req, res) => {
   let userId = req.user._id;
   let user = await User.findById(userId);
+
   // if (user.category === "customer") {
   //   let myCompletedBookings = await Booking.find({
   //     customer: userId,
