@@ -33,7 +33,7 @@ const AllChats = ({ setMessages, setChatPartner }) => {
       ) : (
         <div>
           {chats.length > 0 ? (
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 overflow-scroll">
               {chats.map((chat) => {
                 return (
                   <ChatLink
