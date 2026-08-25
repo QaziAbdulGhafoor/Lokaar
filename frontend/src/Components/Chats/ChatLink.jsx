@@ -1,14 +1,18 @@
 import React from "react";
 import api from "../../API/api";
 
-const ChatLink = ({ partner, conversation, setMessages }) => {
+const ChatLink = ({ partner, conversation, setMessages, setChatPartner }) => {
   const fetchMsg = async () => {
     const res = await api.get(`/conversations/${conversation._id}`);
     setMessages(res.data.messages);
+    setChatPartner(partner);
   };
 
   return (
-    <div className="card flex flex-row items-center" onClick={fetchMsg}>
+    <div
+      className=" flex flex-row items-center border-b-1 border-gray-300 py-2 pl-4"
+      onClick={fetchMsg}
+    >
       <p className="bg-blue-700 h-8 w-8 text-white text-center rounded-full pt-1">
         {partner.username[0]}
       </p>

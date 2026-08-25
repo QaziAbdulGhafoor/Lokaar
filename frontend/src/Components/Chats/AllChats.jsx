@@ -5,7 +5,7 @@ import ChatLink from "./ChatLink";
 import { AuthContext } from "../../Context/AuthContext";
 import Loader from "../Listings/Loader";
 
-const AllChats = ({ setMessages }) => {
+const AllChats = ({ setMessages, setChatPartner }) => {
   const [chats, setChats] = useState([]);
   const [loading, setLoading] = useState(true);
   const { user } = useContext(AuthContext);
@@ -26,7 +26,7 @@ const AllChats = ({ setMessages }) => {
   }, []);
 
   return (
-    <div className=" w-3/10">
+    <div className=" w-5/20 border-r-1 border-gray-300">
       <p className="text-3xl font-semibold text-center my-4">All chats</p>
       {loading ? (
         <Loader />
@@ -42,6 +42,7 @@ const AllChats = ({ setMessages }) => {
                     )}
                     conversation={chat}
                     setMessages={setMessages}
+                    setChatPartner={setChatPartner}
                   />
                 );
               })}

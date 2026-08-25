@@ -6,11 +6,11 @@ import MessagesTile from "./MessagesTile";
 import ChatHead from "./ChatHead";
 import api from "../../API/api";
 
-const MessageForm = () => {
+const MessageForm = ({ messages }) => {
   const { id } = useParams();
   const [message, setMessage] = useState("");
   const [conversation, setConversation] = useState("");
-  const [messages, setMessages] = useState([]);
+  //const [messages, setMessages] = useState([]);
   const [otherUser, setOtherUser] = useState();
   const [chatPartner, setChatPartner] = useState({});
   //const [currUser, setCurrUser] = useState("");
