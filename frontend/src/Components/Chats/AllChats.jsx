@@ -1,26 +1,56 @@
 import React, { useEffect, useState, useContext } from "react";
 import api from "../../API/api";
+import ChatHead from "../Listings/ChatHead";
+import ChatLink from "./ChatLink";
+import { AuthContext } from "../../Context/AuthContext";
+import Loader from "../Listings/Loader";
 
-const AllChats = () => {
+const AllChats = ({ setMessages }) => {
   const [chats, setChats] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const { user } = useContext(AuthContext);
   useEffect(() => {
     const fetchChats = async () => {
-      const res = await api.get("/conversations");
-      console.log(res.data.conversations);
-      setChats(res.data.conversations);
+      try {
+        const res = await api.get("/conversations");
+        //console.log(res.data.conversations);
+        setChats(res.data.conversations);
+      } catch (err) {
+        console.log(err);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchChats();
   }, []);
 
   return (
-    <div>
-      <p className="font-3xl font-bold text-center mt-54">All chats</p>
-      {chats.length > 0 ? (
-        <>All Chats</>
+    <div className=" w-3/10">
+      <p className="text-3xl font-semibold text-center my-4">All chats</p>
+      {loading ? (
+        <Loader />
       ) : (
-        <div className="card w-32 mx-auto px-12">
-          No Chats Kindly Chat To Someone
+        <div>
+          {chats.length > 0 ? (
+            <div className="flex flex-col gap-2">
+              {chats.map((chat) => {
+                return (
+                  <ChatLink
+                    partner={chat.participants.find(
+                      (pt) => pt.username !== user.username,
+                    )}
+                    conversation={chat}
+                    setMessages={setMessages}
+                  />
+                );
+              })}
+            </div>
+          ) : (
+            <div className="card w-32 mx-auto px-12">
+              No Chats Kindly Chat To Someone
+            </div>
+          )}
         </div>
       )}
     </div>

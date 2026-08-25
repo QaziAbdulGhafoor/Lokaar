@@ -8,16 +8,19 @@ const MessagesTile = ({ messages, me }) => {
   };
   console.log(messages);
   return (
-    <div className="parent flex flex-col max-h-92  h-fit overflow-scroll">
-      {messages.map((msg) => {
-        return (
-          <p
-            key={msg._id}
-            style={me === msg.sender ? meStyle : null}
-            className="bg-gray-200 min-w-16 max-w-52 w-fit rounded px-4 py-2 my-1 "
-          >
-            {msg.text}
-            {/* <br />
+    <>
+      {messages.length > 0 ? (
+        <>
+          <div className="parent flex flex-col max-h-92 w-7/10 h-fit overflow-scroll">
+            {messages.map((msg) => {
+              return (
+                <p
+                  key={msg._id}
+                  style={me === msg.sender ? meStyle : null}
+                  className="bg-gray-200 min-w-16 max-w-52 w-fit rounded px-4 py-2 my-1 "
+                >
+                  {msg.text}
+                  {/* <br />
             <span className="text-sm text-gray-400 mx-auto">
               {new Date(msg.createdAt).toLocaleString("en-US", {
                 day: "numeric",
@@ -27,10 +30,15 @@ const MessagesTile = ({ messages, me }) => {
                 minute: "2-digit",
               })}
             </span> */}
-          </p>
-        );
-      })}
-    </div>
+                </p>
+              );
+            })}
+          </div>
+        </>
+      ) : (
+        <p>No Messages</p>
+      )}
+    </>
   );
 };
 

@@ -17,6 +17,7 @@ import EditForm from "./Components/Listings/EditForm";
 import Favourites from "./Components/Listings/Favourites";
 import MessageForm from "./Components/Listings/MessageForm";
 import AllChats from "./Components/Chats/AllChats";
+import ChatsIndex from "./Components/Chats/ChatsIndex";
 
 const router = createBrowserRouter([
   {
@@ -53,7 +54,7 @@ const router = createBrowserRouter([
     element: (
       <>
         <Navbar />
-        <AllChats />
+        <ChatsIndex />
       </>
     ),
   },
