@@ -43,6 +43,7 @@ const AllChats = ({ setMessages, setChatPartner }) => {
                     conversation={chat}
                     setMessages={setMessages}
                     setChatPartner={setChatPartner}
+                    me={user.id}
                   />
                 );
               })}

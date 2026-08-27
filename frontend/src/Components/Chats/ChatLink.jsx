@@ -1,8 +1,17 @@
 import React from "react";
 import api from "../../API/api";
+import { socket } from "../../Socket";
 
-const ChatLink = ({ partner, conversation, setMessages, setChatPartner }) => {
+const ChatLink = ({
+  partner,
+  conversation,
+  setMessages,
+  setChatPartner,
+  me,
+}) => {
+  const roomId = [partner._id, me].sort().join("_");
   const fetchMsg = async () => {
+    socket.emit("join_room", { roomId, currUser: me, otherUser: partner._id });
     const res = await api.get(`/conversations/${conversation._id}`);
     setMessages(res.data.messages);
     setChatPartner(partner);

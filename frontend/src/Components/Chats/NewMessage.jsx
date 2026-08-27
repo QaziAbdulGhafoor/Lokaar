@@ -1,14 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { socket } from "../../Socket";
 
-const NewMessage = () => {
+const NewMessage = ({ me, other, setMessages }) => {
   const [message, setMessage] = useState("");
-
+  const roomId = me && other ? [me, other].sort().join("_") : "";
   const sendMessage = () => {
-    console.log(message);
+    socket.emit("send_message", {
+      roomId,
+      senderId: me,
+      message,
+      recieverId: other,
+    });
   };
+
+  const handleMessage = (data) => {
+    setMessages((prev) => {
+      return [...prev, data.newMsg];
+    });
+  };
+
+  useEffect(() => {
+    socket.on("recieve_message", handleMessage);
+  }, []);
+
   return (
-    <div>
-      <div className="w-5/6 flex flex-row items-center h-16 mx-auto card rounded">
+    <div className="h-10/10">
+      <div className="w-5/6 flex flex-row items-center mx-auto card rounded">
         <input
           type="text"
           name="message"

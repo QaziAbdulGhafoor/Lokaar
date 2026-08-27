@@ -13,7 +13,12 @@ const ChatsIndex = () => {
   return (
     <div className="flex flex-row justify-between ">
       <AllChats setMessages={setMessages} setChatPartner={setChatPartner} />
-      <MessagesTile messages={messages} me={user.id} partner={chatPartner} />
+      <MessagesTile
+        messages={messages}
+        setMessages={setMessages}
+        me={user.id}
+        partner={chatPartner}
+      />
     </div>
   );
 };

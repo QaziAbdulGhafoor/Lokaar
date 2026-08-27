@@ -124,7 +124,7 @@ io.on("connection", (socket) => {
       $set: { updatedAt: new Date() },
     });
 
-    io.to(roomId).emit("recieve_message", { message, conversationId });
+    io.to(roomId).emit("recieve_message", { newMsg, conversationId });
     console.log(message);
   });
 

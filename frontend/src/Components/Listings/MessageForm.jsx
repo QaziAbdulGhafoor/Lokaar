@@ -7,12 +7,12 @@ import ChatHead from "./ChatHead";
 import api from "../../API/api";
 
 const MessageForm = ({ messages }) => {
-  // const { id } = useParams();
+  const { id } = useParams();
   const [message, setMessage] = useState("");
   const [conversation, setConversation] = useState("");
   //const [messages, setMessages] = useState([]);
   const [otherUser, setOtherUser] = useState();
-  const [chatPartner, setChatPartner] = useState({});
+  //const [chatPartner, setChatPartner] = useState({});
   //const [currUser, setCurrUser] = useState("");
   const { user } = useContext(AuthContext);
   //const otherUserId = otherUser._id;
@@ -27,21 +27,25 @@ const MessageForm = ({ messages }) => {
     const getListing = async () => {
       const res = await api.get(`/listings/${id}`);
       setOtherUser(res.data.listing.owner._id);
-      setChatPartner(res.data.listing.owner);
+      //setChatPartner(res.data.listing.owner);
     };
 
     getListing();
   }, [id]);
 
-  useEffect(() => {
-    if (!conversation) return;
-    const getMsgs = async () => {
-      const res = await api.get(`/messages/${conversation}`);
-      setMessages(res.data.messages);
-    };
+  const sayId = () => {
+    console.log(conversation);
+  };
 
-    getMsgs();
-  }, [conversation]);
+  // useEffect(() => {
+  //   if (!conversation) return;
+  //   const getMsgs = async () => {
+  //     const res = await api.get(`/messages/${conversation}`);
+  //     setMessages(res.data.messages);
+  //   };
+
+  //   getMsgs();
+  // }, [conversation]);
 
   //Join room
   useEffect(() => {
@@ -51,29 +55,29 @@ const MessageForm = ({ messages }) => {
   }, [roomId]);
 
   useEffect(() => {
-    const handleMessage = (data) => {
-      console.log("New message:", data);
-    };
+    // const handleMessage = (data) => {
+    //   console.log("New message:", data);
+    // };
 
     socket.on("conversation", (data) => {
       setConversation(data.conversationId);
     });
 
-    socket.on("recieve_message", handleMessage);
+    // socket.on("recieve_message", handleMessage);
 
-    return () => {
-      socket.off("receive_message", handleMessage);
-    };
+    // return () => {
+    //   socket.off("receive_message", handleMessage);
+    // };
   }, []);
 
-  const sendMessage = () => {
-    socket.emit("send_message", {
-      roomId,
-      senderId: currUser,
-      message,
-      recieverId: otherUser,
-    });
-  };
+  // const sendMessage = () => {
+  //   socket.emit("send_message", {
+  //     roomId,
+  //     senderId: currUser,
+  //     message,
+  //     recieverId: otherUser,
+  //   });
+  // };
 
   return (
     <div className="w-5/6 flex flex-row items-center h-16 my-4 mx-auto card rounded">
@@ -90,7 +94,7 @@ const MessageForm = ({ messages }) => {
       />
       <button
         className="bg-blue-700 h-10 w-10 rounded-full ml-2"
-        onClick={sendMessage}
+        onClick={sayId}
       >
         <span className="material-symbols-outlined mt-1 text-white">send</span>
       </button>

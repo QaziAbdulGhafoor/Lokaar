@@ -13,6 +13,7 @@ import ReviewForm from "./ReviewForm";
 import Rating from "@mui/material/Rating";
 import { AlertContext } from "../../Context/AlertContext";
 import ShowAlert from "./ShowAlert";
+import createConversation from "../Chats/createConversation";
 
 const DetailCard = ({ listing, id }) => {
   const { user, setUser } = useContext(AuthContext);
@@ -103,9 +104,15 @@ const DetailCard = ({ listing, id }) => {
                       <button className="blue-btn">Book Now</button>
                     </Link>
 
-                    <Link to={`/message/${listing._id}`}>
-                      <button className="blue-ouline-btn">Message</button>
-                    </Link>
+                    <button
+                      className="blue-ouline-btn"
+                      onClick={() => {
+                        createConversation(user.id, listing.owner._id);
+                        navigate("/chats");
+                      }}
+                    >
+                      Message
+                    </button>
                   </>
                 ) : (
                   <></>
