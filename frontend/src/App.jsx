@@ -15,7 +15,6 @@ import Loader from "./Components/Listings/Loader";
 import BookingCard from "./Components/Listings/BookingCard";
 import EditForm from "./Components/Listings/EditForm";
 import Favourites from "./Components/Listings/Favourites";
-import MessageForm from "./Components/Listings/MessageForm";
 import AllChats from "./Components/Chats/AllChats";
 import ChatsIndex from "./Components/Chats/ChatsIndex";
 
@@ -74,16 +73,6 @@ const router = createBrowserRouter([
       <>
         <Navbar />
         <BookingCard />
-      </>
-    ),
-  },
-
-  {
-    path: "/message/:id",
-    element: (
-      <>
-        <Navbar />
-        <MessageForm />
       </>
     ),
   },

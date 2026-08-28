@@ -1,6 +1,6 @@
 import React from "react";
 import ChatHead from "./ChatHead";
-import MessageForm from "./MessageForm";
+//import MessageForm from "./MessageForm";
 import NewMessage from "../Chats/NewMessage";
 
 const meStyle = {
