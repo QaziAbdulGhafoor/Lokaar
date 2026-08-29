@@ -1,91 +1,4 @@
-// import React, { useContext } from "react";
-// import logo from "../../assets/logo.png";
-// import "./Navbar.css";
-// import "../../App.css";
-// import { Link, useNavigate } from "react-router-dom";
-// import { AuthContext } from "../../Context/AuthContext";
-// import { FilterContext } from "../../Context/FilterContext";
-// import { AlertContext } from "../../Context/AlertContext";
-// import api from "../../API/api";
-
-// const Navbar = () => {
-//   const { user, loading } = useContext(AuthContext);
-//   const { setFilters } = useContext(FilterContext);
-//   const { alert, setAlert } = useContext(AlertContext);
-//   const navigate = useNavigate();
-
-//   const handleLogout = () => {
-//     api.post("/logout");
-
-//     window.location.reload();
-//   };
-
-//   const removeFilters = () => {
-//     setFilters(null);
-//   };
-
-//   return (
-//     <div className="navbar position: sticky top-0 bg-white hidden md:block">
-//       {loading ? (
-//         <p>...loading</p>
-//       ) : (
-//         <>
-//           <div className="logo">
-//             <li>
-//               <img src={logo} alt="" className="logo ml-6" />
-//             </li>
-//           </div>
-//           <div className="services">
-//             <li>
-//               <Link to="/listings" onClick={removeFilters}>
-//                 Services
-//               </Link>
-//             </li>
-//             <li>
-//               <Link to="/working">How It Works</Link>
-//             </li>
-//             <li>
-//               <Link to="/new">Become A Provider</Link>
-//             </li>
-//           </div>
-
-//           {user ? (
-//             <div className="registers">
-//               {user.category === "provider" ? (
-//                 <li>
-//                   <Link to="/dashboard">Dashboard</Link>
-//                 </li>
-//               ) : (
-//                 <></>
-//               )}
-
-//               <li>
-//                 <button className="blue-btn" onClick={handleLogout}>
-//                   Log Out
-//                 </button>
-//               </li>
-//             </div>
-//           ) : (
-//             <div className="registers">
-//               <li>
-//                 <Link to="/login">Log In</Link>
-//               </li>
-//               <li>
-//                 <Link to="/signup">
-//                   <button className="blue-btn">Sign Up</button>
-//                 </Link>
-//               </li>
-//             </div>
-//           )}
-//         </>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default Navbar;
-
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useRef, useEffect } from "react";
 import logo from "../../assets/logo.png";
 import "../../App.css";
 import { Link } from "react-router-dom";
@@ -98,6 +11,8 @@ const Navbar = () => {
   const { setFilters } = useContext(FilterContext);
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const userMenuRef = useRef(null);
 
   const handleLogout = () => {
     api.post("/logout");
@@ -112,6 +27,21 @@ const Navbar = () => {
   const closeMobileMenu = () => {
     setMobileMenuOpen(false);
   };
+
+  const firstLetter = user?.username
+    ? user.username.charAt(0).toUpperCase()
+    : "U";
+
+  // Close user dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(e.target)) {
+        setUserMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
     <nav className="sticky top-0 z-50 border-b border-gray-200 bg-white font-[Inter,sans-serif] shadow-[0_1px_3px_rgba(0,0,0,0.06)]">
@@ -143,13 +73,6 @@ const Navbar = () => {
               </Link>
 
               <Link
-                to="/chats"
-                className="text-gray-500 no-underline transition hover:text-gray-900"
-              >
-                Chats
-              </Link>
-
-              <Link
                 to="/new"
                 className="text-gray-500 no-underline transition hover:text-gray-900"
               >
@@ -159,31 +82,72 @@ const Navbar = () => {
 
             {/* Authentication */}
             {user ? (
-              <div className="mr-4 flex items-center gap-3">
-                {user.category === "provider" && (
-                  <Link
-                    to="/dashboard"
-                    className="text-gray-500 no-underline transition hover:text-gray-900"
-                  >
-                    Dashboard
-                  </Link>
-                )}
-
-                {user.category === "customer" && (
-                  <Link
-                    to="/listings/favourites"
-                    className="text-gray-500 no-underline transition hover:text-gray-900"
-                  >
-                    Favourites
-                  </Link>
-                )}
-
+              <div
+                className="relative mr-4 flex items-center gap-4"
+                ref={userMenuRef}
+              >
+                {/* User dropdown trigger */}
                 <button
-                  onClick={handleLogout}
-                  className="rounded-md bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700"
+                  type="button"
+                  onClick={() => setUserMenuOpen((prev) => !prev)}
+                  className="flex items-center gap-2 rounded-md px-2 py-1 transition hover:bg-gray-50"
                 >
-                  Log Out
+                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-blue-600 text-sm font-semibold text-white">
+                    {firstLetter}
+                  </span>
+                  <span className="text-gray-700">{user.username}</span>
                 </button>
+
+                {/* Dropdown panel */}
+                {userMenuOpen && (
+                  <div className="absolute right-0 top-12 w-64 rounded-lg border border-gray-200 bg-white py-2 shadow-lg">
+                    <div className="border-b border-gray-100 px-4 py-3">
+                      <p className="font-medium text-gray-900">
+                        {user.username}
+                      </p>
+                      <p className="text-sm text-gray-500">{user.email}</p>
+                    </div>
+
+                    <div className="py-1">
+                      {user.category === "provider" && (
+                        <Link
+                          to="/dashboard"
+                          onClick={() => setUserMenuOpen(false)}
+                          className="block px-4 py-2 text-gray-700 no-underline transition hover:bg-gray-50"
+                        >
+                          Dashboard
+                        </Link>
+                      )}
+
+                      <Link
+                        to="/chats"
+                        onClick={() => setUserMenuOpen(false)}
+                        className="block px-4 py-2 text-gray-700 no-underline transition hover:bg-gray-50"
+                      >
+                        Chats
+                      </Link>
+
+                      {user.category === "customer" && (
+                        <Link
+                          to="/listings/favourites"
+                          onClick={() => setUserMenuOpen(false)}
+                          className="block px-4 py-2 text-gray-700 no-underline transition hover:bg-gray-50"
+                        >
+                          Favourites
+                        </Link>
+                      )}
+                    </div>
+
+                    <div className="border-t border-gray-100 pt-1">
+                      <button
+                        onClick={handleLogout}
+                        className="block w-full px-4 py-2 text-left text-red-600 transition hover:bg-gray-50"
+                      >
+                        Log Out
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
             ) : (
               <div className="mr-4 flex items-center gap-3">
@@ -219,7 +183,6 @@ const Navbar = () => {
               aria-expanded={mobileMenuOpen}
             >
               {mobileMenuOpen ? (
-                // X icon
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6"
@@ -235,7 +198,6 @@ const Navbar = () => {
                   />
                 </svg>
               ) : (
-                // Hamburger icon
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6"
@@ -267,14 +229,6 @@ const Navbar = () => {
                 </Link>
 
                 <Link
-                  to="/chats"
-                  onClick={closeMobileMenu}
-                  className="border-b border-gray-100 py-3 text-gray-600 no-underline transition hover:text-gray-900"
-                >
-                  Chats
-                </Link>
-
-                <Link
                   to="/new"
                   onClick={closeMobileMenu}
                   className="border-b border-gray-100 py-3 text-gray-600 no-underline transition hover:text-gray-900"
@@ -284,6 +238,18 @@ const Navbar = () => {
 
                 {user ? (
                   <>
+                    <div className="flex items-center gap-3 border-b border-gray-100 py-3">
+                      <span className="flex h-9 w-9 items-center justify-center rounded-full bg-blue-600 text-sm font-semibold text-white">
+                        {firstLetter}
+                      </span>
+                      <div>
+                        <p className="font-medium text-gray-900">
+                          {user.username}
+                        </p>
+                        <p className="text-sm text-gray-500">{user.email}</p>
+                      </div>
+                    </div>
+
                     {user.category === "provider" && (
                       <Link
                         to="/dashboard"
@@ -291,6 +257,24 @@ const Navbar = () => {
                         className="border-b border-gray-100 py-3 text-gray-600 no-underline transition hover:text-gray-900"
                       >
                         Dashboard
+                      </Link>
+                    )}
+
+                    <Link
+                      to="/chats"
+                      onClick={closeMobileMenu}
+                      className="border-b border-gray-100 py-3 text-gray-600 no-underline transition hover:text-gray-900"
+                    >
+                      Chats
+                    </Link>
+
+                    {user.category === "customer" && (
+                      <Link
+                        to="/listings/favourites"
+                        onClick={closeMobileMenu}
+                        className="border-b border-gray-100 py-3 text-gray-600 no-underline transition hover:text-gray-900"
+                      >
+                        Favourites
                       </Link>
                     )}
 
