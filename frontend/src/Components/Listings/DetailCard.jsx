@@ -123,7 +123,8 @@ const DetailCard = ({ listing, id }) => {
             )}
           </div>
         </div>
-        <div className="lower flex flex-row gap-4 flex-wrap justify-between">
+
+        <div className="lower flex flex-row gap-4 flex-wrap justify-between w-10/10">
           <div className="about card flex flex-col gap-6 w-full">
             <div className="info">
               <h2 className="text-2xl font-semibold">About</h2>
@@ -148,7 +149,7 @@ const DetailCard = ({ listing, id }) => {
 
             <div className="availabilty">
               <h2 className="text-xl font-semibold">Working Days</h2>
-              <div className="days flex flex-row gap-4 my-3">
+              <div className="days flex flex-row gap-4 flex-wrap my-3">
                 {listing.availability.days.map((day) => {
                   return (
                     <div className=" bg-gray-200 py-1 px-2 text-sm rounded text-gray-500">

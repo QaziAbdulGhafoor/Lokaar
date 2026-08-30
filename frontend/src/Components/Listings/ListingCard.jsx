@@ -33,7 +33,9 @@ const ListingCard = ({ listing }) => {
           <h2 className="text-l font-semibold">{listing.title}</h2>
           <p className="text-blue-600">{listing.profession}</p>
         </div>
-        {user && user.favourites.includes(listing._id) ? (
+        {user &&
+        user.category === "customer" &&
+        user.favourites.includes(listing._id) ? (
           <button
             className="bg-transparent outline-none"
             onClick={() => {
@@ -42,7 +44,7 @@ const ListingCard = ({ listing }) => {
           >
             <i className="fa-solid fa-heart text-2xl  text-red-600 self-start  mt-2"></i>
           </button>
-        ) : user ? (
+        ) : user && user.category === "customer" ? (
           <button
             className="bg-transparent outline-none"
             onClick={() => {
