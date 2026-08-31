@@ -2,10 +2,11 @@ const Listing = require("../models/Listing");
 const getCoord = require("../utils/geoCoord");
 const Review = require("../models/Review");
 const User = require("../models/User");
+const wrapAsync = require("../utils/wrapAsync");
 
 //Index which returns all available listings
 
-module.exports.getAll = async (req, res) => {
+module.exports.getAll = wrapAsync(async (req, res) => {
   let query = {};
 
   if (req.query.lat && req.query.lon) {
@@ -40,7 +41,7 @@ module.exports.getAll = async (req, res) => {
   const listings = await Listing.find(query);
 
   res.json({ listings });
-};
+});
 
 //serves form to create a new listing
 module.exports.getNew = (req, res) => {
@@ -48,7 +49,7 @@ module.exports.getNew = (req, res) => {
 };
 
 //submits new form data and creates a listing
-module.exports.postNew = async (req, res) => {
+module.exports.postNew = wrapAsync(async (req, res) => {
   let {
     title,
     about,
@@ -87,10 +88,10 @@ module.exports.postNew = async (req, res) => {
   await newListing.save().then((listing) => {
     res.json({ message: "listing created successfully", newListing });
   });
-};
+});
 
 //serves the detailed view of a listing
-module.exports.detailedListing = async (req, res) => {
+module.exports.detailedListing = wrapAsync(async (req, res) => {
   let { id } = req.params;
   let listing = await Listing.findOne({ _id: id })
     .populate("owner")
@@ -102,17 +103,17 @@ module.exports.detailedListing = async (req, res) => {
     res.json({ message: "listing not available" });
   }
   res.json({ listing });
-};
+});
 
 //Serves a form to edit a listing
-module.exports.getEdit = async (req, res) => {
+module.exports.getEdit = wrapAsync(async (req, res) => {
   let { id } = req.params;
   let listing = await Listing.findById(id);
   res.json({ message: `edit form served for ${listing.title}` });
-};
+});
 
 //submits edit data and makes changes in listing
-module.exports.putEdit = async (req, res) => {
+module.exports.putEdit = wrapAsync(async (req, res) => {
   let { id } = req.params;
   let { title, about, location, price } = req.body;
 
@@ -138,36 +139,36 @@ module.exports.putEdit = async (req, res) => {
     return res.json({ message: "listing not found" });
   }
   res.json({ message: "listing updated successfully", updatedListing });
-};
+});
 
 //deletes a listing
-module.exports.deleteListing = async (req, res) => {
+module.exports.deleteListing = wrapAsync(async (req, res) => {
   let { id } = req.params;
   let result = await Listing.findByIdAndDelete(id);
   res.json({ message: "deleted", result });
-};
+});
 
 //adds listing to favourites of a user
-module.exports.addFav = async (req, res) => {
+module.exports.addFav = wrapAsync(async (req, res) => {
   let { id } = req.params;
   let listing = await Listing.findById(id);
   let user = req.user;
   user.favourites.push(listing._id);
   await user.save();
   res.json({ message: "added to favourite" });
-};
+});
 
-module.exports.getFav = async (req, res) => {
+module.exports.getFav = wrapAsync(async (req, res) => {
   let user = await User.findById(req.user.id).populate("favourites");
   res.json({ favourites: user.favourites });
   //res.json({ user });
-};
+});
 
 //removes listing from favourites of a user
-module.exports.removeFav = async (req, res) => {
+module.exports.removeFav = wrapAsync(async (req, res) => {
   let { id } = req.params;
   let user = await User.findById(req.user._id);
   user.favourites = user.favourites.filter((fav) => fav.toString() !== id);
   await user.save();
   res.json({ user: user });
-};
+});

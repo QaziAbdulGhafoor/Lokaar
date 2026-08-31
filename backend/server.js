@@ -149,6 +149,11 @@ io.on("connection", (socket) => {
   });
 });
 
+app.use((err, req, res, next) => {
+  const { status = 500, message } = err;
+  res.status(status).json({ error: message });
+});
+
 server.listen(port, () => {
   console.log("listening to server");
 });
