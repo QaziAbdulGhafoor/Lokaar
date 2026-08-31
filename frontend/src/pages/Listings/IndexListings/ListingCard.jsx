@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import "./Listing.css";
-import Location from "../../assets/location.svg?react";
-import HeartEmpty from "../../assets/heart.svg?react";
+import Location from "../../../assets/location.svg?react";
+import HeartEmpty from "../../../assets/heart.svg?react";
 import { Link } from "react-router-dom";
 import api from "../../../API/api";
 import { AuthContext } from "../../../Context/AuthContext";

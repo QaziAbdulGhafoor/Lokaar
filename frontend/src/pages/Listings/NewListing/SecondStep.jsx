@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import React, { useContext, useEffect } from "react";
-import { ListingContext } from "../../Context/ListingContext";
+import { ListingContext } from "../../../Context/ListingContext";
 
 const ChevronDown = ({ className }) => (
   <svg

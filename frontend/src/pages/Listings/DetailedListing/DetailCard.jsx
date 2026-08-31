@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
-import "./Listing.css";
+import "../IndexListings/Listing.css";
 import "./DetailCard.css";
-import Location from "../../assets/location.svg?react";
-import HeartEmpty from "../../assets/heart.svg?react";
+import Location from "../../../assets/location.svg?react";
+import HeartEmpty from "../../../assets/heart.svg?react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../Context/AuthContext";
 import { ListingContext } from "../../../Context/ListingContext";

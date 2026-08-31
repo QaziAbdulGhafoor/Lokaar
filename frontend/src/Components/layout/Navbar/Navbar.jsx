@@ -1,6 +1,6 @@
 import React, { useContext, useState, useRef, useEffect } from "react";
-import logo from "../../assets/logo.png";
-import "../../App.css";
+import logo from "../../../assets/logo.png";
+import "../../../App.css";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../Context/AuthContext";
 import { FilterContext } from "../../../Context/FilterContext";

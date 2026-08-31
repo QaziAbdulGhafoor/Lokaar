@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
-import { ListingContext } from "../../Context/ListingContext";
-import { AuthContext } from "../../Context/AuthContext";
-import Loader from "../../Components/Listings/Loader";
-import api from "../../API/api";
+import { ListingContext } from "../../../Context/ListingContext";
+import { AuthContext } from "../../../Context/AuthContext";
+import Loader from "../../../Components/ui/Loader";
+import api from "../../../API/api";
 
 const dayLabels = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
