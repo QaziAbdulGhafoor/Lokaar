@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import AllChats from "./AllChats";
-import MessagesTile from "../Listings/MessagesTile";
+import MessagesTile from "./MessagesTile";
 import { AuthContext } from "../../Context/AuthContext";
 //import MessageForm from "../Listings/MessageForm";
 

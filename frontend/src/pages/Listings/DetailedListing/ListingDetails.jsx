@@ -1,11 +1,11 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import api from "../../API/api";
-import ListingCard from "./ListingCard";
+import api from "../../../API/api";
+import ListingCard from "../IndexListings/ListingCard";
 import DetailCard from "./DetailCard";
-import Loader from "./Loader";
-import ShowAlert from "./ShowAlert";
+import Loader from "../../../Components/ui/Loader";
+import ShowAlert from "../../../Components/ui/ShowAlert";
 
 const ListingDetails = () => {
   const { id } = useParams();

@@ -1,11 +1,11 @@
 import ListingCard from "./ListingCard";
-import api from "../../API/api";
+import api from "../../../API/api";
 import React from "react";
 import { useState, useEffect, useContext } from "react";
-import ListingFilterBar from "./ListingFilterBar";
-import { FetchingContext } from "../../Context/FetchingContext";
-import { AlertContext } from "../../Context/AlertContext";
-import ShowAlert from "./ShowAlert";
+import ListingFilterBar from "../Filter/ListingFilterBar";
+import { FetchingContext } from "../../../Context/FetchingContext";
+import { AlertContext } from "../../../Context/AlertContext";
+import ShowAlert from "../../../Components/ui/ShowAlert";
 
 const Listings = () => {
   const [listings, setListings] = useState([]);

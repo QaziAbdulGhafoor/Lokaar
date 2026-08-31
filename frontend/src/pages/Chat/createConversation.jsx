@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { socket } from "../../Socket";
+import { socket } from "../../services/Socket";
 
 const createConversation = (currUser, otherUser) => {
   let conversationId = "";

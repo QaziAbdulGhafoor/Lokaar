@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
-import api from "../../API/api";
-import { ListingContext } from "../../Context/ListingContext";
+import api from "../../../API/api";
+import { ListingContext } from "../../../Context/ListingContext";
 
 const BookingCard = () => {
   const { listing } = useContext(ListingContext);

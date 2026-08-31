@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { socket } from "../../Socket";
+import { socket } from "../../services/Socket";
 
 const NewMessage = ({ me, other, setMessages }) => {
   const [message, setMessage] = useState("");

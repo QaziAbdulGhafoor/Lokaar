@@ -1,22 +1,22 @@
-import Navbar from "./Components/Navbar/Navbar";
-import Footer from "./Components/Footer/Footer";
+import Navbar from "./Components/layout/Navbar/Navbar";
+import Footer from "./Components/layout/Footer/Footer";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Login from "./Components/Login/Login";
-import Signup from "./Components/Login/Signup";
+import Login from "./pages/Auth/Login";
+import Signup from "./pages/Auth/Signup";
 import axios from "axios";
-import Dash from "./Components/Dashboards/dash";
-import Listings from "./Components/Listings/Listings";
-import ListingDetails from "./Components/Listings/ListingDetails";
-import NewListing from "./Components/Listings/NewListing";
+import Dash from "./pages/Dashboard/Dash";
+import Listings from "./pages/Listings/IndexListings/Listings";
+import ListingDetails from "./pages/Listings/DetailedListing/ListingDetails";
+import NewListing from "./pages/Listings/NewListing/NewListing";
 import { useContext } from "react";
 import { AuthContext } from "./Context/AuthContext";
 import HowItWorks from "./Components/Working/HowItWorks";
-import Loader from "./Components/Listings/Loader";
-import BookingCard from "./Components/Listings/BookingCard";
-import EditForm from "./Components/Listings/EditForm";
-import Favourites from "./Components/Listings/Favourites";
-import AllChats from "./Components/Chats/AllChats";
-import ChatsIndex from "./Components/Chats/ChatsIndex";
+import Loader from "./Components/ui/Loader";
+import BookingCard from "./pages/Listings/DetailedListing/BookingCard";
+import EditForm from "./pages/Listings/EditListing/EditForm";
+import Favourites from "./pages/Listings/Favourites/Favourites";
+import AllChats from "./pages/Chat/AllChats";
+import ChatsIndex from "./pages/Chat/ChatsIndex";
 
 const router = createBrowserRouter([
   {

@@ -1,7 +1,7 @@
 import React from "react";
 import ChatHead from "./ChatHead";
 //import MessageForm from "./MessageForm";
-import NewMessage from "../Chats/NewMessage";
+import NewMessage from "./NewMessage";
 
 const meStyle = {
   backgroundColor: "blue",

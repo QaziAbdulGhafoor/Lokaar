@@ -1,6 +1,6 @@
 import React from "react";
 import api from "../../API/api";
-import { socket } from "../../Socket";
+import { socket } from "../../services/Socket";
 
 const ChatLink = ({
   partner,

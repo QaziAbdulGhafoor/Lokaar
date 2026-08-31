@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import ListingCard from "./ListingCard";
-import api from "../../API/api";
+import ListingCard from "../IndexListings/ListingCard";
+import api from "../../../API/api";
 
 const Favourites = () => {
   const [favourites, setFavourites] = useState([]);

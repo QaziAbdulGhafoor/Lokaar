@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useContext } from "react";
 import api from "../../API/api";
-import ChatHead from "../Listings/ChatHead";
+import ChatHead from "./ChatHead";
 import ChatLink from "./ChatLink";
 import { AuthContext } from "../../Context/AuthContext";
-import Loader from "../Listings/Loader";
+import Loader from "../../Components/ui/Loader";
 
 const AllChats = ({ setMessages, setChatPartner }) => {
   const [chats, setChats] = useState([]);

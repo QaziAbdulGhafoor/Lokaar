@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import React from "react";
-import { ListingContext } from "../../Context/ListingContext";
-import api from "../../API/api";
+import { ListingContext } from "../../../Context/ListingContext";
+import api from "../../../API/api";
 import { useNavigate } from "react-router-dom";
-import { AlertContext } from "../../Context/AlertContext";
+import { AlertContext } from "../../../Context/AlertContext";
 const MapPin = ({ className }) => (
   <svg
     className={className}

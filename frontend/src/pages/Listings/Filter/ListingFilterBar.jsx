@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from "react";
 import RangeSlider from "./RangeSlider";
 import NativeSelectDemo from "./DistanceOptions";
-import api from "../../API/api";
-import { FilterContext } from "../../Context/FilterContext";
+import api from "../../../API/api";
+import { FilterContext } from "../../../Context/FilterContext";
 
 const ListingFilterBar = () => {
   const { filters, setFilters } = useContext(FilterContext);

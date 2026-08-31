@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import api from "../../API/api";
 import { AlertContext } from "../../Context/AlertContext";
-import ShowAlert from "../Listings/ShowAlert";
+import ShowAlert from "../../Components/ui/ShowAlert";
 
 const CheckCircle = ({ className }) => (
   <svg

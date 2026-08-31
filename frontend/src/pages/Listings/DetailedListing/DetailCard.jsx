@@ -4,16 +4,16 @@ import "./DetailCard.css";
 import Location from "../../assets/location.svg?react";
 import HeartEmpty from "../../assets/heart.svg?react";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../../Context/AuthContext";
-import { ListingContext } from "../../Context/ListingContext";
-import api from "../../API/api";
-import MessageCard from "../Other/MessageCard";
+import { AuthContext } from "../../../Context/AuthContext";
+import { ListingContext } from "../../../Context/ListingContext";
+import api from "../../../API/api";
+import MessageCard from "../../../Components/ui/MessageCard";
 import BookingCard from "./BookingCard";
 import ReviewForm from "./ReviewForm";
 import Rating from "@mui/material/Rating";
-import { AlertContext } from "../../Context/AlertContext";
-import ShowAlert from "./ShowAlert";
-import createConversation from "../Chats/createConversation";
+import { AlertContext } from "../../../Context/AlertContext";
+import ShowAlert from "../../../Components/ui/ShowAlert";
+import createConversation from "../../Chat/createConversation";
 
 const DetailCard = ({ listing, id }) => {
   const { user, setUser } = useContext(AuthContext);
