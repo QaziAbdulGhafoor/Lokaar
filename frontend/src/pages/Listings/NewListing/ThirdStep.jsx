@@ -15,7 +15,7 @@ export default function ThirdStep({ setStep }) {
 
   const handlePublish = async () => {
     try {
-      setIsPublishing(true);
+      //setIsPublishing(true);
       const data = new FormData();
       data.append("title", listing.title);
       data.append("about", listing.about);
@@ -26,8 +26,12 @@ export default function ThirdStep({ setStep }) {
       data.append("location", listing.location);
       data.append("avatar", listing.avatar);
 
+      for (const [key, value] of data.entries()) {
+        console.log(key, value);
+      }
+
       const response = await api.post("/listings", data, {
-        credentials: "include",
+        withCredentials: true,
       });
     } catch (err) {
       console.log(err);
