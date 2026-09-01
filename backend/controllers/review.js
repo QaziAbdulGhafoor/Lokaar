@@ -1,7 +1,8 @@
 const Listing = require("../models/Listing");
 const Review = require("../models/Review");
+const wrapAsync = require("../utils/wrapAsync");
 
-module.exports.postReview = async (req, res) => {
+module.exports.postReview = wrapAsync(async (req, res) => {
   let { id } = req.params;
   let listing = await Listing.findById(id);
   let { review, rating } = req.body;
@@ -19,9 +20,9 @@ module.exports.postReview = async (req, res) => {
   await newReview.save();
   await listing.save();
   res.json({ message: "review added", result: listing });
-};
+});
 
-module.exports.deleteReview = async (req, res) => {
+module.exports.deleteReview = wrapAsync(async (req, res) => {
   let { id, reviewId } = req.params;
   let listing = await Listing.findById(id);
   listing.reviews = listing.reviews.filter(
@@ -30,4 +31,4 @@ module.exports.deleteReview = async (req, res) => {
   await listing.save();
   await Review.findByIdAndDelete(reviewId);
   res.json({ message: "review deleted", result: listing });
-};
+});
