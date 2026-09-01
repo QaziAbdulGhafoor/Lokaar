@@ -1,6 +1,10 @@
 import { useContext, useState } from "react";
 import { ListingContext } from "../../../Context/ListingContext";
+import { FetchingContext } from "../../../Context/FetchingContext";
 import { AuthContext } from "../../../Context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { AlertContext } from "../../../Context/AlertContext";
+import ShowAlert from "../../../Components/ui/ShowAlert";
 import Loader from "../../../Components/ui/Loader";
 import api from "../../../API/api";
 
@@ -9,13 +13,15 @@ const dayLabels = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 export default function ThirdStep({ setStep }) {
   const { listing } = useContext(ListingContext);
   const { user } = useContext(AuthContext);
+  const { setFlistings } = useContext(FetchingContext);
+  const { alert, setAlert } = useContext(AlertContext);
   const [isPublishing, setIsPublishing] = useState(false);
+  const navigate = useNavigate;
 
   const handlePrev = () => setStep(2);
 
   const handlePublish = async () => {
     try {
-      //setIsPublishing(true);
       const data = new FormData();
       data.append("title", listing.title);
       data.append("about", listing.about);
@@ -26,14 +32,18 @@ export default function ThirdStep({ setStep }) {
       data.append("location", listing.location);
       data.append("avatar", listing.avatar);
 
-      for (const [key, value] of data.entries()) {
-        console.log(key, value);
-      }
+      setIsPublishing(true);
 
       const response = await api.post("/listings", data, {
         withCredentials: true,
       });
+
+      // if (res.status === 200) {
+      //   setAlert({ type: "green", message: "Published Successfully" });
+      //   navigate("/listings");
+      // }
     } catch (err) {
+      setAlert({ type: "red", message: "Something Went Wrong!" });
       console.log(err);
     } finally {
       setIsPublishing(false);
@@ -85,6 +95,15 @@ export default function ThirdStep({ setStep }) {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
+      {alert.type !== "" ? (
+        <ShowAlert
+          message={alert.message}
+          type={alert.type}
+          className="mx-auto"
+        />
+      ) : (
+        <></>
+      )}
       {isPublishing && <Loader message="Publishing your listing..." />}
       {/* Step indicator */}
       <div className="px-4 sm:px-6 py-6 sm:py-8 border-b border-gray-200 bg-white">

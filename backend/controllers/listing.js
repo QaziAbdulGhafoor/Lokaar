@@ -50,34 +50,34 @@ module.exports.getNew = (req, res) => {
 
 //submits new form data and creates a listing
 module.exports.postNew = async (req, res) => {
-  console.log("BODY:", req.body);
-  console.log("FILE:", req.file);
+  // console.log("BODY:", req.body);
+  // console.log("FILE:", req.file);
 
-  res.status(200).json({
-    message: "uploaded",
-    body: req.body,
-    file: req.file,
-  });
-
-  // let {
-  //   title,
-  //   about,
-  //   profession,
-  //   price,
-  //   availability,
-  //   location,
-  //   responseTime,
-  // } = req.body;
-  // let available = JSON.parse(req.body.availability);
-
-  // let newListing = new Listing({
-  //   title,
-  //   about,
-  //   profession,
-  //   price,
-  //   availability: available,
-  //   location,
+  // res.status(200).json({
+  //   message: "uploaded",
+  //   body: req.body,
+  //   file: req.file,
   // });
+
+  let {
+    title,
+    about,
+    profession,
+    price,
+    availability,
+    location,
+    responseTime,
+  } = req.body;
+  let available = JSON.parse(req.body.availability);
+
+  let newListing = new Listing({
+    title,
+    about,
+    profession,
+    price,
+    availability: available,
+    location,
+  });
 
   // let coordinates = await getCoord(location);
   // newListing.geometry = {
@@ -85,20 +85,19 @@ module.exports.postNew = async (req, res) => {
   //   coordinates: coordinates,
   // };
 
-  // if (req.file) {
-  //   newListing.avatar = {
-  //     filename: req.file.filename,
-  //     url: req.file.path,
-  //   };
-  // }
+  if (req.file) {
+    newListing.avatar = {
+      filename: req.file.filename,
+      url: req.file.path,
+    };
+  }
 
   //console.log(req.body, req.file);
 
-  // newListing.owner = req.user._id;
-  // console.log(newListing);
-  // await newListing.save().then((listing) => {
-  //   res.json({ message: "listing created successfully", newListing });
-  // });
+  newListing.owner = req.user._id;
+  await newListing.save().then((listing) => {
+    res.json({ message: "listing created successfully", newListing });
+  });
 };
 
 //serves the detailed view of a listing

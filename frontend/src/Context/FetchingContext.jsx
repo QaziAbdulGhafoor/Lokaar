@@ -28,7 +28,9 @@ export const FetchingProvider = ({ children }) => {
     getListings();
   }, [filters]);
   return (
-    <FetchingContext.Provider value={{ isFetching, setIsFetching, Flistings }}>
+    <FetchingContext.Provider
+      value={{ isFetching, setIsFetching, Flistings, setFListings }}
+    >
       {children}
     </FetchingContext.Provider>
   );
