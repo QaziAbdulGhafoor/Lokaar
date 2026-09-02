@@ -7,9 +7,9 @@ const ChatHead = ({ partner }) => {
       {partner ? (
         <>
           {" "}
-          <p className="h-10 w-10 text-center bg-blue-700 rounded-full text-white pt-1 text-lg ml-8">
+          {/* <p className="h-10 w-10 text-center bg-blue-700 rounded-full text-white pt-1 text-lg ml-8">
             {partner.username[0].toUpperCase()}
-          </p>
+          </p> */}
           <h2 className="text-2xl font-medium ml-4">{partner.username}</h2>
         </>
       ) : (

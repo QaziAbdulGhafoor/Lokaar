@@ -15,7 +15,11 @@ router.get("/", middlewares.isLoggedIn, async (req, res) => {
 router.get("/:id", middlewares.isLoggedIn, async (req, res) => {
   const { id } = req.params;
   const messages = await Message.find({ conversation: id });
-  res.json({ messages });
+  const conversation = await Conversation.findById(id).populate("participants");
+  const partner = conversation.participants.filter(
+    (participant) => participant._id.toString() !== req.user.id,
+  )[0];
+  res.json({ messages, partner });
 });
 
 module.exports = router;

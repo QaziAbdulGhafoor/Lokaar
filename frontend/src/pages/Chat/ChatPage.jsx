@@ -1,31 +1,38 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import AllChats from "./AllChats";
 import MessagesTile from "./MessagesTile";
 import { AuthContext } from "../../Context/AuthContext";
+import { useParams } from "react-router-dom";
+import api from "../../API/api";
 //import MessageForm from "../Listings/MessageForm";
 
-const ChatsIndex = () => {
+const ChatPage = () => {
+  const { id } = useParams();
   const [chats, setChats] = useState([]);
   const [messages, setMessages] = useState([]);
   const [chatPartner, setChatPartner] = useState("");
   const { user } = useContext(AuthContext);
 
+  useEffect(() => {
+    const fetchChat = async () => {
+      const res = await api.get(`/conversations/${id}`);
+      setMessages(res.data.messages);
+      setChatPartner(res.data.partner);
+      console.log(res);
+    };
+    fetchChat();
+  }, [id]);
   return (
     <div className="flex flex-row justify-between ">
       <AllChats setMessages={setMessages} setChatPartner={setChatPartner} />
-      <div className="w-15/20">
-        <h2 className="text-3xl font-medium mt-40 text-center">
-          Kindly Select A Chat
-        </h2>
-      </div>
-      {/* <MessagesTile
+      <MessagesTile
         messages={messages}
         setMessages={setMessages}
         me={user.id}
         partner={chatPartner}
-      /> */}
+      />
     </div>
   );
 };
 
-export default ChatsIndex;
+export default ChatPage;

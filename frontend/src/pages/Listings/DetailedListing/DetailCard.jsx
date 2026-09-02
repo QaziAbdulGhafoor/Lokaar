@@ -16,6 +16,7 @@ import ShowAlert from "../../../Components/ui/ShowAlert";
 import createConversation from "../../Chat/createConversation";
 
 const DetailCard = ({ listing, id }) => {
+  const navigate = useNavigate();
   const { user, setUser } = useContext(AuthContext);
   console.log(user);
   const ownerId = localStorage.getItem("user");
@@ -43,7 +44,6 @@ const DetailCard = ({ listing, id }) => {
     time: "",
   });
   //console.log(bookingData);
-  const navigate = useNavigate();
 
   //const isOwner = listing.owner.id === user.id;
 
@@ -57,6 +57,11 @@ const DetailCard = ({ listing, id }) => {
     navigate(`/listings/${listing._id}/edit`);
   };
 
+  const handleMessage = async () => {
+    let conversation = await createConversation(user.id, listing.owner._id);
+    console.log(conversation);
+    navigate(`/chats/${conversation}`);
+  };
   console.log("DETAIL RENDER");
   //console.log(alert);
 
@@ -104,13 +109,7 @@ const DetailCard = ({ listing, id }) => {
                       <button className="blue-btn">Book Now</button>
                     </Link>
 
-                    <button
-                      className="blue-ouline-btn"
-                      onClick={() => {
-                        createConversation(user.id, listing.owner._id);
-                        navigate("/chats");
-                      }}
-                    >
+                    <button className="blue-ouline-btn" onClick={handleMessage}>
                       Message
                     </button>
                   </>

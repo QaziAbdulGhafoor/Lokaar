@@ -1,6 +1,7 @@
 import React from "react";
 import api from "../../API/api";
 import { socket } from "../../services/Socket";
+import { Link } from "react-router-dom";
 
 const ChatLink = ({
   partner,
@@ -10,7 +11,7 @@ const ChatLink = ({
   me,
 }) => {
   const roomId = [partner._id, me].sort().join("_");
-  const fetchMsg = async () => {
+  const fetchChat = async () => {
     socket.emit("join_room", { roomId, currUser: me, otherUser: partner._id });
     const res = await api.get(`/conversations/${conversation._id}`);
     setMessages(res.data.messages);
@@ -18,27 +19,29 @@ const ChatLink = ({
   };
 
   return (
-    <div
-      className=" flex flex-row items-center border-b-1 border-gray-300 py-2 pl-4"
-      onClick={fetchMsg}
-    >
-      <p className="bg-blue-700 h-8 w-8 text-white text-center rounded-full pt-1">
-        {partner.username[0]}
-      </p>
-      <div className="ml-4">
-        <h2 className="text-2xl font-medium">{partner.username}</h2>
-        <p className="text-sm mt-1">
-          Last Chat :
-          {new Date(conversation.updatedAt).toLocaleString("en-US", {
-            day: "numeric",
-            month: "short",
-            //year: "numeric",
-            hour: "numeric",
-            minute: "2-digit",
-          })}
+    <Link to={`/chats/${conversation._id}`}>
+      <div
+        className=" flex flex-row items-center border-b-1 border-gray-300 py-2 pl-4"
+        //onClick={fetchChat}
+      >
+        <p className="bg-blue-700 h-8 w-8 text-white text-center rounded-full pt-1">
+          {partner.username[0]}
         </p>
+        <div className="ml-4">
+          <h2 className="text-2xl font-medium">{partner.username}</h2>
+          <p className="text-sm mt-1">
+            Last Chat :
+            {new Date(conversation.updatedAt).toLocaleString("en-US", {
+              day: "numeric",
+              month: "short",
+              //year: "numeric",
+              hour: "numeric",
+              minute: "2-digit",
+            })}
+          </p>
+        </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
