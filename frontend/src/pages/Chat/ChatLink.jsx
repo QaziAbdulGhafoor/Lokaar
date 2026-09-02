@@ -26,7 +26,7 @@ const ChatLink = ({
         {partner.username[0]}
       </p>
       <div className="ml-4">
-        <h2 className="text-xl font-semibold">{partner.username}</h2>
+        <h2 className="text-2xl font-medium">{partner.username}</h2>
         <p className="text-sm mt-1">
           Last Chat :
           {new Date(conversation.updatedAt).toLocaleString("en-US", {

@@ -43,7 +43,7 @@ const MessagesTile = ({ messages, setMessages, me, partner }) => {
             })}
           </>
         ) : (
-          <>No Msgs</>
+          <h1 className="mx-auto text-xl font-medium mt-8">No Msgs</h1>
         )}
       </div>
       <div className="h-2/10">
