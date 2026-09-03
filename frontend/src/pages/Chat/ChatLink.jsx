@@ -25,7 +25,7 @@ const ChatLink = ({
         //onClick={fetchChat}
       >
         <p className="bg-blue-700 h-8 w-8 text-white text-center rounded-full pt-1">
-          {partner.username[0]}
+          {partner.username[0].toUpperCase()}
         </p>
         <div className="ml-4">
           <h2 className="text-2xl font-medium">{partner.username}</h2>

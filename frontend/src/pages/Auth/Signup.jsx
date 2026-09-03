@@ -49,7 +49,7 @@ const Signup = () => {
   };
 
   return (
-    <form action="" className="form-box registration " onSubmit={handleSubmit}>
+    <form action="" className="form-box registration" onSubmit={handleSubmit}>
       <img src={logo} alt="" className="h-12" />
       <div className="welcome mb-4">
         <h2 className="text-3xl font-semibold">Welcome!</h2>

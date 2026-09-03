@@ -23,14 +23,19 @@ const ChatPage = () => {
     fetchChat();
   }, [id]);
   return (
-    <div className="flex flex-row justify-between ">
-      <AllChats setMessages={setMessages} setChatPartner={setChatPartner} />
-      <MessagesTile
-        messages={messages}
-        setMessages={setMessages}
-        me={user.id}
-        partner={chatPartner}
-      />
+    <div className="flex flex-row justify-between w-screen h-[calc(vh-100-4rem)]">
+      <div className="md:block hidden md:w-5/20">
+        <AllChats setMessages={setMessages} setChatPartner={setChatPartner} />
+      </div>
+      <div className="md:w-15/20 w-screen">
+        {" "}
+        <MessagesTile
+          messages={messages}
+          setMessages={setMessages}
+          me={user.id}
+          partner={chatPartner}
+        />
+      </div>
     </div>
   );
 };

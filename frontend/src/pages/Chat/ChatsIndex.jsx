@@ -11,9 +11,12 @@ const ChatsIndex = () => {
   const { user } = useContext(AuthContext);
 
   return (
-    <div className="flex flex-row justify-between ">
-      <AllChats setMessages={setMessages} setChatPartner={setChatPartner} />
-      <div className="w-15/20">
+    <div className="flex flex-row justify-between h-[calc(100vh-4rem)]">
+      <div className="md:w-5/20 w-screen">
+        <AllChats setMessages={setMessages} setChatPartner={setChatPartner} />
+      </div>
+
+      <div className="md:block hidden md:w-15/20">
         <h2 className="text-3xl font-medium mt-40 text-center">
           Kindly Select A Chat
         </h2>

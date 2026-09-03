@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const ChatHead = ({ partner }) => {
   console.log(partner);
@@ -10,6 +11,9 @@ const ChatHead = ({ partner }) => {
           {/* <p className="h-10 w-10 text-center bg-blue-700 rounded-full text-white pt-1 text-lg ml-8">
             {partner.username[0].toUpperCase()}
           </p> */}
+          <Link to={"/chats"}>
+            <i className="fa-solid fa-circle-arrow-left ml-2 text-3xl text-blue-700"></i>
+          </Link>
           <h2 className="text-2xl font-medium ml-4">{partner.username}</h2>
         </>
       ) : (

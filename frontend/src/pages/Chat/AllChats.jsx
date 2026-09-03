@@ -26,7 +26,7 @@ const AllChats = ({ setMessages, setChatPartner }) => {
   }, []);
 
   return (
-    <div className=" w-5/20 border-r-1 border-gray-300 h-screen">
+    <div className="border-r-1 border-gray-300 h-10/10">
       <p className="text-3xl font-medium text-center my-4">All Chats</p>
       {loading ? (
         <Loader />

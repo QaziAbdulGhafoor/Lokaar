@@ -53,9 +53,9 @@ module.exports.isAvailable = async (req, res, next) => {
   ) {
     next();
   } else if (timeToMinutes(startTime) < start || timeToMinutes(endTime) > end) {
-    return res.json({ message: "not available at this time slot" });
+    return res.status(409).json({ message: "not available at this time slot" });
   } else {
-    return res.json({ message: "not available at this day" });
+    return res.status(409).json({ message: "not available at this day" });
   }
 };
 
@@ -73,6 +73,6 @@ module.exports.isAlreadyBooked = async (req, res, next) => {
   if (!alreadyBooked) {
     next();
   } else {
-    res.json({ message: "already booked" });
+    res.status(409).json({ message: "already booked" });
   }
 };
