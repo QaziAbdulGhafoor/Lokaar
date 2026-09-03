@@ -17,6 +17,7 @@ const NewMessage = ({ me, other, setMessages }) => {
     setMessages((prev) => {
       return [...prev, data.newMsg];
     });
+    console.log(data);
   };
 
   useEffect(() => {
