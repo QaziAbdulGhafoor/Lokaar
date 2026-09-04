@@ -5,10 +5,12 @@ import "./Login.css";
 import axios from "axios";
 import { AuthContext } from "../../Context/AuthContext";
 import { AlertContext } from "../../Context/AlertContext";
+import Loader from "../../Components/ui/Loader";
 const Signup = () => {
   const navigate = useNavigate();
   const { user, setUser } = useContext(AuthContext);
   const { alert, setAlert } = useContext(AlertContext);
+  const [isLogging, setIsLogging] = useState(false);
 
   const [formData, setFormdata] = useState({
     username: "",
@@ -34,12 +36,15 @@ const Signup = () => {
     console.log(data);
     const register = async (data) => {
       try {
+        setIsLogging(true);
         const response = await axios.post("http://localhost:3000/signup", data);
         setUser(response.data.user);
         navigate("/listings");
         setAlert({ type: "green", message: "Registered Successfully" });
       } catch (err) {
         console.log(err);
+      } finally {
+        setIsLogging(false);
       }
     };
 
@@ -50,6 +55,7 @@ const Signup = () => {
 
   return (
     <form action="" className="form-box registration" onSubmit={handleSubmit}>
+      {isLogging ? <Loader message="Creating Account..."></Loader> : null}
       <img src={logo} alt="" className="h-12" />
       <div className="welcome mb-4">
         <h2 className="text-3xl font-semibold">Welcome!</h2>

@@ -281,9 +281,7 @@ export default function ProviderDashboard() {
                             }}
                             className=" bg-green-600 text-white rounded-full cursor-pointer h-8 w-8 hover:bg-green-700"
                           >
-                            <span className="material-symbols-outlined mt-1">
-                              check_circle
-                            </span>
+                            <i class="fa-regular fa-circle-check"></i>
                           </button>
                           <button
                             onClick={() => {
