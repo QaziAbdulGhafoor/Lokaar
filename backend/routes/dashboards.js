@@ -8,22 +8,6 @@ router.get("/", middlewares.isLoggedIn, async (req, res) => {
   let userId = req.user._id;
   let user = await User.findById(userId);
 
-  // if (user.category === "customer") {
-  //   let myCompletedBookings = await Booking.find({
-  //     customer: userId,
-  //     status: "completed",
-  //   });
-
-  //   let myPendingBookings = await Booking.find({
-  //     customer: userId,
-  //     status: "pending",
-  //   });
-
-  //   return res.json({
-  //     Completd: myCompletedBookings,
-  //     Pending: myPendingBookings,
-  //   });
-  // }
   let myCompletedBookings = await Booking.find({
     provider: userId,
     status: "completed",

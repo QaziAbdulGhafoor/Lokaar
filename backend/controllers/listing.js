@@ -50,15 +50,6 @@ module.exports.getNew = (req, res) => {
 
 //submits new form data and creates a listing
 module.exports.postNew = async (req, res) => {
-  // console.log("BODY:", req.body);
-  // console.log("FILE:", req.file);
-
-  // res.status(200).json({
-  //   message: "uploaded",
-  //   body: req.body,
-  //   file: req.file,
-  // });
-
   let {
     title,
     about,

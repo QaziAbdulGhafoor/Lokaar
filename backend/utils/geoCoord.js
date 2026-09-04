@@ -1,28 +1,3 @@
-// const axios = require("axios");
-
-// async function getCoord(location) {
-//   console.time("Nominatim");
-//   let result = await axios.get(
-//     `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
-//       location,
-//     )}&format=json&limit=1`,
-//     {
-//       headers: {
-//         "User-Agent": "lokaar-app",
-//       },
-//     },
-//   );
-
-//   console.timeEnd("Nominatim");
-
-//   if (!result.data || result.data.length === 0) {
-//     throw new Error(`Location not found: ${location}`);
-//   }
-//   return [Number(result.data[0].lon), Number(result.data[0].lat)];
-// }
-
-// module.exports = getCoord;
-
 const axios = require("axios");
 
 async function getCoord(location) {
