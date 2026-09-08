@@ -124,8 +124,11 @@ io.on("connection", (socket) => {
       $set: { updatedAt: new Date() },
     });
 
-    io.to(roomId).emit("recieve_message", { newMsg, conversationId });
-    console.log(message);
+    io.to(roomId).emit("receive_message", {
+      message: newMsg,
+      conId: conversationId,
+    });
+    console.log(conv, roomId);
   });
 
   socket.on("join_room", async (data) => {
@@ -138,13 +141,13 @@ io.on("connection", (socket) => {
 
     if (alreadyCon) {
       console.log("conversation exists");
-      socket.emit("conversation", { conversationId: alreadyCon.id });
+      socket.emit("conversation", { conId: alreadyCon.id });
     } else {
       const conversation = await Conversation.create({
         participants: [currUser, otherUser],
       });
       console.log("conversation created");
-      socket.emit("conversation", { conversationId: conversation.id });
+      socket.emit("conversation", { conId: conversation.id });
     }
   });
 });

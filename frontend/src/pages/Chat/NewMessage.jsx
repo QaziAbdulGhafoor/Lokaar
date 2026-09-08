@@ -15,13 +15,13 @@ const NewMessage = ({ me, other, setMessages }) => {
 
   const handleMessage = (data) => {
     setMessages((prev) => {
-      return [...prev, data.newMsg];
+      return [...prev, data.message];
     });
     console.log(data);
   };
 
   useEffect(() => {
-    socket.on("recieve_message", handleMessage);
+    socket.on("receive_message", handleMessage);
   }, []);
 
   return (

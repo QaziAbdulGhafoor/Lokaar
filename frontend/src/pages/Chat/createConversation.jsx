@@ -42,7 +42,7 @@ const createConversation = (currUser, otherUser) => {
     });
 
     socket.once("conversation", (data) => {
-      resolve(data.conversationId);
+      resolve(data.conId);
     });
   });
 };

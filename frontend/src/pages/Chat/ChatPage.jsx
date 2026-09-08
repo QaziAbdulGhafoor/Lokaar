@@ -4,6 +4,7 @@ import MessagesTile from "./MessagesTile";
 import { AuthContext } from "../../Context/AuthContext";
 import { useParams } from "react-router-dom";
 import api from "../../API/api";
+import createConversation from "./createConversation";
 //import MessageForm from "../Listings/MessageForm";
 
 const ChatPage = () => {
@@ -18,6 +19,7 @@ const ChatPage = () => {
       const res = await api.get(`/conversations/${id}`);
       setMessages(res.data.messages);
       setChatPartner(res.data.partner);
+      createConversation(user.id, res.data.partner._id);
       console.log(res);
     };
     fetchChat();
