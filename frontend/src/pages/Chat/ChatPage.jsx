@@ -5,6 +5,7 @@ import { AuthContext } from "../../Context/AuthContext";
 import { useParams } from "react-router-dom";
 import api from "../../API/api";
 import createConversation from "./createConversation";
+import Loader from "../../Components/ui/Loader";
 //import MessageForm from "../Listings/MessageForm";
 
 const ChatPage = () => {
@@ -12,7 +13,8 @@ const ChatPage = () => {
   const [chats, setChats] = useState([]);
   const [messages, setMessages] = useState([]);
   const [chatPartner, setChatPartner] = useState("");
-  const { user } = useContext(AuthContext);
+
+  const { user, loading } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchChat = async () => {
@@ -26,18 +28,27 @@ const ChatPage = () => {
   }, [id]);
   return (
     <div className="flex flex-row justify-between w-screen h-[calc(vh-100-4rem)]">
-      <div className="md:block hidden md:w-5/20">
-        <AllChats setMessages={setMessages} setChatPartner={setChatPartner} />
-      </div>
-      <div className="md:w-15/20 w-screen">
-        {" "}
-        <MessagesTile
-          messages={messages}
-          setMessages={setMessages}
-          me={user.id}
-          partner={chatPartner}
-        />
-      </div>
+      {loading ? (
+        <Loader />
+      ) : (
+        <>
+          <div className="md:block hidden md:w-5/20">
+            <AllChats
+              setMessages={setMessages}
+              setChatPartner={setChatPartner}
+            />
+          </div>
+          <div className="md:w-15/20 w-screen">
+            {" "}
+            <MessagesTile
+              messages={messages}
+              setMessages={setMessages}
+              me={user.id}
+              partner={chatPartner}
+            />
+          </div>
+        </>
+      )}
     </div>
   );
 };

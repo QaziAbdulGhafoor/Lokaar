@@ -28,33 +28,33 @@ const AllChats = ({ setMessages, setChatPartner }) => {
   return (
     <div className="border-r-1 border-gray-300 h-10/10">
       <p className="text-3xl font-medium text-center my-4">All Chats</p>
-      {loading ? (
+      {/* {loading ? (
         <Loader />
-      ) : (
-        <div>
-          {chats.length > 0 ? (
-            <div className="flex flex-col gap-2 overflow-scroll">
-              {chats.map((chat) => {
-                return (
-                  <ChatLink
-                    partner={chat.participants.find(
-                      (pt) => pt.username !== user.username,
-                    )}
-                    conversation={chat}
-                    setMessages={setMessages}
-                    setChatPartner={setChatPartner}
-                    me={user.id}
-                  />
-                );
-              })}
-            </div>
-          ) : (
-            <div className="card w-32 mx-auto px-12">
-              No Chats Kindly Chat To Someone
-            </div>
-          )}
-        </div>
-      )}
+      ) : ( */}
+      <div>
+        {chats && chats.length > 0 ? (
+          <div className="flex flex-col gap-2 overflow-scroll">
+            {chats.map((chat) => {
+              return (
+                <ChatLink
+                  partner={chat.participants.find(
+                    (pt) => pt.username !== user.username,
+                  )}
+                  conversation={chat}
+                  setMessages={setMessages}
+                  setChatPartner={setChatPartner}
+                  me={user.id}
+                />
+              );
+            })}
+          </div>
+        ) : (
+          <div className="card w-32 mx-auto px-12">
+            No Chats Kindly Chat To Someone
+          </div>
+        )}
+      </div>
+      {/* )} */}
     </div>
   );
 };
