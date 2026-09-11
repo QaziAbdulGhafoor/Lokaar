@@ -28,6 +28,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "/public")));
 
 const DB_URL = process.env.ATLAS_URI;
+const SESSION_SECRET = process.env.SESSION_SECRET;
 
 async function main() {
   await mongoose.connect(DB_URL);
@@ -44,14 +45,14 @@ main()
 const store = MongoStore.create({
   mongoUrl: DB_URL,
   crypto: {
-    secret: "keyboard cat",
+    secret: "hellloooo",
   },
   touchAfter: 24 * 60 * 60,
 });
 
 const sessionMiddleware = session({
   store,
-  secret: "keyboard cat",
+  secret: "hellloooo",
   resave: false,
   saveUninitialized: false,
   cookie: {
