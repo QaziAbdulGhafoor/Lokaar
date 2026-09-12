@@ -54,120 +54,128 @@ const Signup = () => {
   };
 
   return (
-    <form action="" className="form-box registration" onSubmit={handleSubmit}>
-      {isLogging ? <Loader message="Creating Account..."></Loader> : null}
-      <img src={logo} alt="" className="h-12" />
-      <div className="welcome mb-4">
-        <h2 className="text-3xl font-semibold">Welcome!</h2>
-        <p className="text-gray-500 text-center">Create your account</p>
-      </div>
-      <div className="inp">
-        <label htmlFor="username">Username</label>
-        <br />
-        <input
-          type="text"
-          id="username"
-          name="username"
-          className="form-input"
-          placeholder="Enter Username"
-          value={formData.username}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="inp">
-        <label htmlFor="password">Password</label> <br />
-        <input
-          type={showPassword ? "text" : "password"}
-          id="password"
-          name="password"
-          className="form-input "
-          placeholder="Enter Password"
-          value={formData.password}
-          onChange={handleChange}
-        />
-        <span
-          className="eye"
-          onClick={() => {
-            setShowPassword((prev) => {
-              return !prev;
-            });
-          }}
-        >
-          <i className="fa-regular fa-eye"></i>
-        </span>
-      </div>
-      <div className="inp">
-        <label htmlFor="email">Email</label>
-        <br />
-        <input
-          type="email"
-          id="email"
-          name="email"
-          className="form-input"
-          placeholder="Enter Email"
-          value={formData.email}
-          onChange={handleChange}
-        />
-      </div>
+    <>
+      <form
+        action=""
+        className="form-box registration "
+        onSubmit={handleSubmit}
+      >
+        {isLogging ? <Loader message="Creating Account..."></Loader> : null}
+        <div className="welcome mb-4">
+          <h2 className="text-3xl font-semibold">Welcome!</h2>
+          <p className="text-gray-500 text-center">Create your account</p>
+        </div>
+        <div className="inps w-full flex flex-col gap-4 items-center ">
+          <div className="inp w-full">
+            <label htmlFor="username">Username</label>
+            <br />
+            <input
+              type="text"
+              id="username"
+              name="username"
+              className="form-input"
+              placeholder="Enter Username"
+              value={formData.username}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="inp w-full">
+            <label htmlFor="password">Password</label> <br />
+            <input
+              type={showPassword ? "text" : "password"}
+              id="password"
+              name="password"
+              className="form-input "
+              placeholder="Enter Password"
+              value={formData.password}
+              onChange={handleChange}
+            />
+            <span
+              className="eye"
+              onClick={() => {
+                setShowPassword((prev) => {
+                  return !prev;
+                });
+              }}
+            >
+              <i className="fa-regular fa-eye"></i>
+            </span>
+          </div>
+          <div className="inp w-full">
+            <label htmlFor="email">Email</label>
+            <br />
+            <input
+              type="email"
+              id="email"
+              name="email"
+              className="form-input"
+              placeholder="Enter Email"
+              value={formData.email}
+              onChange={handleChange}
+            />
+          </div>
 
-      <div className="inp">
-        <label htmlFor="location">Location</label>
-        <br />
-        <input
-          type="text"
-          id="location"
-          name="location"
-          className="form-input"
-          placeholder="city,state,country"
-          value={formData.location}
-          onChange={handleChange}
-        />
-      </div>
-      <label htmlFor="" className="inp self-start ml-12">
-        Select Your Category
-      </label>
-      <div className="inp" id="category">
-        <div className="category">
-          <label className="option">
+          <div className="inp w-full">
+            <label htmlFor="location">Location</label>
+            <br />
             <input
-              type="radio"
-              name="category"
-              value="customer"
-              checked={formData.category === "customer"}
+              type="text"
+              id="location"
+              name="location"
+              className="form-input"
+              placeholder="city,state,country"
+              value={formData.location}
               onChange={handleChange}
             />
-            <span>
-              <i className="fa-solid fa-user"></i>
-              Customer
-            </span>
+          </div>
+          <label htmlFor="" className="inp self-start ml-12">
+            Select Your Category
           </label>
+          <div className="inp w-full flex flex-row gap-8" id="category">
+            <div className="category">
+              <label className="option">
+                <input
+                  type="radio"
+                  name="category"
+                  value="customer"
+                  checked={formData.category === "customer"}
+                  onChange={handleChange}
+                />
+                <span>
+                  <i className="fa-solid fa-user"></i>
+                  Customer
+                </span>
+              </label>
+            </div>
+            <div className="category">
+              <label className="option">
+                <input
+                  type="radio"
+                  name="category"
+                  value="provider"
+                  checked={formData.category === "provider"}
+                  onChange={handleChange}
+                />
+                <span>
+                  <i className="fa-solid fa-briefcase"></i>
+                  Provider
+                </span>
+              </label>
+            </div>
+          </div>
+          <button type="submit" className="my-4 w-70 blue-btn">
+            Sign Up
+          </button>
         </div>
-        <div className="category">
-          <label className="option">
-            <input
-              type="radio"
-              name="category"
-              value="provider"
-              checked={formData.category === "provider"}
-              onChange={handleChange}
-            />
-            <span>
-              <i className="fa-solid fa-briefcase"></i>
-              Provider
-            </span>
-          </label>
-        </div>
-      </div>
-      <button type="submit" className="my-4 w-70 blue-btn">
-        Sign Up
-      </button>
-      <p className="mb-8">
-        Already have account?
-        <Link to="/" className="text-blue-500">
-          Log In
-        </Link>
-      </p>
-    </form>
+
+        <p className="mb-8">
+          Already have account?
+          <Link to="/" className="text-blue-500">
+            Log In
+          </Link>
+        </p>
+      </form>
+    </>
   );
 };
 

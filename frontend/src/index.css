@@ -5,11 +5,11 @@
 }
 
 .form-box {
-  @apply flex flex-col items-center gap-4 px-4  pt-12 text-sm;
+  @apply flex flex-col items-center gap-4 px-4 pt-12 text-sm md:w-2/7 w-screen;
 }
 
 .form-input {
-  @apply rounded h-8 w-9/10 px-2;
+  @apply rounded h-8 w-9/10 px-2 border-1 border-gray-300;
 }
 
 .blue-btn {

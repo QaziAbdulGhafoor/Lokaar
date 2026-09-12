@@ -56,7 +56,7 @@ const Login = () => {
         <h2 className="text-3xl font-semibold">Welcome Back</h2>
         <p className="text-gray-500 text-center">Sign in to your account</p>
       </div>
-      <div className="inp">
+      <div className="inp w-full ml-6">
         <label htmlFor="username">Username</label>
         <br />
         <input
@@ -69,7 +69,7 @@ const Login = () => {
           onChange={handleChange}
         />
       </div>
-      <div className="inp">
+      <div className="inp w-full ml-6">
         <label htmlFor="password">Password</label> <br />
         <input
           type={showPassword ? "text" : "password"}
