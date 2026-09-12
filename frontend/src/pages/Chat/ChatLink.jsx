@@ -21,7 +21,7 @@ const ChatLink = ({
   return (
     <Link to={`/chats/${conversation._id}`}>
       <div
-        className=" flex flex-row items-center border-b-1 border-gray-300 py-2 pl-4"
+        className=" flex flex-row items-center border-b-2 border-gray-300 py-2 pl-4"
         //onClick={fetchChat}
       >
         <p className="bg-blue-700 h-8 w-8 text-white text-center rounded-full pt-1">

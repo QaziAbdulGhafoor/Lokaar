@@ -227,7 +227,7 @@ export default function FirstStep({ setStep }) {
                 <h2 className="block text-sm font-semibold text-gray-800 mb-2">
                   Share Your Professional Experience
                 </h2>
-                <div className="flex flex-row justify-start gap-3">
+                <div className="flex flex-row flex-wrap justify-start gap-3">
                   <label className="flex-1 flex items-center gap-2.5 rounded-lg border border-gray-300 px-4 py-2.5 text-sm sm:text-base text-gray-600 cursor-pointer has-[:checked]:border-blue-600 has-[:checked]:bg-blue-50 has-[:checked]:text-blue-600 transition-colors">
                     <input
                       type="radio"
@@ -289,10 +289,7 @@ export default function FirstStep({ setStep }) {
           </div>
 
           {/* Footer actions */}
-          <div className="flex items-center justify-between mt-6 gap-3">
-            <button type="button" className="blue-ouline-btn">
-              ← Back
-            </button>
+          <div className="flex  justify-end mt-6 gap-3">
             <button type="submit" className="blue-btn" onClick={handleNext}>
               Continue →
             </button>

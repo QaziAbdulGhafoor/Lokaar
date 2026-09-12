@@ -9,7 +9,7 @@
 }
 
 .form-input {
-  @apply rounded h-8 w-88 px-2;
+  @apply rounded h-8 w-9/10 px-2;
 }
 
 .blue-btn {

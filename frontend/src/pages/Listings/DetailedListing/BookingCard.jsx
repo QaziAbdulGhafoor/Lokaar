@@ -51,8 +51,8 @@ const BookingCard = () => {
     }
   };
   return (
-    <div className="booking card w-120 form-box flex flex-col mx-auto mt-16">
-      {alert.type === "red" || "green" ? (
+    <div className="booking card sm:w-96 w-screen   form-box flex flex-col mx-auto mt-16">
+      {alert.message ? (
         <ShowAlert message={alert.message} type={alert.type} />
       ) : (
         <></>
@@ -62,23 +62,23 @@ const BookingCard = () => {
         <Loader message="Processing request" />
       ) : (
         <>
-          <h2 className="text-2xl font-semibold">Provide Booking Details</h2>
+          <h2 className="text-2xl font-semibold">Booking Details</h2>
           {/* <p className="font-medium text-gray-600 text-sm  ">
            {listing.price} /Hour
           </p> */}
           <form
-            className="flex flex-col justify-between items-center gap-3"
+            className="flex flex-col justify-between w-full items-center gap-3"
             onSubmit={handleBooking}
           >
-            <label className="self-start">Select Date</label>
+            <label className="self-start ml-4">Select Date</label>
             <input
               type="date"
-              className="form-input border-2 border-gray-400 text-gray-500"
+              className="form-input w-4/9 border-2 border-gray-400 text-gray-500"
               placeholder="Date"
               name="date"
               onChange={handleChange}
             />
-            <label className="self-start">Select Starting Time</label>
+            <label className="self-start ml-4">Select Starting Time</label>
             <input
               type="time"
               step="1800"
@@ -87,7 +87,7 @@ const BookingCard = () => {
               name="startTime"
               onChange={handleChange}
             />
-            <label className="self-start ">Select Ending Time</label>
+            <label className="self-start ml-4">Select Ending Time</label>
             <input
               type="time"
               step="1800"
@@ -96,7 +96,7 @@ const BookingCard = () => {
               name="endTime"
               onChange={handleChange}
             />
-            <button className="blue-btn">Book Now</button>
+            <button className="blue-btn mt-4">Book Now</button>
           </form>
         </>
       )}

@@ -14,6 +14,7 @@ import Rating from "@mui/material/Rating";
 import { AlertContext } from "../../../Context/AlertContext";
 import ShowAlert from "../../../Components/ui/ShowAlert";
 import createConversation from "../../Chat/createConversation";
+import ReviewsTile from "./ReviewsTile";
 
 const DetailCard = ({ listing, id }) => {
   const navigate = useNavigate();
@@ -170,27 +171,7 @@ const DetailCard = ({ listing, id }) => {
             </div>
 
             {listing.reviews.length > 0 ? (
-              <>
-                <h2 className="text-xl font-semibold mt-4">Reviews</h2>
-                <div className="reviews-container flex flex-col gap-4">
-                  {listing.reviews.map((rev) => {
-                    return (
-                      <div className="flex flex-row gap-4 bg-gray-200 p-4 items-center rounded">
-                        <p className="bg-blue-700 h-8 w-8 text-white text-center rounded-full pt-1">
-                          {rev.creator.username[0]}
-                        </p>
-                        <Rating
-                          name="read-only"
-                          value={rev.rating}
-                          readOnly
-                          className="justify-self-end"
-                        />
-                        <p>{rev.review}</p>
-                      </div>
-                    );
-                  })}
-                </div>
-              </>
+              <ReviewsTile reviews={listing.reviews} />
             ) : null}
           </div>
         </div>

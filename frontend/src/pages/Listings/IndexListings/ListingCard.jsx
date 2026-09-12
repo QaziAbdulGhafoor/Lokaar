@@ -23,7 +23,7 @@ const ListingCard = ({ listing }) => {
   };
 
   return (
-    <div className="w-90 h-75 flex flex-col gap-4 card">
+    <div className="w-90 flex flex-col gap-4 card">
       <div className="upper-section flex gap-4 items-center">
         <img
           src={listing.avatar.url}
