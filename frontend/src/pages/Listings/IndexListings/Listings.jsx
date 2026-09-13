@@ -6,6 +6,7 @@ import ListingFilterBar from "../Filter/ListingFilterBar";
 import { FetchingContext } from "../../../Context/FetchingContext";
 import { AlertContext } from "../../../Context/AlertContext";
 import ShowAlert from "../../../Components/ui/ShowAlert";
+import ListingsGrid from "./ListingsGrid";
 
 const Listings = () => {
   const [listings, setListings] = useState([]);
@@ -33,11 +34,7 @@ const Listings = () => {
         <></>
       )}
       <ListingFilterBar />
-      <div className="listings h-[calc(100vh-64px)] overflow-y-scroll flex flex-row flex-wrap gap-10 pt-8 px-4">
-        {listings.map((listing) => (
-          <ListingCard listing={listing} key={listing._id} />
-        ))}
-      </div>
+      <ListingsGrid listings={listings} />
     </div>
   );
 };

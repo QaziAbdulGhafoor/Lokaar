@@ -6,7 +6,7 @@ const steps = [
       "Find the right service you need from our wide range of options.",
     icon: (
       <svg
-        className="w-9 h-9 text-blue-600"
+        className="w-7 h-7"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -36,7 +36,7 @@ const steps = [
     description: "View profiles, ratings, and reviews to pick the best match.",
     icon: (
       <svg
-        className="w-9 h-9 text-blue-600"
+        className="w-7 h-7"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -63,7 +63,7 @@ const steps = [
     description: "Schedule your booking and relax while we get it done.",
     icon: (
       <svg
-        className="w-9 h-9 text-blue-600"
+        className="w-7 h-7"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -110,67 +110,38 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <section className="w-full bg-white py-16 px-4">
-      <div className="max-w-5xl mx-auto text-center">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900">
-          How It Works
+    <section
+      className="border-y border-stone-200"
+      style={{ backgroundColor: "#FAFAF9" }}
+    >
+      <div className="max-w-4xl mx-auto px-4 py-14">
+        <h2 className="text-sm font-medium text-stone-500 mb-6">
+          How it works
         </h2>
-        <p className="mt-3 text-gray-500 text-base sm:text-lg">
-          Book a professional in 3 simple steps
-        </p>
 
-        {/* Circles + connector row — desktop only */}
-        <div className="hidden md:flex items-center mt-16 px-8">
-          {steps.map((step, index) => (
-            <div
-              key={step.number}
-              className="flex items-center flex-1 last:flex-none"
-            >
-              <div className="w-16 h-16 shrink-0 rounded-full border-2 border-blue-600 bg-blue-50 flex items-center justify-center text-2xl font-bold text-blue-700">
-                {step.number}
-              </div>
-              {index !== steps.length - 1 && (
-                <div className="flex-1 border-t-2 border-dashed border-gray-300 mx-2" />
-              )}
-            </div>
-          ))}
-        </div>
-
-        {/* Content row — desktop */}
-        <div className="hidden md:grid grid-cols-3 gap-6 mt-6">
+        <div className="border border-stone-200 divide-y divide-stone-200 bg-white">
           {steps.map((step) => (
             <div
               key={step.number}
-              className="flex flex-col items-center text-center"
+              className="flex items-start gap-5 sm:gap-8 px-5 sm:px-8 py-6"
             >
-              <div className="mt-2">{step.icon}</div>
-              <h3 className="mt-4 text-lg sm:text-xl font-bold text-gray-900">
-                {step.title}
-              </h3>
-              <p className="mt-2 text-sm sm:text-base text-gray-500 max-w-[260px]">
-                {step.description}
-              </p>
-            </div>
-          ))}
-        </div>
-
-        {/* Mobile: stacked, no connector lines */}
-        <div className="flex md:hidden flex-col items-center gap-12 mt-16">
-          {steps.map((step) => (
-            <div
-              key={step.number}
-              className="flex flex-col items-center text-center"
-            >
-              <div className="w-16 h-16 rounded-full border-2 border-blue-600 bg-blue-50 flex items-center justify-center text-2xl font-bold text-blue-700">
-                {step.number}
+              <span
+                className="text-4xl sm:text-5xl font-black leading-none shrink-0 select-none"
+                style={{ color: "#E7E5E4" }}
+              >
+                {String(step.number).padStart(2, "0")}
+              </span>
+              <div className="flex items-start gap-4 min-w-0">
+                <div className="mt-1 shrink-0" style={{ color: "#2563EB" }}>
+                  {step.icon}
+                </div>
+                <div>
+                  <h3 className="font-semibold text-stone-900">{step.title}</h3>
+                  <p className="text-sm text-stone-600 mt-1 max-w-sm">
+                    {step.description}
+                  </p>
+                </div>
               </div>
-              <div className="mt-6">{step.icon}</div>
-              <h3 className="mt-4 text-lg font-bold text-gray-900">
-                {step.title}
-              </h3>
-              <p className="mt-2 text-sm text-gray-500 max-w-[260px]">
-                {step.description}
-              </p>
             </div>
           ))}
         </div>

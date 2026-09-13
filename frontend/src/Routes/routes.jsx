@@ -10,7 +10,7 @@ import ListingDetails from "../pages/Listings/DetailedListing/ListingDetails";
 import NewListing from "../pages/Listings/NewListing/NewListing";
 import { useContext } from "react";
 import { AuthContext } from "../Context/AuthContext";
-import HowItWorks from "../Components/Working/HowItWorks";
+import HowItWorks from "../pages/Working/HowItWorks";
 import Loader from "../Components/ui/Loader";
 import BookingCard from "../pages/Listings/DetailedListing/BookingCard";
 import EditForm from "../pages/Listings/EditListing/EditForm";
@@ -18,14 +18,14 @@ import Favourites from "../pages/Listings/Favourites/Favourites";
 import AllChats from "../pages/Chat/AllChats";
 import ChatsIndex from "../pages/Chat/ChatsIndex";
 import ChatPage from "../pages/Chat/ChatPage";
+import Home from "../pages/home";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
       <>
-        <Navbar />
-        <Listings />
+        <Home />
       </>
     ),
   },
