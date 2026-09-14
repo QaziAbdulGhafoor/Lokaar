@@ -6,6 +6,9 @@ export const FetchingContext = createContext(null);
 
 export const FetchingProvider = ({ children }) => {
   const { filters } = useContext(FilterContext);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const maxPerPage = 6;
   const [isFetching, setIsFetching] = useState(false);
   const [Flistings, setFListings] = useState([]);
   useEffect(() => {
@@ -13,23 +16,42 @@ export const FetchingProvider = ({ children }) => {
       if (filters) {
         try {
           setIsFetching(true);
-          const res = await api.get("/listings", { params: filters });
+          const res = await api.get("/listings", {
+            params: {
+              filters: JSON.stringify(filters),
+              limit: maxPerPage,
+              page,
+            },
+          });
           setFListings(res.data.listings);
+          setTotalPages(res.data.pagination.totalPages);
         } catch (err) {
           console.log(err);
         } finally {
           setIsFetching(false);
         }
       } else {
-        const res = await api.get("/listings");
+        const res = await api.get("/listings", {
+          params: { limit: maxPerPage, page },
+        });
+        console.log(res);
         setFListings(res.data.listings);
+        setTotalPages(res.data.pagination.totalPages);
       }
     };
     getListings();
-  }, [filters]);
+  }, [filters, page]);
   return (
     <FetchingContext.Provider
-      value={{ isFetching, setIsFetching, Flistings, setFListings }}
+      value={{
+        isFetching,
+        setIsFetching,
+        Flistings,
+        setFListings,
+        page,
+        setPage,
+        totalPages,
+      }}
     >
       {children}
     </FetchingContext.Provider>

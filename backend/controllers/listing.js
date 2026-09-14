@@ -7,6 +7,9 @@ const wrapAsync = require("../utils/wrapAsync");
 //Index which returns all available listings
 
 module.exports.getAll = wrapAsync(async (req, res) => {
+  const filters = req.query.filters ? JSON.parse(req.query.filters) : {};
+  const page = Number(req.query.page);
+  const listingsLimit = Number(req.query.limit);
   let query = {};
 
   if (req.query.lat && req.query.lon) {
@@ -24,9 +27,9 @@ module.exports.getAll = wrapAsync(async (req, res) => {
     };
   }
 
-  if (req.query.min && req.query.max) {
-    const minPrice = Number(req.query.min);
-    const maxPrice = Number(req.query.max);
+  if (filters.min && filters.max) {
+    const minPrice = Number(filters.min);
+    const maxPrice = Number(filters.max);
 
     query.price = {
       $gte: minPrice,
@@ -34,13 +37,30 @@ module.exports.getAll = wrapAsync(async (req, res) => {
     };
   }
 
-  if (req.query.category) {
-    query.profession = req.query.category;
+  if (filters.category) {
+    query.profession = filters.category;
   }
 
-  const listings = await Listing.find(query);
+  const listingQuery = Listing.find(query)
 
-  res.json({ listings });
+    .skip((page - 1) * listingsLimit)
+    .limit(Number(req.query.limit));
+
+  if (!req.query.lat) {
+    listingQuery.sort({ createdAt: -1 });
+  }
+
+  const [listings, countListings] = await Promise.all([
+    listingQuery,
+    Listing.countDocuments(query),
+  ]);
+
+  res.json({
+    listings,
+    pagination: {
+      totalPages: Math.ceil(countListings / listingsLimit),
+    },
+  });
 });
 
 //serves form to create a new listing

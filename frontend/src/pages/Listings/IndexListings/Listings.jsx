@@ -11,19 +11,19 @@ import PaginationTile from "../../../Components/ui/PaginationTile";
 
 const Listings = () => {
   const [listings, setListings] = useState([]);
-  const { Flistings, isFetching } = useContext(FetchingContext);
+  const { Flistings, isFetching, setPage, totalPages } =
+    useContext(FetchingContext);
   const { alert, setAlert } = useContext(AlertContext);
 
   useEffect(() => {
     setListings(Flistings);
-    console.log(alert);
   }, [Flistings]);
 
   // const refresh = setTimeout(() => {
   //   setAlert({ type: "", message: "" });
   // }, 5000);
 
-  console.log(listings.length);
+  // console.log(listings.length);
 
   return (
     <>
@@ -41,7 +41,8 @@ const Listings = () => {
         <ListingsGrid listings={listings} />
       </div>
       <div className=" z-9000 absolute b-0 flex flex-row justify-center w-screen">
-        <PaginationTile pages={Math.ceil(listings.length / 6)} />
+        <PaginationTile pages={totalPages} setPage={setPage} />
+        {/* Math.ceil(listings.length / 6) */}
       </div>
     </>
   );
