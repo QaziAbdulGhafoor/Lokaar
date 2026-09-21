@@ -37,10 +37,15 @@ const Listings = () => {
         ) : (
           <></>
         )}
-        <ListingFilterBar />
-        <ListingsGrid listings={listings} />
+        <div className="md:h-[calc(100vh-128px)]">
+          <ListingFilterBar />
+        </div>
+
+        <div className="md:h-[calc(100vh-110px)] overflow-scroll">
+          <ListingsGrid listings={listings} />
+        </div>
       </div>
-      <div className=" z-9000 absolute b-0 flex flex-row justify-center w-screen">
+      <div className="z-900 flex flex-row justify-center w-screen absolute b-0 bg-white py-1">
         <PaginationTile pages={totalPages} setPage={setPage} />
         {/* Math.ceil(listings.length / 6) */}
       </div>

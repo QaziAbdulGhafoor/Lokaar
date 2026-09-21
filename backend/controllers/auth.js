@@ -59,6 +59,10 @@ module.exports.logout = (req, res, next) => {
 };
 
 module.exports.getUser = (req, res) => {
+  if (!req.user) {
+    return res.json({ message: "you are not logged in" });
+  }
+
   res.json({
     user: {
       id: req.user.id,

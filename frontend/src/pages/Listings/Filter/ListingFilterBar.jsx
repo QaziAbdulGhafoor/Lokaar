@@ -36,7 +36,7 @@ const ListingFilterBar = () => {
       <button
         type="button"
         onClick={() => setFiltersOpen(true)}
-        className="fixed bottom-6 right-6 z-30 flex h-14 w-14 items-center justify-center rounded-full bg-blue-600 text-white shadow-lg transition hover:bg-blue-700 md:hidden"
+        className="fixed bottom-16 right-6 z-30 flex h-14 w-14 items-center justify-center rounded-full bg-blue-600 text-white shadow-lg transition hover:bg-blue-700 md:hidden"
         aria-label="Open filters"
       >
         <svg

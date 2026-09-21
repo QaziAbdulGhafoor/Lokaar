@@ -155,7 +155,7 @@ io.on("connection", (socket) => {
 
 app.use((err, req, res, next) => {
   const { status = 500, message } = err;
-  console.log(message);
+  console.log(message, err);
   // res.status(status).json({ error: message });
 });
 
