@@ -1,10 +1,12 @@
 // pages/Home.jsx
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/layout/Navbar/Navbar";
 import Footer from "../components/layout/Footer/Footer";
 import HowItWorks from "./Working/HowItWorks";
 import ListingsGrid from "./Listings/IndexListings/ListingsGrid";
+import { FilterContext } from "../Context/FilterContext";
+import { FetchingContext } from "../Context/FetchingContext";
 import api from "../API/api";
 
 const CATEGORIES = [
@@ -21,6 +23,8 @@ export default function Home() {
   const [service, setService] = useState("");
   const [location, setLocation] = useState("");
   const [listings, setListings] = useState([]);
+  const { setFilters } = useContext(FilterContext);
+  const { Flistings, setFlistings } = useContext(FetchingContext);
 
   useEffect(() => {
     const fetchListings = async () => {
@@ -38,8 +42,10 @@ export default function Home() {
     e.preventDefault();
     const params = new URLSearchParams();
     if (service) params.set("category", service);
-    if (location) params.set("location", location);
-    navigate(`/listings?${params.toString()}`);
+    //if (location) params.set("location", location);
+    setFilters({ category: e.target.value });
+    //navigate(`/listings?${params.toString()}`);
+    navigate("/listings");
   };
 
   const handleCategoryClick = (value) => {
@@ -68,7 +74,7 @@ export default function Home() {
               you can book directly — no calling around.
             </p>
 
-            <form
+            {/* <form
               onSubmit={handleSearch}
               className="border border-stone-300 bg-white flex flex-col sm:flex-row"
             >
@@ -106,12 +112,12 @@ export default function Home() {
               >
                 Search
               </button>
-            </form>
+            </form> */}
           </div>
         </section>
 
         {/* Categories — directory row, not card grid */}
-        <section className="max-w-4xl mx-auto px-4 py-10">
+        {/* <section className="max-w-4xl mx-auto px-4 py-10">
           <h2 className="text-sm font-medium text-stone-500 mb-4">
             Browse by trade
           </h2>
@@ -139,7 +145,7 @@ export default function Home() {
               </button>
             ))}
           </div>
-        </section>
+        </section> */}
 
         <HowItWorks />
 
@@ -157,11 +163,15 @@ export default function Home() {
               View all
             </button>
           </div>
-          <ListingsGrid listings={listings} />
+          <div className="h-150 overflow-scroll">
+            <ListingsGrid listings={listings} />
+          </div>
         </section>
       </main>
 
-      <Footer />
+      <div className="foot self-end">
+        <Footer />
+      </div>
     </div>
   );
 }

@@ -47,10 +47,10 @@ const EditForm = () => {
     const res = await api.put(`/listings/${listing._id}`, data);
     console.log(res);
     if (res.status === 200) {
-      navigate("/");
+      navigate(`/listings/${listing._id}`);
       setAlert({ type: "green", message: "Edited Successfully" });
     } else {
-      navigate("/");
+      navigate("/listings");
       setAlert({ type: "red", message: "Something was wrong" });
     }
   };

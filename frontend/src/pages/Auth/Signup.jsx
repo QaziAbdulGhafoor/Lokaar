@@ -170,7 +170,7 @@ const Signup = () => {
 
         <p className="mb-8">
           Already have account?
-          <Link to="/" className="text-blue-500">
+          <Link to="/login" className="text-blue-500">
             Log In
           </Link>
         </p>

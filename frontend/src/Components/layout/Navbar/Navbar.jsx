@@ -54,7 +54,7 @@ const Navbar = () => {
           {/* ================= DESKTOP NAVBAR ================= */}
           <div className="hidden h-16 items-center justify-between md:flex">
             {/* Logo */}
-            <Link to="/listings" onClick={removeFilters}>
+            <Link to="/" onClick={removeFilters}>
               <img
                 src={logo}
                 alt="Logo"

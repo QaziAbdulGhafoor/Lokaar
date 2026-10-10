@@ -106,9 +106,15 @@ module.exports.postNew = async (req, res) => {
   //console.log(req.body, req.file);
 
   newListing.owner = req.user._id;
-  await newListing.save().then((listing) => {
-    res.json({ message: "listing created successfully", newListing });
-  });
+  await newListing
+    .save()
+    .then((listing) => {
+      res.json({ message: "listing created successfully", newListing });
+      console.log("listing created success");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 //serves the detailed view of a listing
